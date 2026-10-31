@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>坨罗山高级中学</title>
+<meta name="description" content="坨罗山高级中学官网（网页解谜游戏演示站），内容纯属虚构。">
+<style>
+/* ============================================================
+   坨罗山高级中学 · 官网
+   配色：红金主色（参考县级中学官网）+ 深蓝辅助。想换主题只改 :root
+   ============================================================ */
+:root{
+  --red:#C41E22;
+  --red-deep:#961216;
+  --red-l:#E14A42;
+  --gold:#E8BA5C;
+  --navy:#1C2A44;
+  --blue:#1F4E9C;
+  --bg:#F4F6FA;
+  --card:#FFFFFF;
+  --line:#E2E7F0;
+  --text:#222;
+  --muted:#8A93A3;
+  --wrap:1200px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","微软雅黑","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.7}
+a{color:var(--text);text-decoration:none}
+a:hover{color:var(--red)}
+img{display:block;max-width:100%}
+ul{list-style:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 14px}
+
+/* ================= 顶部横幅 ================= */
+.top{background:#fff url(素材/banner/banner.jpg) center bottom/cover no-repeat;position:relative}
+/* 只在上缘压一层很淡的暖紫，保证校名读得清，又留住淡紫粉天空 */
+.top::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(96,38,92,.24),rgba(96,38,92,.04) 58%,rgba(90,14,18,.14))}
+.top .wrap{position:relative;z-index:2;display:flex;align-items:center;min-height:150px;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.crest{width:62px;height:62px;flex:0 0 62px;border-radius:50%;object-fit:cover;box-shadow:0 2px 10px rgba(80,0,4,.5)}
+.brand h1{font-size:26px;color:#fff;letter-spacing:3px;text-shadow:0 2px 8px rgba(90,6,10,.7)}
+.brand .en{font-size:11px;color:#FFE6C8;letter-spacing:1px;text-shadow:0 1px 4px rgba(90,6,10,.7)}
+.search{margin-left:auto;display:flex;background:#fff;border-radius:3px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.search input{border:0;outline:0;padding:8px 12px;font-size:13px;width:170px}
+.search button{border:0;background:var(--red);color:#fff;padding:8px 16px;font-size:13px}
+
+/* ================= 主导航 ================= */
+.nav{background:var(--red)}
+.nav .wrap{display:flex;flex-wrap:wrap}
+.nav a{color:#fff;padding:11px 17px;font-size:14.5px;display:block}
+.nav a:hover{background:var(--red-deep);color:#fff}
+.nav a.on{background:var(--red-deep);font-weight:700}
+
+/* ================= 滚动公告条 ================= */
+.notice-bar{background:#FFF7E8;border-bottom:1px solid #F0DFC0;overflow:hidden}
+.notice-bar .wrap{display:flex;align-items:center;gap:10px;height:38px}
+.notice-bar .tag{flex:0 0 auto;background:var(--red);color:#fff;font-size:12px;padding:2px 9px;border-radius:2px}
+.marquee{flex:1;min-width:0;overflow:hidden;position:relative;height:22px}
+.marquee span{position:absolute;white-space:nowrap;font-size:13.5px;color:#8A5A18;will-change:transform;animation:mq 30s linear infinite}
+@keyframes mq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.marquee:hover span{animation-play-state:paused}
+
+/* ================= 通用区块 ================= */
+.sec{margin-top:16px}
+.sec-hd{display:flex;align-items:center;gap:8px;border-bottom:2px solid var(--red);padding-bottom:7px;margin-bottom:10px}
+.sec-hd h2{font-size:17px;color:var(--red);font-weight:700}
+.sec-hd .more{margin-left:auto;font-size:12.5px;color:var(--muted)}
+.sec-hd .more a{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:14px}
+
+/* 新闻列表 */
+.nlist li{display:flex;align-items:center;gap:8px;padding:8px 2px;border-bottom:1px dashed var(--line)}
+.nlist li:last-child{border-bottom:0}
+.nlist .dot{flex:0 0 auto;width:4px;height:4px;border-radius:50%;background:var(--red)}
+.nlist .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nlist .d{flex:0 0 auto;font-size:12.5px;color:var(--muted)}
+
+/* ================= 轮播 ================= */
+.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-top:16px}
+.carousel{position:relative;overflow:hidden;border-radius:3px;border:1px solid var(--line);background:#000;height:322px}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity .5s}
+.slide.on{opacity:1}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide-cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));color:#fff;padding:26px 14px 10px;font-size:14.5px}
+.car-dots{position:absolute;right:12px;bottom:10px;display:flex;gap:6px}
+.car-dots span{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.6);cursor:pointer}
+.car-dots span.on{background:var(--red)}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:40px;border:0;background:rgba(0,0,0,.35);color:#fff;font-size:18px;z-index:3}
+.car-arrow:hover{background:rgba(150,18,22,.75)}
+.car-arrow.prev{left:0}
+.car-arrow.next{right:0}
+
+/* ================= 通栏图 ================= */
+.strip{margin-top:16px;border-radius:3px;overflow:hidden;border:1px solid var(--line)}
+.strip img{width:100%;height:auto}
+
+/* ================= 图文速览 ================= */
+.feature{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.feature .card{padding:0;overflow:hidden;display:flex;flex-direction:column}
+.feature img{width:100%;height:180px;object-fit:cover}
+.feature .fx{padding:12px 14px}
+.feature h3{font-size:15.5px;color:var(--red);margin-bottom:6px}
+.feature p{font-size:13.5px;color:#555;line-height:1.85}
+
+/* ================= 服务图标 ================= */
+.services{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:16px 6px;text-align:center;display:block}
+.svc:hover{border-color:var(--red);color:var(--red)}
+.svc .ic{width:42px;height:42px;margin:0 auto 8px;border-radius:50%;background:#FDEDED;color:var(--red);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700}
+.svc .nm{font-size:13.5px}
+
+/* ================= 两栏 ================= */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* ================= 校园风光 ================= */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.gallery a{display:block;border-radius:3px;overflow:hidden;border:1px solid var(--line)}
+.gallery img{width:100%;height:150px;object-fit:cover;transition:transform .35s}
+.gallery a:hover img{transform:scale(1.05)}
+
+/* ===== 栏目正文（学校概况等） ===== */
+.article{font-size:14.5px;line-height:2;color:#333}
+.article p{margin-bottom:12px;text-indent:2em}
+.article h3{font-size:16px;color:var(--red);margin:20px 0 8px;text-indent:0;padding-left:10px;border-left:4px solid var(--red)}
+.article p.motto{text-indent:0;text-align:center;font-size:20px;font-weight:700;color:var(--red);letter-spacing:4px;padding:12px 0}
+.article p.art-note{text-indent:0;color:var(--muted);font-size:13px;border-top:1px dashed var(--line);padding-top:10px;margin-top:16px}
+.article b{color:var(--navy)}
+.article a{color:var(--blue)}
+.tbl-wrap{overflow-x:auto;margin:6px 0 14px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.tbl th{background:#FDF2F2;color:var(--red);font-weight:normal}
+
+/* ================= 栏目内子导航（学生天地等） ================= */
+.subnav{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 2px}
+.subnav a{background:#fff;border:1px solid var(--line);border-radius:3px;padding:6px 14px;font-size:13.5px;color:#555}
+.subnav a:hover{border-color:var(--red);color:var(--red)}
+.subnav a.on{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ================= 学生天地 · 留言板入口 ================= */
+.board-entry{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,#FDEDED,#FFF7EC);border:1px solid #F3D9D3;border-radius:3px;padding:14px 16px;margin-bottom:12px}
+.board-entry:hover{border-color:var(--red)}
+.board-entry .be-ic{width:46px;height:46px;flex:0 0 46px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700}
+.board-entry .be-tx{flex:1;min-width:0}
+.board-entry h3{font-size:15.5px;color:var(--red);margin-bottom:2px}
+.board-entry p{font-size:12.5px;color:#8A6A55;line-height:1.7}
+.board-entry .be-go{flex:0 0 auto;font-size:13.5px;color:var(--red);font-weight:700}
+
+/* ================= 留言板 ================= */
+.board-top{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#FDEDED,#FFF7EC);border:1px solid #F3D9D3;border-radius:3px;padding:14px 16px}
+.board-top .bt-ic{width:52px;height:52px;flex:0 0 52px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700}
+.board-top h3{font-size:16px;color:var(--red)}
+.board-top p{font-size:12.5px;color:#8A6A55;line-height:1.7}
+.board-stats{margin-left:auto;display:flex;gap:22px;text-align:center}
+.board-stats b{display:block;font-size:19px;color:var(--red)}
+.board-stats span{font-size:12px;color:var(--muted)}
+
+.board-form{margin-top:12px}
+.board-form .row{display:flex;gap:10px;margin-bottom:9px;flex-wrap:wrap}
+.board-form input,.board-form textarea{font-family:inherit;font-size:13.5px;border:1px solid var(--line);border-radius:3px;padding:8px 10px;outline:0;background:#FCFDFF}
+.board-form input:focus,.board-form textarea:focus{border-color:var(--red);background:#fff}
+.board-form input{width:180px}
+.board-form textarea{width:100%;height:74px;resize:vertical;line-height:1.75}
+.board-form .row2{display:flex;align-items:center;gap:12px}
+.board-form .hint{font-size:12px;color:var(--muted);margin-left:auto}
+.board-form button{background:var(--red);color:#fff;border:0;border-radius:3px;padding:8px 22px;font-size:13.5px}
+.board-form button.ghost{background:#fff;color:var(--muted);border:1px solid var(--line)}
+.board-form button.ghost:hover{color:var(--red);border-color:var(--red)}
+
+.board-tip{margin-top:10px;font-size:12.5px;color:#8A6A55;background:#FFFBF0;border:1px dashed #EFD9B4;border-radius:3px;padding:9px 12px;line-height:1.85}
+.board-tip b{color:var(--red)}
+
+.board-list{margin-top:12px}
+.msg{display:flex;gap:12px;padding:14px 4px;border-bottom:1px dashed var(--line)}
+.msg:last-child{border-bottom:0}
+.msg .ava{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:700;letter-spacing:0}
+.msg .mb{flex:1;min-width:0}
+.msg .mh{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.msg .nick{font-weight:700;color:var(--navy);font-size:14px}
+.msg .tag{font-size:11px;padding:1px 7px;border-radius:2px;background:#FDEDED;color:var(--red)}
+.msg .tag.t2{background:#EEF4FF;color:var(--blue)}
+.msg .time{margin-left:auto;font-size:12px;color:var(--muted)}
+.msg .txt{margin-top:6px;font-size:13.8px;color:#333;line-height:1.85;white-space:pre-wrap;word-break:break-word}
+.msg .foot{margin-top:7px;display:flex;gap:14px;font-size:12.5px;color:var(--muted)}
+.msg .foot a{color:var(--muted)}
+.msg .foot a:hover{color:var(--red)}
+.msg .reply{margin-top:9px;background:#F7F9FC;border-left:3px solid var(--red);border-radius:0 3px 3px 0;padding:9px 12px}
+.msg .reply .rh{font-size:12.5px;color:var(--red);font-weight:700;margin-bottom:3px}
+.msg .reply .rt{font-size:13.2px;color:#444;line-height:1.8}
+.msg .mine{background:#FFFBF6;border-radius:3px;box-shadow:inset 0 0 0 1px #F6E3CF}
+
+@media(max-width:640px){
+  .board-top{flex-wrap:wrap;gap:10px}
+  .board-stats{margin-left:0;width:100%;justify-content:space-between;gap:0}
+  .board-form input{width:100%}
+  .msg .time{margin-left:0;width:100%}
+}
+
+/* ================= 页脚 ================= */
+footer{background:var(--navy);color:#C3CEDF;margin-top:24px;font-size:13px}
+footer .wrap{padding:22px 14px 18px;text-align:center;line-height:2}
+footer .org{color:#fff;font-size:14px}
+footer a{color:#C3CEDF}
+footer a:hover{color:#fff}
+footer .note{color:#8A97AC;font-size:12px;border-top:1px solid rgba(255,255,255,.12);margin-top:12px;padding-top:12px}
+
+/* ================= 响应式 ================= */
+@media(max-width:960px){
+  .hero,.feature,.two-col{grid-template-columns:1fr}
+  .services{grid-template-columns:repeat(4,1fr)}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .carousel{height:240px}
+}
+@media(max-width:640px){
+  .top .wrap{min-height:118px;flex-wrap:wrap;padding:12px 14px;gap:8px}
+  .brand h1{font-size:20px;letter-spacing:1px}
+  .crest{width:48px;height:48px;flex-basis:48px;font-size:11px}
+  .search{margin-left:0;width:100%}
+  .search input{flex:1;width:auto}
+  .nav a{padding:9px 11px;font-size:13px}
+  .services{grid-template-columns:repeat(3,1fr)}
+  .gallery{grid-template-columns:1fr 1fr}
+  .carousel{height:190px}
+}
+
+/* ===== 恐怖模式（搜"凌讯"触发） ===== */
+body.horror { background:#0a0a12 !important; color:#6b6b8a !important; }
+body.horror .top { background:#1a0a2e !important; }
+body.horror .top h1 { color:#ff4444 !important; text-shadow:0 0 20px #ff0000 !important; }
+body.horror .nav { background:#0d0d1a !important; }
+body.horror .nav a { color:#4a4a6a !important; }
+body.horror .card { background:#12121e !important; border-color:#2a1a3a !important; }
+body.horror .sec-hd h2 { color:#ff2222 !important; }
+body.horror .strip img { filter:hue-rotate(280deg) brightness(0.3) contrast(1.5) saturate(0.5) !important; }
+body.horror .gallery img { filter:hue-rotate(260deg) brightness(0.4) contrast(1.3) saturate(0.3) !important; }
+body.horror .carousel img { filter:hue-rotate(270deg) brightness(0.35) contrast(1.4) saturate(0.4) !important; }
+body.horror .feature img { filter:hue-rotate(260deg) brightness(0.3) contrast(1.5) saturate(0.3) !important; }
+body.horror .svc .ic { background:#2a0a2a !important; color:#ff3333 !important; }
+body.horror footer { background:#05050a !important; }
+body.horror .nlist a { color:#8a6aaa !important; }
+body.horror { animation:flicker 3s infinite; }
+@keyframes flicker {
+  0%,100% { opacity:1; }
+  50% { opacity:0.95; }
+  52% { opacity:0.7; }
+  54% { opacity:0.95; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= 顶部横幅 ================= -->
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <img class="crest" src="素材/logo/school-badge.jpg" alt="坨罗山高级中学校徽">
+      <div>
+        <h1>坨罗山高级中学</h1>
+        <div class="en">TUOLUOSHAN SENIOR HIGH SCHOOL</div>
+      </div>
+    </div>
+    <div class="search">
+      <input type="text" id="search-input" placeholder="站内搜索" maxlength="30">
+      <button type="button" id="search-btn">搜索</button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 主导航 ================= -->
+<nav class="nav"><div class="wrap" id="nav"></div></nav>
+
+<!-- ================= 滚动公告 ================= -->
+<div class="notice-bar">
+  <div class="wrap">
+    <span class="tag">通知</span>
+    <div class="marquee"><span id="mq-text"></span></div>
+  </div>
+</div>
+
+<main class="wrap">
+  <!-- ========== 首页 ========== -->
+  <section id="view-home">
+    <div class="hero">
+      <div class="carousel" id="carousel">
+        <div class="slide on"><img src="素材/banner/slide-1.jpg" alt="校园风貌"><div class="slide-cap">2025—2026学年度开学典礼顺利举行</div></div>
+        <div class="slide"><img src="素材/banner/slide-2.jpg" alt="教学教研"><div class="slide-cap">我校秋季运动会顺利举行</div></div>
+        <div class="slide"><img src="素材/banner/slide-3.jpg" alt="学生活动"><div class="slide-cap">2026年高考冲刺动员大会圆满落幕</div></div>
+        <button class="car-arrow prev" type="button" aria-label="上一张">‹</button>
+        <button class="car-arrow next" type="button" aria-label="下一张">›</button>
+        <div class="car-dots" id="car-dots"></div>
+      </div>
+      <div class="sec" style="margin-top:0">
+        <div class="sec-hd"><h2>校园资讯</h2><span class="more"><a href="#/news">更多 »</a></span></div>
+        <div class="card"><ul class="nlist" id="home-news"></ul></div>
+      </div>
+    </div>
+
+    <div class="strip" id="strip-values"><img src="素材/banner/strip-values.jpg" alt="社会主义核心价值观"></div>
+
+    <div class="sec feature">
+      <a class="card" href="#/news">
+        <img src="素材/news/news-1.jpg" alt="">
+        <div class="fx"><h3>我校召开2026年高考备考工作推进会</h3><p>会议总结了上一阶段复习备考情况，对下一阶段教学安排、心理疏导与后勤保障作出部署。</p></div>
+      </a>
+      <a class="card" href="#/news">
+        <img src="素材/news/news-2.jpg" alt="">
+        <div class="fx"><h3>坨罗山高级中学2026年高考再创佳绩</h3><p>全校本科上线人数较上年稳步提升，多名同学被省内外重点大学录取。</p></div>
+      </a>
+    </div>
+
+    <div class="strip"><img src="素材/banner/strip-study.jpg" alt="学习强国"></div>
+
+    <div class="sec">
+      <div class="sec-hd"><h2>历年优秀毕业生</h2></div>
+      <div class="card" style="padding:16px">
+        <div id="alumni-list"></div>
+      </div>
+    </div>
+
+    <div class="sec services" id="home-services"></div>
+
+    <div class="sec" id="home-board-entry"><span id="board-entry-slot"></span></div>
+
+    <div class="sec two-col">
+      <div>
+        <div class="sec-hd"><h2>教师天地</h2><span class="more"><a href="#/shizi">更多 »</a></span></div>
+        <div class="card"><ul class="nlist" id="home-teacher"></ul></div>
+      </div>
+      <div>
+        <div class="sec-hd"><h2>学生生活</h2><span class="more"><a href="#/shenghuo">更多 »</a></span></div>
+        <div class="card"><ul class="nlist" id="home-student"></ul></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd"><h2>校园风光</h2><span class="more"><a href="#/xiaoyuan">更多 »</a></span></div>
+      <div id="home-gallery"></div>
+    </div>
+  </section>
+
+  <!-- ========== 其余栏目（框架：内容待填） ========== -->
+  <section id="view-page" style="display:none">
+    <div class="sec">
+      <div class="sec-hd"><h2 id="pg-title">栏目</h2><span class="more"><a href="#">« 返回首页</a></span></div>
+      <div class="card" id="pg-body"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="org">坨罗山高级中学　主办　｜　坨罗山县教育局　主管</div>
+    <div>地址：坨罗山县坨罗山镇学府街　｜　邮编：154200　｜　联系电话：0468-8880001</div>
+    <div style="margin-top:8px">
+      <a href="../政府界面模拟/网页/坨罗山县人民政府官网.html">坨罗山县人民政府官网</a>　|　
+      <a href="../论坛模拟/guanlan-bbs/index.html">观澜社区</a>　|　
+      <a href="../托罗山地图/托罗山县地图.html" target="_blank" rel="noopener">全县地图</a>　|　
+      <a href="#">联系我们</a>
+    </div>
+    <div class="note">
+      Copyright © 2026 坨罗山高级中学 版权所有<br>
+      （本网站为网页解谜游戏演示站点，内容纯属虚构，如有雷同实属巧合）
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ================================================================
+   ★ 整站内容都在这。改字直接改引号；照 { } 复制即可增删
+   ★ 加栏目：在 NAV 和 PAGES 里各加一条，名字对上就行
+   ================================================================ */
+
+/* ---------- 导航 ---------- */
+var NAV = [
+  { k:"",         n:"首页" },
+  { k:"xuexiao",  n:"学校概况" },
+  { k:"news",     n:"校园资讯" },
+  { k:"notice",   n:"通知公告" },
+  { k:"dangjian", n:"党建工作" },
+  { k:"jiaoyan",  n:"教学教研" },
+  { k:"deyu",     n:"德育工作" },
+  { k:"zhaosheng",n:"招生考试" },
+  { k:"shenghuo", n:"学生天地" },
+  { k:"shizi",    n:"教师天地" },
+  { k:"xiaoyuan", n:"校园专栏" }
+];
+
+/* ---------- 滚动公告 ---------- */
+var MARQUEE = "坨罗山高级中学2025—2026学年度开学典礼顺利举行　·　关于开展2026年秋季学期期中考试的通知　·　致全校学生家长的一封信　·　2027年高考报名工作安排　·　校园安全隐患排查通知";
+
+/* ---------- 各栏目列表 ---------- */
+var NEWS = [
+  { t:"我校2026年高考备考工作推进会召开", d:"2026-09-12", body:"<p>9月12日下午，我校在综合楼会议室召开2026年高考备考工作推进会。校长王志远、副校长赵青山及全体高三任课教师参加会议。</p><p>会议总结了上一阶段复习备考情况，对下一阶段教学安排、学生心理疏导与后勤保障工作作出部署。赵副校长强调，各备课组要精诚协作，精准把握高考方向，确保复习备考工作有序高效推进。</p><p>王校长在总结讲话中鼓励全体高三教师发扬坨罗山高中精神，迎难而上，力争2026年高考再上新台阶。</p>" },
+  { t:"坨罗山高级中学2025—2026学年度开学典礼", d:"2026-09-10", body:"<p>9月10日上午，我校在操场隆重举行2025—2026学年度开学典礼。全校师生共1800余人参加。</p><p>典礼在庄严的国歌声中拉开帷幕。校长王志远发表新学期致辞，向全体师生致以新学期的问候，回顾了上学年学校取得的各项成绩，并对新学年提出期望。</p><p>教师代表和学生代表分别发言，表达了新学期的决心和信心。典礼在热烈的掌声中圆满结束。</p>" },
+  { t:"关于2026年秋季学期期中考试安排的通知", d:"2026-09-08", body:"<p>各年级、各班级：</p><p>根据学校教学工作计划，2026年秋季学期期中考试定于11月上旬进行。具体安排如下：</p><p>一、考试时间：11月4日—11月6日<br>二、考试科目：语文、数学、英语、物理、化学、生物、政治、历史、地理<br>三、考试范围：各学科本学期前半学期教学内容</p><p>请各备课组做好复习指导，各位同学合理安排复习时间。教务处</p>" },
+  { t:"我校学生在全市青少年科技创新大赛中获奖", d:"2026-09-07", body:"<p>近日，在全市青少年科技创新大赛中，我校高二（3）班陈思远同学的作品《基于传感器的校园照明节能系统》获得高中组二等奖。</p><p>该作品由物理组赵光明老师指导，旨在通过人体感应和光线传感器实现教室照明的智能控制，达到节能目的。</p><p>学校将继续重视学生创新精神和实践能力的培养，为更多有创意的同学提供展示平台。</p>" },
+  { t:"第十八届校园文化艺术节圆满落幕", d:"2026-08-30", body:"<p>历时两周的第十八届校园文化艺术节于8月30日圆满落幕。本届艺术节共举办文艺汇演、书画展览、演讲比赛、校园歌手大赛等八项活动，参与学生超过800人次。</p><p>在闭幕文艺汇演上，各班级奉上了歌舞、小品、乐器演奏等精彩节目，现场气氛热烈。</p><p>艺术节为同学们提供了展示自我的舞台，丰富了校园文化生活，展现了坨罗山高中学生的青春风采。</p>" },
+  { t:"2026级新生军训闭营仪式举行", d:"2026-08-26", body:"<p>8月26日上午，我校2026级新生军训闭营仪式在操场举行。副校长孙晓梅、承训部队教官及全体新生参加仪式。</p><p>在会操表演中，新生们精神抖擞、队列整齐，展现了十天军训的丰硕成果。</p><p>孙副校长代表学校向承训部队表示感谢，向顺利完成军训的全体新同学表示祝贺，希望同学们把军训中磨练出的意志品质融入到今后的学习生活中。</p>" }
+];
+var NOTICES = [
+  { t:"坨罗山高级中学2026年招生简章", d:"2026-06-18" },
+  { t:"关于做好2027年普通高考报名工作的通知", d:"2026-10-22" },
+  { t:"坨罗山高中2026年秋季期中考试安排", d:"2026-10-20" },
+  { t:"关于开展校园安全隐患排查的通知", d:"2026-09-25" },
+  { t:"致全校学生家长的一封信", d:"2026-09-01" }
+];
+var TEACHER = [
+  { t:"我校开展师德师风专题教育活动", d:"2026-08-18" },
+  { t:"2026年春季学期教职工趣味运动会", d:"2026-04-26" },
+  { t:"全市历史、地理教研会在我校顺利召开", d:"2026-03-21" },
+  { t:"山东省胶州市教研室专家来我校参观交流", d:"2026-03-20" },
+  { t:"我校举办“三八”国际劳动妇女节系列活动", d:"2026-03-12" }
+];
+var STUDENT = [
+  { t:"我校2026级新生军训顺利闭营", d:"2026-08-30" },
+  { t:"我校2026级新生军训开营式", d:"2026-08-26" },
+  { t:"我校举办学生生涯规划与高考志愿填报指导讲座", d:"2026-06-26" },
+  { t:"我校2026届高三毕业典礼", d:"2026-06-18" },
+  { t:"我校成功举办第三十三届科技节成果展示活动", d:"2026-06-15" }
+];
+var GALLERY = ["素材/campus/campus-1.jpg","素材/campus/campus-2.jpg","素材/campus/campus-3.jpg","素材/campus/campus-4.jpg"];
+
+/* 历年优秀毕业生 */
+var ALUMNI = [
+  {year:"2022届", list:["王思远—北京航空航天大学","李欣怡—天津大学","赵一鸣—大连理工大学","孙悦—哈尔滨工程大学","郑凯文—东北林业大学","高嘉琪—沈阳农业大学"]},
+  {year:"2023届", list:["于浩然—厦门大学","徐静怡—中南大学","马俊驰—哈尔滨工业大学","梁雨薇—吉林大学","宋晓峰—黑龙江中医药大学","冯雅茹—东北财经大学"]},
+  {year:"2024届", list:["韩东升—华中科技大学","杜雪莹—西安交通大学","孟祥宇—哈尔滨工程大学","袁梦琪—东北师范大学","曹家铭—中国矿业大学","薛文博—黑龙江大学"]},
+  {year:"2025届", list:[]}
+];
+
+/* 搜索索引 */
+var SEARCH_INDEX = [];
+var BAI_ARTICLES = [
+  {id:"bai1", t:"坨罗山高中师资力量介绍：白晚晴老师", d:"2024-09-10", cat:"校园资讯", k:"news",
+   body:"<p>白晚晴，坨罗山高级中学语文教师，毕业于某重点大学中文系。拥有齐全教师资格，曾获市级优秀教师奖章。</p><p>白老师教学风格严谨，注重学生文学素养培养，深受学生喜爱。</p><p>现任高一语文组教师，兼任历史学科教学。</p>"},
+  {id:"bai2", t:"白晚晴老师任教一年，班级成绩突出", d:"2025-07-15", cat:"校园资讯", k:"news",
+   body:"<p>白晚晴老师任教一年，所带班级语文成绩在年级名列前茅。他注重因材施教，培养出多名优秀学生。</p><p>2025届毕业生凌讯同学，以优异成绩考入外省某师范大学。白老师表示：<b>“凌讯同学很有天赋，我只是做了我应该做的。”</b></p><p>白老师班主任工作卓有成效，深受学生和家长好评。</p>"},
+  {id:"bai3", t:"坨罗山高中白晚晴老师将开展全县教研公开课", d:"2026-03-20", cat:"教学教研", k:"jiaoyan",
+   body:"<p>为提升全县语文教学水平，坨罗山高中语文组白晚晴老师将于2026年四月下旬开展全县教研公开课。</p><p>本次公开课主题为《秦之雄：强权与时代的突破》，届时将邀请省级领导、教育局领导、各校教师莅临指导。</p><p>白晚晴老师表示：“这是我教学生涯的重要时刻，我会全力以赴。”</p>"},
+  {id:"bai4", t:"坨罗山高中语文组组长调整通知", d:"2026-06-10", cat:"通知公告", k:"notice",
+   body:"<p>因工作调整，原语文组组长<span style=\"color:red;font-weight:bold\">白晚晴</span>老师已离职。</p><p>经学校研究决定，语文组组长一职暂由金正花老师代理。</p><p>现面向社会公开招聘高中语文教师若干名，要求具备相应教师资格，有教学经验者优先。</p><p>有意者请将简历发送至邮箱：tuoluoshan-high@edu.cn。</p><p style=\"margin-top:12px;padding-top:10px;border-top:1px dashed #ccc\">招聘岗位：高中语文教师　｜　招聘人数：2人　｜　报名截止：2026年8月31日</p>"},
+  {id:"bai5", t:"白晚晴老师个人研究网站：秦之雄", d:"2026-04-01", cat:"教学教研", k:"jiaoyan",
+   body:"<p>我校语文教师白晚晴老师，大学期间曾辅修历史专业，专攻先秦秦汉史方向，对秦朝历史有深入研究。</p><p>为分享研究心得，白老师利用业余时间独立制作了个人研究网站，欢迎老师、同学及历史爱好者访问参观。</p><p style=\"margin-top:16px;padding:12px;background:#f5f5f5;border-left:3px solid #C41E22\"><b>网站地址：</b><a href=\"../白晚晴的网站/index.html\" target=\"_blank\" style=\"color:#C41E22\">点击访问 \u2192 白晚晴 \u00b7 秦之雄研究网站</a></p>"}
+];
+function buildSearchIndex(){
+  SEARCH_INDEX = [];
+  NEWS.forEach(function(x){ SEARCH_INDEX.push({t:x.t, d:x.d, cat:"校园资讯", k:"news"}); });
+  NOTICES.forEach(function(x){ SEARCH_INDEX.push({t:x.t, d:x.d, cat:"通知公告", k:"notice"}); });
+  TEACHER.forEach(function(x){ SEARCH_INDEX.push({t:x.t, d:x.d, cat:"教师天地", k:"shizi"}); });
+  STUDENT.forEach(function(x){ SEARCH_INDEX.push({t:x.t, d:x.d, cat:"学生活动", k:"shenghuo"}); });
+  BAI_ARTICLES.forEach(function(x){ SEARCH_INDEX.push({id:x.id, t:x.t, d:x.d, cat:x.cat, k:x.k, bai:true}); });
+}
+
+/* ---------- 首页服务入口 ---------- */
+var SERVICES = [
+  { n:"校园资讯", ic:"讯", k:"news" },
+  { n:"通知公告", ic:"告", k:"notice" },
+  { n:"招生考试", ic:"招", k:"zhaosheng" },
+  { n:"教学教研", ic:"研", k:"jiaoyan" },
+  { n:"德育工作", ic:"德", k:"deyu" },
+  { n:"学生天地", ic:"生", k:"shenghuo" },
+  { n:"校园风光", ic:"景", k:"xiaoyuan" }
+];
+
+/* ---------- 留言板数据 ----------
+   n=昵称  id=身份标签  t=时间  c=留言正文  r=校方回复（可省）  hot=置顶 */
+var BOARD = [
+  { n:"高三（7）班 周雨桐", id:"2023级", t:"2026-11-08 21:14", hot:1,
+    c:"距离高考还剩 200 天，把这句话留在这里：不管最后去哪儿，别辜负现在的自己。明年六月，我们在更好的地方见。",
+    r:"教务处：收到。全体高三老师陪你们走到最后一科交卷铃响。" },
+  { n:"匿名", id:"学生", t:"2026-11-08 19:47",
+    c:"三楼的直饮水又坏了，接一杯水要跑两层楼。已经坏三天了，有人管吗？",
+    r:"总务处：已报修，供货商明天上午到校更换滤芯，预计中午前恢复。给你添麻烦了。" },
+  { n:"高二（3）班 陈子豪", id:"2024级", t:"2026-11-08 12:03",
+    c:"想问问学校的阅览室周末开不开？想找个安静地方写作业，家里实在坐不住。" },
+  { n:"图书馆 李老师", id:"教师", t:"2026-11-08 09:15",
+    c:"周末阅览室开放时间：周六 8:30—11:30、14:00—17:00，周日闭馆整理。进馆请先刷校园卡，请勿占座。" },
+  { n:"高一（1）班 赵晓满", id:"2025级", t:"2026-11-07 22:26",
+    c:"食堂二楼的土豆炖牛肉真的很好吃！！阿姨给我多打了一勺，一整天心情都很好。谢谢阿姨！" },
+  { n:"往届校友", id:"2019届", t:"2026-11-07 20:58",
+    c:"毕业七年了，偶然搜到学校官网。操场边那排杨树还在吗？以前晚自习下课总在树下站一会儿。",
+    r:"校办：树还在，比你在的时候更粗了。欢迎回来看看。" },
+  { n:"高二（5）班 孙悦", id:"2024级", t:"2026-11-07 16:32",
+    c:"求助：物理《优化探究》必修二第 47 页第 9 题，为什么摩擦力方向是沿斜面向下的？我画了三遍受力分析都不对……" },
+  { n:"物理组 王老师", id:"教师", t:"2026-11-07 17:05",
+    c:"回复孙悦：先判断物块相对斜面的运动趋势，不要把「运动方向」和「相对运动趋势方向」混为一谈。明天课间来办公室，我拿模型给你摆一遍。" },
+  { n:"高一（6）班 匿名", id:"2025级", t:"2026-11-06 21:40",
+    c:"军训晒黑的那层皮，到现在还没褪干净。但是有点想念那几天一起喊口号的时候。" },
+  { n:"校学生会", id:"学生组织", t:"2026-11-06 17:20", hot:1,
+    c:"第十八届校园文化艺术节节目初审名单已贴在教学楼一楼公告栏，请各班文艺委员本周五前到学生会办公室确认伴奏。",
+    r:"校学生会：另外，晚会志愿者还缺 12 人，有意向的同学在留言板实名留言即可。" },
+  { n:"高三（2）班 凌", id:"2023级", t:"2026-11-05 23:12",
+    c:"余老师，上次您说的那句话我记住了。等我把这一届考完，我会回来告诉您结果。" },
+  { n:"高二（4）班 何嘉", id:"2024级", t:"2026-11-05 19:03",
+    c:"操场晚上六点半以后灯只开一半，打球的同学看不见篮筐。能不能全开？就一个小时也行。" },
+  { n:"总务处", id:"行政", t:"2026-11-05 10:26",
+    c:"关于操场灯光：为配合节电要求，目前只开半场。已向县教育局申请增加用电指标，批复后立即全开。感谢同学们的理解。" },
+  { n:"高一（2）班 邓一诺", id:"2025级", t:"2026-11-04 20:45",
+    c:"第一次月考成绩出来，数学 61 分。难受了一晚上，今天想通了——下次 71 就是进步。加油。" },
+  { n:"心理辅导室", id:"教师", t:"2026-11-04 09:10",
+    c:"提醒同学们：心理辅导室（综合楼 305）工作日 12:30—13:40、16:00—17:30 开放，无需预约，随时可来坐坐。说的话只留在那间屋子里。" },
+  { n:"2026届毕业生", id:"2026届", t:"2026-11-03 22:37",
+    c:"走了以后才发现，以前嫌弃的跑操音乐，现在是听见就会鼻子一酸的东西。" },
+  { n:"匿名", id:"学生", t:"2026-11-03 18:52",
+    c:"宿舍 4 号楼晚上十一点还有人在走廊打电话，声音挺大的。希望能提醒一下，谢谢。" },
+  { n:"高二（1）班 吴桐", id:"2024级", t:"2026-11-02 21:08",
+    c:"图书角那套《平凡的世界》第二部被人借走了半个月还没还，求好心人放回来，我等着看孙少平后来怎么样了。" },
+  { n:"匿名", id:"家长", t:"2026-11-02 15:20",
+    c:"想问一下，学校光荣榜上2025年那栏怎么是空的？去年高考不是考得挺好吗，怎么一个名字都没有？" },
+  { n:"匿名", id:"学生", t:"2026-11-02 15:48",
+    c:"同上，我也注意到了。而且2025届优秀毕业生名单在官网上根本搜不到，其他年份都有。" },
+  { n:"高三（2）班 凌", id:"2023级", t:"2026-11-02 16:02",
+    c:"……别问了。" },
+  { n:"匿名", id:"学生", t:"2026-11-01 23:44",
+    c:"有人知道以前教语文的白老师吗？就是那个讲《秦之雄》公开课讲得特别好的那个。怎么突然就不在了？连个通知都没有？" },
+  { n:"高二（3）班 陈子豪", id:"2024级", t:"2026-11-02 08:15",
+    c:"我高一上过他的课，讲得特别好。后来突然换成别的老师了，大家都在传……算了不说了。" },
+  { n:"匿名", id:"毕业生", t:"2026-10-31 02:17",
+    c:"这学校以前是不是出过事？我上学那会听说过好几次，有人从教学楼跳下去的。真的假的？怎么从来没听官方说过？" },
+  { n:"匿名", id:"学生", t:"2026-10-31 02:33",
+    c:"你说的是哪年的事？我只知道老教学楼后面那排杨树，晚上没人敢去。" },
+  { n:"匿名", id:"毕业生", t:"2026-10-31 02:45",
+    c:"别在这说了。校长管这个事管得很严，删帖很快的。你懂的。" },
+  { n:"心理辅导室", id:"教师", t:"2026-10-31 09:00",
+    c:"提醒同学们：如有心理压力或困惑，欢迎随时到心理辅导室（综合楼305）聊聊。学校会为每位同学的身心健康保驾护航。" },
+  { n:"匿名", id:"毕业生", t:"2026-10-30 03:11",
+    c:"你们知道吗？这个学校最吓人的事不是哪个学姐自杀，是去年那个，就是……你们懂的。" },
+  { n:"匿名", id:"学生", t:"2026-10-30 03:15",
+    c:"你说的是[数据删除]学姐吧？我也听说了，好像是从[数据删除]的。" },
+  { n:"匿名", id:"学生", t:"2026-10-30 03:18",
+    c:"别聊了别聊了，这个话题不能说的，会被删的。" },
+  { n:"匿名", id:"毕业生", t:"2026-10-30 03:22",
+    c:"怕什么，都过去一年了。那个人叫什么来着……早就没人记得了。" }
+];
+
+/* 拼一个栏目页：正文段落 + 一张安排表 */
+function secBlock(title, listTitle, list, paras){
+  var h = '<div class="article">';
+  paras.forEach(function(p){ h += '<p>'+p+'</p>'; });
+  h += '<h3>'+title+'</h3>';
+  if(list && list.length){
+    h += '<div class="tbl-wrap"><table class="tbl">'
+       + '<tr><th style="width:66%">'+listTitle+'</th><th>时间</th></tr>'
+       + list.map(function(x){ return '<tr><td>'+x.t+'</td><td>'+x.d+'</td></tr>'; }).join('')
+       + '</table></div>';
+  }
+  h += '<p class="art-note">本页内容由学校相关部门提供，如有疑问请联系校办公室（0468-8880001）。</p></div>';
+  return h;
+}
+var P_DANGJIAN = secBlock("党建工作", "本学期党建活动安排", [
+  { t:"支部主题党日：学习党的二十届三中全会精神", d:"2026-09-05" },
+  { t:"党员示范课（第一轮）：语文、数学组", d:"2026-09-19" },
+  { t:"「我为师生办实事」意见征集活动", d:"2026-10-10" },
+  { t:"党员教师结对帮扶启动仪式", d:"2026-10-24" },
+  { t:"党风廉政建设专题学习", d:"2026-11-07" }
+], [
+  "学校党支部始终坚持把政治建设摆在首位，认真落实「三会一课」制度，坚持每月一次主题党日活动，把党建工作与教育教学中心工作同部署、同落实、同考核。",
+  "学校现有党员 <b>47 名</b>，其中教学一线党员 38 名，占在岗教职工总数的近三成。党支部下设三个党小组，分别对应高一、高二、高三年级部，做到「支部建在年级上」。",
+  "近年来，学校党支部围绕「办人民满意的教育」开展工作，组织党员教师带头开展「一对一」帮扶，累计结对帮扶学生 <b>260 余人次</b>；连续五年开展「党员示范课」活动，累计开课 180 余节。"
+]);
+
+var P_JIAOYAN = secBlock("教学教研", "本学期教研活动记录", [
+  { t:"全市历史、地理学科教研会在我校召开", d:"2026-09-21" },
+  { t:"高三教学质量分析会", d:"2026-09-12" },
+  { t:"「体验探究式四步教学法」课堂展示周", d:"2026-10-19" },
+  { t:"青年教师汇报课（第一轮）", d:"2026-11-02" },
+  { t:"期中考试命题研讨与试卷分析", d:"2026-11-16" }
+], [
+  "学校坚持「以教学为中心，以科研为先导」，建立「教研组—备课组」两级教研体系，固定每周三下午为全校教研时间，做到定时间、定地点、定主题、定中心发言人。",
+  "在教学改革方面，学校结合本地学情探索出适合本校的「体验探究式四步教学法」，强调情境导入、自主探究、合作交流、迁移应用四个环节，已在语文、物理、化学等学科试点并逐步推开。",
+  "学校鼓励教师立足校本问题开展课题研究。目前承担市级以上教研课题 <b>6 项</b>，校级课题 14 项；每学年组织一次「课堂教学大比武」和一次教学论文评选，近三年教师在市级以上刊物发表论文 70 余篇。"
+]);
+
+var P_DEYU = secBlock("德育工作", "本学期德育活动安排", [
+  { t:"「开学第一课」主题教育", d:"2026-08-26" },
+  { t:"秋季消防应急疏散演练", d:"2026-09-18" },
+  { t:"「感恩与责任」主题班会观摩", d:"2026-10-16" },
+  { t:"心理健康教育月系列活动", d:"2026-10-20" },
+  { t:"法治副校长进校园讲座", d:"2026-11-13" }
+], [
+  "学校坚持德育为首，实施以「关爱、沟通、和谐、发展」为主线的构建和谐师生关系德育工作思路，把德育融入日常管理与各学科教学之中，努力打造和谐、安全、文明校园。",
+  "学校建立了「班主任—年级部—德育处」三级管理网络，坚持每周一次主题班会、每月一次国旗下讲话、每学期一次社会实践活动。德育处设有心理咨询室，配备专职心理教师，为学生提供常态化心理疏导。",
+  "学校常年开展「文明班级」「文明宿舍」「校园之星」评选，并组织志愿服务、敬老助残、法治宣传等社会实践活动。近年来学生违法犯罪率为零，校园连续多年被评为县级「平安校园」。"
+]);
+
+var P_ZHAOSHENG = secBlock("招生考试", "2027年高考工作安排", [
+  { t:"高考报名资格审核与网上报名", d:"2026-10-22" },
+  { t:"高考体检（坨罗山县人民医院）", d:"2027-03-15" },
+  { t:"高三第一次模拟考试", d:"2027-03-26" },
+  { t:"高考志愿填报指导讲座", d:"2027-06-10" },
+  { t:"高考成绩查询与志愿填报", d:"2027-06-25" }
+], [
+  "坨罗山高级中学是全县唯一一所普通高级中学，面向全县应届初中毕业生招生，每年计划招生 <b>600 人</b>，编为 12 个教学班。学校同时招收音乐、美术、体育特长生，需参加学校组织的专业测试。",
+  "学校设有国家助学金、校内奖学金和勤工助学岗位，家庭经济困难学生可申请减免学费、住宿费，做到「不让一个学生因家庭困难而失学」。",
+  "高考报名、体检、志愿填报等工作由教务处统一组织，重要时间节点会在本栏目和校园公告栏同步发布，请考生与家长注意查看。"
+]);
+
+/* ---------- 各栏目页内容（框架：填 __XXX__ 引用上面的列表，或直接写 HTML） ---------- */
+var PLACEHOLDER = "<b>本栏目框架已就位，正文内容待补充。</b>";
+var PAGES = {
+  xuexiao:  { n:"学校概况", body:"<div class=\"article\"><p>坨罗山高级中学创建于 1965 年，是全县唯一一所普通高级中学。学校坐落于祖国东北边陲的坨罗山县，依山傍水，环境清幽，是求学治学的理想之地。</p><h3>基本情况</h3><p>校园占地面积 52000 平方米，建筑面积 13600 平方米，布局合理，设施齐备。学校现有教学班 36 个，在校学生 1800 余人，在岗教职工 160 余人。校内有教学楼、实验楼、图书馆、体育馆、学生公寓及综合服务楼等建筑；设有微机室、语音室、通用技术教室、探究实验室等十余种专用教室，实验仪器设备先进；已开通校园网，实现教学与管理的数字化。</p><p>学校环境优雅，四季分明。春有花、夏有荫、秋有果、冬有雪，被师生们亲切地誉为“探索求知的学园，生动活泼的乐园，充满亲情的家园，洁净美丽的花园”。</p><h3>校长与领导班子</h3><p>校长王志远，是市劳动模范、市人大代表、坨罗山县十佳公仆、坨罗山县优秀校长。在他的带领下，学校领导班子团结一致，开拓创新，干群和谐，已形成了一支团结、民主、务实、创新的干部队伍。</p><p>学校领导班子成员及分工如下：</p><div class=\"tbl-wrap\"><table class=\"tbl\"><tr><th style=\"width:22%\">姓名</th><th style=\"width:30%\">职务</th><th>分管工作</th></tr><tr><td>王志远</td><td>校长</td><td>主持学校全面工作</td></tr><tr><td>赵青山</td><td>副校长</td><td>分管教学教研</td></tr><tr><td>孙晓梅</td><td>副校长</td><td>分管德育与安全</td></tr></table></div><h3>师资力量</h3><p>学校凝聚了一大批“师德高尚、业务精良、务实创新、甘于奉献”的教师。现有特级教师 1 名，高级教师 30 人，国家级和省级优秀辅导教师、优秀教师、骨干教师 36 人；市县级以上优秀教师、模范班主任、骨干教师、学科带头人占教师总数的 60%。</p><p>学校多名领导和教师承担着国家、省、市的多项科研课题，撰写的论文在国家、省、市获奖，部分在各级各类刊物上发表。</p><h3>校训</h3><p class=\"motto\">勤奋、文明、求实、创新</p><p>这是学校对培养人才质量的基本要求，也是学校风貌和特色的基本表现。</p><h3>办学理念与特色</h3><p>学校始终坚持“为发展而教育”的办学理念，坚持“以德育为龙头，以教学为中心，以科研为先导，以育人为目的”的办学思想，坚持“以人为本、突出特色、全面发展”的办学特色，围绕“一切为了学生的终身发展，一切为了教师的专业发展，一切为了学校的可持续发展”的办学宗旨，开展“办人民满意的学校，做人民欢迎的教师”的内强素质、外树形象活动。</p><p>在长期的办学实践中，学校形成了独具特色的坨罗山高中精神：<b>精诚团结、密切协作的团队精神，迎难而上、永不言败的拼搏精神，心系教育、无怨无悔的奉献精神，刻苦钻研、开拓进取的创新精神。</b></p><h3>教育教学与科研</h3><p>多年来，学校坚持德育为首，积极开展德育创新，实施“和谐共建，共同发展”的以“关爱、沟通、和谐、发展”为主线的构建和谐师生关系的德育工作思路，打造了和谐、安全、文明校园。</p><p>学校以教学为中心，积极探索有效的课堂教学方法，形成了适合本校学情的“体验探究式四步教学法”；树立“科研兴校，科研兴教”的观念，立足解决校本问题，把课题研究和教育教学管理中的实际问题结合起来，发挥科研的先导作用。</p><h3>素质教育与学生活动</h3><p>学校以培养对社会有用的人才为己任，持续开展素质教育，组织丰富多彩的社会实践与文体活动，注重提高学生的动手动脑能力，培养实践能力与创新精神。</p><p>学校常年开展综合实践课研究性学习。在教师指导下，学生自主开展的“坨罗山县大气污染及危害”“水火箭的制作”“坨罗山县地方文化简史”等 20 多个研究性课题均取得良好成绩，既增进了求知兴趣，也加深了学生对家乡的了解与热爱。</p><p>学校美术、音乐、体育特长生培养成效显著，在省、市各类展演与比赛中多次获奖；校园文化艺术节、科技节、运动会已连续举办多届，成为学生展示自我的重要舞台。</p><h3>办学成果</h3><p>近年来，学校教学成绩稳步提升。在英语、数学、物理、化学、生物等学科竞赛中，累计 30 余人次获国家级奖、50 余人次获省级奖、100 余人次获市级奖；已有 22 名学生的高考单科成绩在全市进入前十名。毕业生先后升入清华大学、中国人民大学、中国科学技术大学、南开大学、中国政法大学、浙江大学、南京大学、天津大学、哈尔滨工业大学、国防科技大学等国家重点院校，部分学生赴国外高校就读。</p><p>2025 年高考，学校再创佳绩：全校参加高考 312 人，其中理科 198 人、文科 114 人；一本上线 87 人，本科上线 226 人，本科上线率超过 72%，在边陲小县普通高中中位居前列。（详见<a href=\"#/zhaosheng\">招生考试</a>栏目成绩公布）</p><h3>学校荣誉</h3><p>学校先后被确定为全国校园文化建设百家创新学校、国家教育学会重点课题实验校、国家教育教学研究会课堂教学先进单位、全国教育网络系统示范单位、省百姓口碑最佳单位、省金牌服务单位、省级安全文明单位、省心理健康实验基地校、市级示范高中、市级先进集体、市安全工作先进单位、坨罗山县先进党组织、县优秀学校等。</p><h3>展望未来</h3><p>太阳依旧，风雨依旧，探索依旧，奋斗依旧。学校正紧紧围绕“提高质量，促进发展”这一中心，继续发扬坨罗山高中精神，统一思想、坚定信心、努力拼搏，为办好“让人民满意，让家长放心，让学生成才”的现代化高中而努力奋斗。</p><p class=\"art-note\">学校地址：坨罗山县坨罗山镇学府街　｜　邮编：154200　｜　联系电话：0468-8880001</p></div>" },
+  news:     { n:"校园资讯", body:"__NEWS__" },
+  notice:   { n:"通知公告", body:"__NOTICES__" },
+  dangjian: { n:"党建工作", body:P_DANGJIAN },
+  jiaoyan:  { n:"教学教研", body:P_JIAOYAN },
+  deyu:     { n:"德育工作", body:P_DEYU },
+  zhaosheng:{ n:"招生考试", body:P_ZHAOSHENG },
+  shenghuo: { n:"学生天地", body:"__STUDENT__" },
+  shizi:    { n:"教师天地", body:"__TEACHER_GROUPS__" },
+  xiaoyuan: { n:"校园专栏", body:"__GALLERY__" },
+  liuyan:   { n:"留言板",   body:"__BOARD__" }
+};
+
+/* ================================================================
+   渲染逻辑（一般不用动）
+   ================================================================ */
+function $(s){ return document.querySelector(s); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function listHtml(items, linkTo, type){
+  type = type || "";
+  return '<ul class="nlist">'+items.map(function(x,i){
+    var href;
+    if(type==="news"){ href='javascript:void(0)" onclick="showNews('+i+')'; }
+    else { href=linkTo; }
+    return '<li><span class="dot"></span><span class="t"><a href="'+href+'">'+esc(x.t)+'</a></span><span class="d">'+esc(x.d)+'</span></li>';
+  }).join('')+'</ul>';
+}
+function galleryHtml(){
+  return '<div class="gallery">'+GALLERY.map(function(src,i){
+    return '<a href="#/xiaoyuan"><img src="'+src+'" alt="校园风光'+(i+1)+'"></a>';
+  }).join('')+'</div>';
+}
+
+/* ================================================================
+   留言板
+   ================================================================ */
+var AVA_COLORS = ["#C0392B","#B9770E","#1F6F4A","#1F4E9C","#6C3483","#A93226","#117A65","#7D6608","#2E4053","#873600"];
+function avaColor(name){
+  var s=0; for(var i=0;i<name.length;i++) s+=name.charCodeAt(i);
+  return AVA_COLORS[s % AVA_COLORS.length];
+}
+function avaChar(name){
+  var m=name.match(/[\u4e00-\u9fa5]/g);
+  if(name.indexOf("匿名")===0) return "匿";
+  if(m && m.length) return m[m.length-1];
+  return name.charAt(0) || "同";
+}
+function isTeacher(id){ return id==="教师" || id==="行政" || id==="学生组织"; }
+
+function msgHtml(m, idx){
+  var t1 = isTeacher(m.id) ? "tag" : "tag t2";
+  return '<div class="msg'+(m.mine?" mine":"")+'"'+(m.mine?' id="msg-mine"':'')+'>'
+    + '<div class="ava" style="background:'+avaColor(m.n)+'">'+esc(avaChar(m.n))+'</div>'
+    + '<div class="mb">'
+    +   '<div class="mh">'
+    +     (m.hot?'<span class="tag">置顶</span>':'')
+    +     '<span class="nick">'+esc(m.n)+'</span>'
+    +     '<span class="'+t1+'">'+esc(m.id)+'</span>'
+    +     '<span class="time">'+esc(m.t)+'</span>'
+    +   '</div>'
+    +   '<div class="txt">'+esc(m.c)+'</div>'
+    +   (m.r ? '<div class="reply"><div class="rh">校方回复</div><div class="rt">'+esc(m.r)+'</div></div>' : '')
+    +   '<div class="foot"><a href="#">回复</a><a href="#">支持（'+((idx*7)%23+2)+'）</a><a href="#">举报</a></div>'
+    + '</div></div>';
+}
+
+function boardHtml(){
+  var html = ''
+    + '<div class="board-top">'
+    +   '<div class="bt-ic">言</div>'
+    +   '<div><h3>坨罗山高级中学 · 校园留言板</h3>'
+    +     '<p>同学们可以在这里提意见、问问题、找同学、说心里话。<br>'
+    +     '留言请遵守校规与网络文明公约，实名留言优先受理。</p></div>'
+    +   '<div class="board-stats">'
+    +     '<div><b id="bd-count">'+BOARD.length+'</b><span>条留言</span></div>'
+    +     '<div><b>7</b><span>今日新留言</span></div>'
+    +     '<div><b>96%</b><span>回复率</span></div>'
+    +   '</div>'
+    + '</div>'
+
+    + '<div class="card board-form">'
+    +   '<div class="row">'
+    +     '<input id="bd-name" type="text" maxlength="20" placeholder="你的昵称（班级 + 姓名，可匿名）">'
+    +     '<input id="bd-id" type="text" maxlength="10" placeholder="身份，如 2024级">'
+    +   '</div>'
+    +   '<textarea id="bd-text" maxlength="300" placeholder="写点什么……（最多 300 字）"></textarea>'
+    +   '<div class="row2" style="margin-top:9px">'
+    +     '<button type="button" id="bd-send">发表留言</button>'
+    +     '<button type="button" class="ghost" id="bd-clear">清空</button>'
+    +     '<span class="hint">留言经管理员审核后显示，一般 1 个工作日内处理</span>'
+    +   '</div>'
+    + '</div>'
+
+    + '<div class="board-tip">'
+    +   '<b>本月话题：</b>「我最想在毕业前做完的一件事」——把你的答案写在留言板，学期末会挑一部分贴到教学楼一楼的心愿墙上。<br>'
+    +   '<b>值班安排：</b>校学生会生活部　周一至周五　12:30—13:30　（综合楼 208）'
+    + '</div>'
+
+    + '<div class="card board-list" id="bd-list">';
+  /* 恐怖模式下留言板全变成诡异内容 */
+  if(document.body.classList.contains("horror")){
+    var ghostMsg={ n:"???", id:"666", t:"????-??-?? ?? : ??", c:"如果你看到这条，证明你真的在找。\n学校有个隐藏的论坛，不在官网上。\n在地图上，你自己想办法找。\n点击那个东西五下。" };
+    html += msgHtml(ghostMsg)+msgHtml(ghostMsg)+msgHtml(ghostMsg)+msgHtml(ghostMsg)+msgHtml(ghostMsg);
+  } else {
+    html += BOARD.map(msgHtml).join('');
+  }
+  html += '</div>';
+  return html;
+}
+
+/* 发表留言（前端演示：只加到当前页面，刷新即恢复） */
+var boardSeq = 0;
+function boardBind(){
+  var send=$("#bd-send"), clr=$("#bd-clear"), name=$("#bd-name"), ident=$("#bd-id"), txt=$("#bd-text");
+  if(!send) return;
+  send.onclick = function(){
+    var t=(txt.value||"").trim();
+    if(!t){ txt.focus(); txt.placeholder="留言内容不能为空"; return; }
+    var nm=(name.value||"").trim() || "匿名";
+    var id=(ident.value||"").trim() || "学生";
+    var now=new Date();
+    var pad=function(x){ return (x<10?"0":"")+x; };
+    var stamp=now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate())+" "+pad(now.getHours())+":"+pad(now.getMinutes());
+    var m={ n:nm, id:id, t:stamp, c:t, mine:true };
+    var box=$("#bd-list");
+    box.insertAdjacentHTML("afterbegin", msgHtml(m, boardSeq++));
+    $("#bd-count").textContent = String(parseInt($("#bd-count").textContent,10)+1);
+    txt.value=""; name.value=""; ident.value="";
+  };
+  clr.onclick = function(){ txt.value=""; };
+}
+
+/* 学生天地页上的留言板入口卡 */
+function boardEntryHtml(){
+  return '<a class="board-entry" href="#/liuyan">'
+    + '<div class="be-ic">言</div>'
+    + '<div class="be-tx"><h3>校园留言板</h3>'
+    + '<p>提意见、问功课、找同学、说心里话——已有 '+BOARD.length+' 条留言，校方回复率 96%。</p></div>'
+    + '<div class="be-go">进入留言板 »</div></a>';
+}
+
+/* 导航 */
+$("#nav").innerHTML = NAV.map(function(x){
+  return '<a href="#/'+x.k+'" data-k="'+x.k+'">'+esc(x.n)+'</a>';
+}).join('');
+
+/* 公告条 */
+$("#mq-text").textContent = MARQUEE;
+
+/* 首页列表 */
+$("#home-news").innerHTML    = listHtml(NEWS.slice(0,6), "#/news").replace('<ul class="nlist">','').replace('</ul>','');
+$("#home-teacher").innerHTML = listHtml(TEACHER.slice(0,5), "#/shizi").replace('<ul class="nlist">','').replace('</ul>','');
+$("#home-student").innerHTML = listHtml(STUDENT.slice(0,5), "#/shenghuo").replace('<ul class="nlist">','').replace('</ul>','');
+$("#home-gallery").innerHTML = galleryHtml();
+$("#board-entry-slot").outerHTML = boardEntryHtml();
+$("#home-services").innerHTML = SERVICES.map(function(s){
+  return '<a class="svc" href="#/'+s.k+'"><div class="ic">'+esc(s.ic)+'</div><div class="nm">'+esc(s.n)+'</div></a>';
+}).join('');
+
+/* 历年优秀毕业生 */
+$("#alumni-list").innerHTML = ALUMNI.map(function(a,i){
+  var h='<div style="margin-bottom:8px">';
+  h+='<div onclick="var b=this.nextElementSibling;b.style.display=b.style.display===\'none\'?\'\':\'none\'" style="cursor:pointer;font-weight:700;color:#b91c1c;padding:8px 12px;background:#fef2f2;border-radius:4px">'+a.year+' <span style="font-size:11px;color:#999">▼ 点击展开</span></div>';
+  h+='<div style="display:none;padding:10px 12px">';
+  if(a.list.length===0){
+    h+='<p style="color:#999;text-align:center;padding:16px 0;margin:0">暂无优秀毕业生信息</p>';
+  }else{
+    h+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px">';
+    a.list.forEach(function(name){
+      h+='<div style="padding:6px 10px;background:#f9fafb;border-radius:3px;font-size:13px">'+esc(name)+'</div>';
+    });
+    h+='</div>';
+  }
+  h+='</div></div>';
+  return h;
+}).join('');
+
+/* ---------- 轮播 ---------- */
+var slides=[].slice.call(document.querySelectorAll(".slide")), cur=0, timer=null, dotsBox=$("#car-dots");
+slides.forEach(function(_,i){
+  var d=document.createElement("span"); if(i===0)d.classList.add("on");
+  d.onclick=function(){ pick(i); restart(); };
+  dotsBox.appendChild(d);
+});
+var dots=[].slice.call(dotsBox.children);
+function pick(i){
+  slides[cur].classList.remove("on"); dots[cur].classList.remove("on");
+  cur=(i+slides.length)%slides.length;
+  slides[cur].classList.add("on"); dots[cur].classList.add("on");
+}
+function restart(){ clearInterval(timer); timer=setInterval(function(){ pick(cur+1); },5000); }
+$(".car-arrow.next").onclick=function(){ pick(cur+1); restart(); };
+$(".car-arrow.prev").onclick=function(){ pick(cur-1); restart(); };
+restart();
+
+/* ---------- 栏目路由 ---------- */
+function render(){
+  var k=(location.hash||"").replace(/^#\/?/,"");
+  /* 搜索路由 */
+  if(k.indexOf("search")===0){
+    var q=new URLSearchParams(k.split("?")[1]||"").get("q")||"";
+    $("#pg-title").textContent="搜索结果";
+    $("#pg-body").innerHTML=renderSearch(q);
+    $("#view-home").style.display="none";
+    $("#view-page").style.display="";
+    window.scrollTo(0,0);
+    return;
+  }
+  var pg=PAGES[k];
+  if(!pg){
+    $("#view-home").style.display="";
+    $("#view-page").style.display="none";
+  }else{
+    var body=pg.body;
+    if(body==="__NEWS__")         body=listHtml(NEWS, "", "news");
+    else if(body==="__NOTICES__") body=listHtml(NOTICES);
+    else if(body==="__TEACHER__") body=listHtml(TEACHER);
+    else if(body==="__STUDENT__") body=subnavHtml("shenghuo")+boardEntryHtml()+listHtml(STUDENT);
+    else if(body==="__GALLERY__") body=galleryHtml();
+    else if(body==="__TEACHER_GROUPS__") body=teacherGroupsHtml();
+    else if(body==="__BOARD__")   body=subnavHtml("liuyan")+boardHtml();
+    $("#pg-title").textContent=pg.n;
+    $("#pg-body").innerHTML=body;
+    if(document.getElementById("bd-list")) boardBind();
+    $("#view-home").style.display="none";
+    $("#view-page").style.display="";
+  }
+  [].slice.call(document.querySelectorAll("#nav a")).forEach(function(a){
+    a.classList.toggle("on", a.getAttribute("data-k")===k);
+  });
+  window.scrollTo(0,0);
+}
+/* 栏目内子导航：学生天地 ⇄ 留言板 */
+function subnavHtml(active){
+  var items=[{k:"shenghuo",n:"学生活动"},{k:"liuyan",n:"留言板"}];
+  return '<div class="subnav">'+items.map(function(x){
+    return '<a href="#/'+x.k+'" class="'+(x.k===active?"on":"")+'">'+esc(x.n)+'</a>';
+  }).join('')+'</div>';
+}
+
+/* 教师天地：学科组卡片 */
+var GROUPS=[
+  {name:"语文组", leader:"（组长待聘任）", members:["陈书恒","林小溪","赵明远","周雨桐","王思远"], note:"高级教师 2 人，市级骨干教师 1 人，多次在省市优质课评比中获奖。", emptyLeader:true},
+  {name:"数学组", leader:"李建国", members:["王磊","张婷婷","刘志强","陈立群"], note:"高级教师 2 人，学科带头人 1 人，高考数学成绩稳居全县前列。"},
+  {name:"英语组", leader:"孙雅琴", members:["周晓峰","吴海燕","郑凯","马丽娜"], note:"硕士研究生 2 人，市级教学能手 2 人，开设英语口语角、英语戏剧社。"},
+  {name:"物理组", leader:"赵光明", members:["钱卫东","冯丽","周子昂"], note:"高级教师 1 人，实验教学特色鲜明。"},
+  {name:"化学组", leader:"黄文斌", members:["徐静","马晓东","许晴"], note:"高级教师 1 人，连续多年辅导学生在化学奥赛中获奖。"},
+  {name:"生物组", leader:"杨秀兰", members:["朱国庆","任思琪"], note:"高级教师 1 人，结合坨罗山生态环境开展校本研究。"},
+  {name:"历史组", leader:"何守义", members:["罗文博","唐晓梅","郭宏伟"], note:"高级教师 2 人，注重史料实证和家国情怀培养。"},
+  {name:"地理组", leader:"韩雪峰", members:["曹阳","谢春燕"], note:"高级教师 1 人，结合坨罗山乡土地理资源开展实践教学。"},
+  {name:"政治组", leader:"郭嘉明", members:["邓丽君","宋学文"], note:"高级教师 1 人，注重理论联系实际。"},
+  {name:"体艺组", leader:"刘大伟", members:["黄小蕾","吴刚","孟繁星"], note:"承担体育、音乐、美术教学及运动队、艺术团训练。"}
+];
+function teacherGroupsHtml(){
+  var h='<div class="article"><p>我校现有在岗教职工 160 余人，其中特级教师 1 名，高级教师 30 人，国家级和省级优秀辅导教师 36 人。点击学科组查看教师名单。</p>';
+  h+='<div class="group-grid">';
+  GROUPS.forEach(function(g,i){
+    h+='<div class="group-card" data-i="'+i+'" style="border:1px solid #e5e7eb;border-radius:6px;padding:12px 16px;margin-bottom:8px;cursor:pointer;background:#fff">';
+    h+='<div style="font-weight:700;color:#b91c1c;font-size:15px">'+g.name+' <span style="font-size:11px;color:#999">▼</span></div>';
+    h+='<div class="group-body" style="display:none;margin-top:10px">';
+    h+='<div style="margin-bottom:6px">组长：';
+    if(g.emptyLeader){
+      h+='<span class="empty-leader" onclick="event.stopPropagation();showBai()" style="color:#b91c1c;cursor:pointer;text-decoration:underline">（待聘任，点击查看）</span>';
+    }else{
+      h+='<b>'+g.leader+'</b>';
+    }
+    h+='</div>';
+    h+='<div style="margin-bottom:6px;color:#333">成员：'+g.members.join('、')+'</div>';
+    h+='<div style="color:#666;font-size:13px">'+g.note+'</div>';
+    h+='</div></div>';
+  });
+  h+='</div>';
+  h+='<div class="art-note">各学科组教师队伍概况，更多教师风采详见校园资讯栏目。</div></div>';
+  h+='<div id="bai-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center" onclick="this.style.display=\'none\'">';
+  h+='<div style="background:#fff;border-radius:8px;padding:24px;max-width:400px;width:90%" onclick="event.stopPropagation()">';
+  h+='<h3 style="color:#b91c1c;margin:0 0 12px">白晚晴</h3>';
+  h+='<p style="margin:0 0 8px;color:#666">男，拟任语文组组长人选</p>';
+  h+='<p style="margin:0 0 8px;line-height:1.8">北京师范大学中文系毕业，省级骨干教师，曾获市优质课一等奖。班主任经验丰富，所带班级高考成绩突出。</p>';
+  h+='<p style="margin:12px 0 0;color:#999;font-size:13px">目前正在办理调入手续，语文组组长一职暂空缺。</p>';
+  h+='<button onclick="document.getElementById(\'bai-modal\').style.display=\'none\'" style="margin-top:16px;padding:6px 20px;background:#b91c1c;color:#fff;border:0;border-radius:4px;cursor:pointer">关闭</button>';
+  h+='</div></div>';
+  setTimeout(bindGroupCards,50);
+  return h;
+}
+function bindGroupCards(){
+  document.querySelectorAll('.group-card').forEach(function(card){
+    card.addEventListener('click',function(){
+      var body=this.querySelector('.group-body');
+      if(body.style.display==='none'){body.style.display='';}
+      else{body.style.display='none';}
+    });
+  });
+}
+function showBai(){
+  document.getElementById('bai-modal').style.display='flex';
+}
+window.addEventListener("hashchange",render);
+
+/* 搜索功能 */
+function doSearch(){
+  var q=document.getElementById("search-input").value.trim();
+  if(!q) return;
+  /* 搜"凌讯" → 触发恐怖模式 */
+  if(q==="凌讯"){
+    document.body.classList.add("horror");
+    document.querySelector(".top h1").textContent="？？？？？？？？";
+    document.querySelector(".top .en").textContent="????? ???????";
+    document.querySelectorAll(".nav a").forEach(function(a){ a.textContent="她不在了"; });
+    document.title="？？？";
+    /* 社会主义核心价值观图变成可点击的"你想知道什么？" */
+    var sv=document.getElementById("strip-values");
+    if(sv){
+      sv.style.cursor="pointer";
+      sv.innerHTML='<div style="background:#1a001a;color:#ff2222;text-align:center;padding:40px;font-size:24px;font-weight:700;text-shadow:0 0 10px #ff0000">你想知道什么？</div>';
+      sv.onclick=function(){ location.hash="#/liuyan"; };
+    }
+    location.hash="#/search?q="+encodeURIComponent(q);
+    return;
+  }
+  location.hash = "#/search?q=" + encodeURIComponent(q);
+}
+function renderSearch(q){
+  /* 凌讯恐怖模式 */
+  if(q==="凌讯"){
+    var h='<div class="article">';
+    h+='<h3 style="color:#ff2222">？？？？？？</h3>';
+    h+='<p style="color:#ff4444;line-height:2;font-size:16px">';
+    h+='凌讯消失了。<br>';
+    h+='凌讯死了。<br>';
+    h+='凌讯不在了。<br>';
+    h+='凌讯怎么了？<br>';
+    h+='你为什么要找凌讯？<br>';
+    h+='别找了。<br>';
+    h+='回家吧。';
+    h+='</p>';
+    h+='</div>';
+    $("#pg-title").textContent="？？？";
+    $("#pg-body").innerHTML=h;
+    $("#view-home").style.display="none";
+    $("#view-page").style.display="";
+    window.scrollTo(0,0);
+    return;
+  }
+  /* ★ 搜「陈晨」→ 一条很简单的学生信息 */
+  if(q.indexOf("陈晨") >= 0){
+    return '<div class="article">'
+      + '<h3>搜索：' + esc(q) + '（1 条结果）</h3>'
+      + '<div style="border:1px solid #e6e0d6;background:#fdfcf9;padding:20px 22px;margin-top:14px">'
+      +   '<div style="font-size:12px;color:#8a8272;margin-bottom:12px">在校学生基本信息</div>'
+      +   '<table style="width:100%;border-collapse:collapse;font-size:14.5px">'
+      +     '<tr><td style="width:96px;padding:8px 0;color:#8a8272">姓名</td>'
+      +         '<td style="padding:8px 0;color:#2b2620">陈晨</td></tr>'
+      +     '<tr><td style="padding:8px 0;color:#8a8272">年级</td>'
+      +         '<td style="padding:8px 0;color:#2b2620">高二</td></tr>'
+      +     '<tr><td style="padding:8px 0;color:#8a8272">性别</td>'
+      +         '<td style="padding:8px 0;color:#2b2620">男</td></tr>'
+      +     '<tr><td style="padding:8px 0;color:#8a8272">状态</td>'
+      +         '<td style="padding:8px 0;color:#2b2620">当前在读</td></tr>'
+      +     '<tr><td style="padding:8px 0;color:#8a8272">网名</td>'
+      +         '<td style="padding:8px 0;color:#2b2620">晚自习的灯</td></tr>'
+      +   '</table>'
+      + '</div>'
+      + '<p style="margin-top:14px;font-size:13px;color:#8a8272">'
+      +   '以上为学籍系统对外可查部分。'
+      + '</p>'
+      + '</div>';
+  }
+
+  /* ★ 搜「余淼」→ 校园论坛里那条交友帖（有人画了她，还问能不能加好友） */
+  if(q.indexOf("余淼") >= 0){
+    return '<div class="article">'
+      + '<h3>搜索：' + esc(q) + '（1 条结果）</h3>'
+      + '<div style="border:1px solid #e3d3c8;background:#fffdf9;padding:20px 22px;margin-top:14px">'
+
+      +   '<div style="font-size:12px;color:#8a7a6a;margin-bottom:10px">'
+      +     '校园论坛 · 交友 · 2026-04-21 19:42'
+      +   '</div>'
+
+      +   '<h4 style="margin:0 0 12px;font-size:17px;color:#5a2018">'
+      +     '操场上看见一个短发女生，有点好看'
+      +   '</h4>'
+
+      +   '<p style="line-height:2.1;color:#3a3229;margin-bottom:14px">'
+      +     '今天下午大课间，在操场边上看见她。短头发，背个书包，站在那儿不动，'
+      +     '看着跑道。<br>'
+      +     '我不认识她。也不敢过去。<br>'
+      +     '回班里我把她画下来了。'
+      +   '</p>'
+
+      +   '<div style="text-align:center;margin:6px 0 16px">'
+      +     '<img src="素材/yumiao-sketch.jpg" alt="" '
+      +       'style="width:230px;max-width:100%;border:1px solid #d8c9bd;box-shadow:0 4px 14px rgba(0,0,0,.12)">'
+      +     '<div style="font-size:12px;color:#8a7a6a;margin-top:8px">画得不像，别笑我</div>'
+      +   '</div>'
+
+      +   '<p style="line-height:2.1;color:#3a3229">'
+      +     '她是哪个班的？有人认识吗。<br>'
+      +     '可以加个好友吗。'
+      +   '</p>'
+
+      +   '<div style="font-size:12px;color:#8a7a6a;margin-top:14px">'
+      +     '—— 匿名　·　回复 3'
+      +   '</div>'
+
+      +   '<div style="margin-top:18px;border-top:1px dashed #d8c9bd;padding-top:14px">'
+      +     '<div style="font-size:13px;color:#7a6a5a;margin-bottom:6px">'
+      +       '<b style="color:#5a2018">一条小鱼</b>　回帖'
+      +     '</div>'
+      +     '<p style="line-height:2;color:#3a3229;margin:0">'
+      +       '不用加了。我不加陌生人。<br>'
+      +       '不过画得确实不像。'
+      +     '</p>'
+      +   '</div>'
+
+      + '</div>'
+      + '<p style="margin-top:16px;font-size:13px;color:#8a7a6a">'
+      +   '这条帖子后来被删了。缓存里还有一份。'
+      + '</p>'
+      + '</div>';
+  }
+
+  /* 搜「一条小鱼」 → 学生自建的个人主页。
+     ★ 余淼的网名就是「一条小鱼」—— 政府官网那份再审判决书的浏览记录里也是这个名字。
+     手册规则 5：这里不点名余淼，链接点过去她自己的站上写着。
+     路径：学校官网在 <站根>\高级中学官网\ 下，余淼的站在 <站根>\余淼的网站\，
+     所以是**上一级**再进那个文件夹（跟白晚晴那条个人研究网站一个写法）。 */
+  if(q.indexOf("一条小鱼")>=0){
+    /* 注意：这里必须 **return HTML 字符串**。
+       路由那边是 `$("#pg-body").innerHTML = renderSearch(q)` ——
+       直接改 DOM 再 return（返回 undefined），会被写成字面量 "undefined"。 */
+    return '<div class="article"><h3>搜索：'+esc(q)+'（1条结果）</h3>'
+      + '<ul class="nlist"><li><span class="dot"></span><span class="t">'
+      + '<a href="../余淼的网站/index.html" target="_blank">学生个人主页：一条小鱼</a>'
+      + '</span><span class="d">2026-04-28</span></li></ul>'
+      + '<p style="margin-top:18px;color:#999;font-size:13px;line-height:2">'
+      + '该页面由我校学生本人制作并维护，非学校官方页面。<br>'
+      + '学生处仅作友情链接，内容不代表学校立场。</p>'
+      + '</div>';
+  }
+  var results=SEARCH_INDEX.filter(function(x){
+    if(x.bai && (q.indexOf("白")>=0 || q.indexOf("晚晴")>=0 || q.indexOf("老师")>=0 || q.indexOf("语文")>=0)) return true;
+    if(x.bai && x.id==="bai5" && (q.indexOf("秦")>=0 || q.indexOf("强权")>=0 || q.indexOf("突破")>=0)) return true;
+    return x.t.indexOf(q)>=0;
+  });
+  var h='<div class="article"><h3>搜索：'+esc(q)+'（'+results.length+'条结果）</h3>';
+  if(results.length===0){
+    h+='<p style="color:#999;padding:20px 0">未找到相关内容。</p>';
+  }else{
+    h+='<ul class="nlist">';
+    results.forEach(function(x,i){
+      if(x.bai && x.id){
+        h+='<li><span class="dot"></span><span class="t"><a href="javascript:void(0)" onclick="showArticle(\''+x.id+'\')">'+esc(x.t)+'</a></span><span class="d">'+esc(x.d)+'</span></li>';
+      }else{
+        h+='<li><span class="dot"></span><span class="t"><a href="#/'+x.k+'">'+esc(x.t)+'</a></span><span class="d">'+esc(x.d)+'</span></li>';
+      }
+    });
+    h+='</ul>';
+  }
+  h+='</div>';
+  return h;
+}
+function showArticle(id){
+  var a=BAI_ARTICLES.find(function(x){return x.id===id;});
+  if(!a) return;
+  var q = new URLSearchParams(location.hash.split("?")[1]||"").get("q") || "";
+  var h='<div class="article">';
+  h+='<h3 style="margin-bottom:6px">'+esc(a.t)+'</h3>';
+  h+='<p style="color:#999;font-size:13px;margin-bottom:16px">来源：坨罗山高级中学官网　｜　'+esc(a.d)+'</p>';
+  h+=a.body;
+  h+='<p style="margin-top:20px"><a href="javascript:void(0)" onclick="backToSearch(\''+esc(q)+'\')">« 返回搜索结果</a></p>';
+  h+='</div>';
+  $("#pg-title").textContent=a.t;
+  $("#pg-body").innerHTML=h;
+  window.scrollTo(0,0);
+}
+function backToSearch(q){
+  $("#pg-title").textContent="搜索结果";
+  $("#pg-body").innerHTML=renderSearch(q);
+  window.scrollTo(0,0);
+}
+function showNews(i){
+  var a=NEWS[i];
+  if(!a) return;
+  var h='<div class="article">';
+  h+='<h3 style="margin-bottom:6px">'+esc(a.t)+'</h3>';
+  h+='<p style="color:#999;font-size:13px;margin-bottom:16px">来源：坨罗山高级中学官网　｜　'+esc(a.d)+'</p>';
+  h+=a.body;
+  h+='<p style="margin-top:20px"><a href="#/news">« 返回列表</a></p>';
+  h+='</div>';
+  $("#pg-title").textContent=a.t;
+  $("#pg-body").innerHTML=h;
+  window.scrollTo(0,0);
+}
+document.getElementById("search-btn").addEventListener("click",doSearch);
+document.getElementById("search-input").addEventListener("keydown",function(e){ if(e.key==="Enter") doSearch(); });
+
+/* 连续点5次校名 → 隐藏论坛 */
+var titleClicks=0, titleTimer=null;
+document.querySelector(".top h1").addEventListener("click",function(){
+  titleClicks++;
+  clearTimeout(titleTimer);
+  titleTimer=setTimeout(function(){ titleClicks=0; },1500);
+  if(titleClicks>=5){
+    titleClicks=0;
+    document.body.classList.add("horror");
+    alert("你找到这里了。\n\n她还在那里。");
+    location.hash="#/liuyan";
+  }
+});
+
+buildSearchIndex();
+render();
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>
