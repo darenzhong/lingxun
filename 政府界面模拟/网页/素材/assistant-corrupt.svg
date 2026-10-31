@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="坨小政 崩坏态">
+  <!-- 占位图：真正的形象图请放到同目录的 assistant-corrupt.jpg / .png，页面会自动优先使用 -->
+  <defs>
+    <linearGradient id="bodyC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9aa4ae"/>
+      <stop offset="1" stop-color="#5d6670"/>
+    </linearGradient>
+    <linearGradient id="capC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3c55"/>
+      <stop offset="1" stop-color="#16233a"/>
+    </linearGradient>
+    <radialGradient id="woundG" cx="0.5" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#5b1116"/>
+      <stop offset="0.6" stop-color="#33090d"/>
+      <stop offset="1" stop-color="#120406"/>
+    </radialGradient>
+    <radialGradient id="light" cx="0.5" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#2a3648" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" fill="#06080c"/>
+  <rect width="512" height="512" fill="url(#light)"/>
+
+  <!-- 身体（发灰干瘪） -->
+  <ellipse cx="256" cy="330" rx="126" ry="122" fill="url(#bodyC)" stroke="#0d1520" stroke-width="6"/>
+
+  <!-- 机械臂（断了一根线） -->
+  <rect x="92" y="322" width="48" height="24" rx="12" fill="#6b7683" stroke="#0d1520" stroke-width="5"/>
+  <rect x="376" y="322" width="48" height="24" rx="12" fill="#6b7683" stroke="#0d1520" stroke-width="5"/>
+  <path d="M140 334 q-26 10 -34 30" fill="none" stroke="#0d1520" stroke-width="4"/>
+
+  <!-- 胸前五角星（暗红发褐，仍保留） -->
+  <path d="M256 352 l11 26 28 3 -21 19 6 28 -24 -14 -24 14 6 -28 -21 -19 28 -3 z"
+        fill="#6b1a12"/>
+
+  <!-- 腹部剖口 -->
+  <path d="M256 300
+           C 222 330, 220 392, 252 448
+           C 284 392, 290 330, 256 300 Z"
+        fill="url(#woundG)" stroke="#0a0405" stroke-width="6"/>
+  <!-- 翻卷发黑的创缘 -->
+  <path d="M256 300 C 222 330, 220 392, 252 448" fill="none" stroke="#1a0a0c" stroke-width="9" stroke-linecap="round"/>
+  <path d="M256 300 C 290 330, 290 392, 252 448" fill="none" stroke="#1a0a0c" stroke-width="9" stroke-linecap="round"/>
+
+  <!-- 腔内：断裂线缆 + 裸露骨架 + 缠绕的黑色线状物 -->
+  <path d="M244 336 q-16 24 4 44 q18 18 -2 40" fill="none" stroke="#8d2b2b" stroke-width="3.5" opacity="0.9"/>
+  <path d="M268 344 q18 22 0 42 q-16 18 4 38" fill="none" stroke="#7a2424" stroke-width="3.5" opacity="0.9"/>
+  <path d="M256 326 L256 442" stroke="#c9ccd2" stroke-width="5" opacity="0.55"/>
+  <path d="M238 372 L274 372" stroke="#c9ccd2" stroke-width="4" opacity="0.45"/>
+  <path d="M238 400 L274 400" stroke="#c9ccd2" stroke-width="4" opacity="0.45"/>
+  <path d="M246 356 q-22 14 6 30 q26 16 -8 34" fill="none" stroke="#05070a" stroke-width="5" opacity="0.95"/>
+  <path d="M266 362 q22 16 -4 32 q-24 14 8 32" fill="none" stroke="#05070a" stroke-width="5" opacity="0.95"/>
+  <path d="M250 380 q-16 20 8 34" fill="none" stroke="#05070a" stroke-width="4"/>
+  <ellipse cx="255" cy="336" rx="13" ry="9" fill="#4a0f13"/>
+
+  <!-- 顺身体下淌的暗色液体 -->
+  <path d="M252 448 q-4 26 2 46" fill="none" stroke="#2a0a0d" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+  <path d="M266 446 q6 22 0 40" fill="none" stroke="#2a0a0d" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+
+  <!-- 方帽（保留，转为暗蓝发灰） -->
+  <rect x="180" y="132" width="152" height="92" rx="12" fill="url(#capC)" stroke="#0b1220" stroke-width="6"/>
+  <rect x="204" y="164" width="104" height="32" rx="6" fill="#0b1220" opacity="0.45"/>
+
+  <!-- 脸：仍是两个黑点，但成了空洞；微笑被拉长裂开 -->
+  <circle cx="218" cy="292" r="16" fill="#000000"/>
+  <circle cx="294" cy="292" r="16" fill="#000000"/>
+  <path d="M228 330 Q256 344 284 330" fill="none" stroke="#0a0a0a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M232 332 Q256 340 280 332" fill="none" stroke="#6e1414" stroke-width="3" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- 轻微颤抖重描的轮廓感 -->
+  <ellipse cx="256" cy="330" rx="126" ry="122" fill="none" stroke="#000000" stroke-width="2.5" opacity="0.5"
+           transform="translate(1.6,1.2)"/>
+</svg>

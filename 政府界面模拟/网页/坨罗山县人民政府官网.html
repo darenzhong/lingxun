@@ -1,0 +1,3112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>坨罗山县人民政府</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23C7000B'/%3E%3Ccircle cx='32' cy='32' r='23' fill='none' stroke='%23F4C95D' stroke-width='3'/%3E%3Cpath d='M32 11 L34.5 15 L29.5 15 Z' fill='%23F4C95D'/%3E%3Cpath d='M17 44 L27 29 L33 37 L39 29 L47 44 Z' fill='%23F4C95D'/%3E%3Cpath d='M13 48 Q24 41 32 47 Q40 53 51 47 L51 51 Q40 57 32 51 Q24 45 13 51 Z' fill='%23FFFFFF'/%3E%3C/svg%3E">
+<meta name="description" content="坨罗山县人民政府官网（网页解谜游戏演示站），内容纯属虚构。">
+<style>
+:root{
+  --blue:#1F4E9C; --blue-d:#16386F; --blue-dd:#0F2A55;
+  --red:#C7000B; --gold:#D4A017;
+  --bg:#EDF2F9; --card:#FFFFFF; --line:#D7DFEA;
+  --text:#2B2B2B; --muted:#6B7686;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Microsoft YaHei","微软雅黑","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+img{display:block;max-width:100%}
+ul{list-style:none}
+.container{max-width:1200px;margin:0 auto;padding:0 12px}
+button{font-family:inherit;cursor:pointer}
+
+/* ===== 顶部工具条 ===== */
+.topbar{background:var(--blue-d);color:#DCE6F5;font-size:15px}
+.topbar .container{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;min-height:64px;gap:10px 16px}
+.topbar a{color:#DCE6F5;padding:5px 8px;white-space:nowrap}
+.topbar a:hover{color:#fff;text-decoration:none}
+.topbar .t-left{display:flex;flex-wrap:wrap;align-items:center;gap:2px}
+.topbar .t-left .sep{opacity:.35;margin:0 2px}
+.topbar .t-right{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
+.search-box{display:flex;align-items:center;background:#fff;border-radius:4px;overflow:hidden;
+  box-shadow:0 2px 6px rgba(0,0,0,.22)}
+.search-box input{border:0;outline:0;padding:11px 16px;font-size:17px;width:320px;color:#222;
+  font-family:inherit}
+.search-box button{border:0;background:var(--red);color:#fff;padding:11px 28px;font-size:17px;
+  letter-spacing:3px;font-weight:600;cursor:pointer;font-family:inherit}
+.search-box button:hover{background:#C4000B}
+.hotwords{display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;color:#9FB4DC}
+.hotwords b{font-weight:normal;color:#7D94C4}
+.hotwords a{color:#C9D8F2}
+.hotwords a:hover{color:#fff}
+
+/* ===== 主横幅 ===== */
+.mainhead{background:#fff;border-bottom:3px solid var(--blue)}
+.mainhead .container{display:flex;align-items:center;min-height:104px;gap:14px;padding:10px 12px}
+.emblem-wrap{width:74px;height:74px;flex:0 0 74px}
+.emblem-wrap img{width:100%;height:100%;object-fit:contain}
+.gov-title h1{font-size:30px;color:var(--blue);letter-spacing:2px;font-weight:700;line-height:1.2}
+.gov-title .en{font-size:12px;color:var(--muted);letter-spacing:.5px;margin-top:2px}
+.head-banner{flex:1;min-width:0;height:96px;border-radius:4px;overflow:hidden;background:url(素材/brand/banner-winter.jpg) center/cover no-repeat}
+@media(max-width:820px){
+  .mainhead .container{min-height:86px}
+  .emblem-wrap{width:58px;height:58px;flex-basis:58px}
+  .gov-title h1{font-size:22px}
+  .head-banner{display:none}
+}
+
+/* ===== 主导航 ===== */
+.nav{background:var(--blue)}
+.nav .container{display:flex;flex-wrap:wrap}
+.nav a{color:#fff;font-size:16px;padding:12px 20px;display:block;position:relative}
+.nav a:hover{background:var(--blue-d);text-decoration:none}
+.nav a.active{background:var(--blue-dd);font-weight:700}
+@media(max-width:700px){
+  .nav a{font-size:14.5px;padding:10px 13px;flex:1 1 auto;text-align:center}
+}
+
+/* ===== 通用区块 ===== */
+.view{display:none}
+.view.active{display:block}
+main{padding:18px 0 30px;min-height:60vh}
+.sec{margin-top:18px}
+.sec-title{display:flex;align-items:center;border-bottom:2px solid var(--blue);padding-bottom:8px;margin-bottom:12px}
+.sec-title::before{content:"";width:5px;height:20px;background:var(--red);margin-right:8px;flex:0 0 5px}
+.sec-title h2{font-size:20px;color:var(--blue);font-weight:700;display:flex;align-items:center;gap:6px}
+.sec-icon{width:24px;height:24px;object-fit:contain;flex:0 0 24px}
+.sec-title .more{margin-left:auto;font-size:13px;color:var(--muted)}
+.sec-title .more a{color:var(--muted)}
+.sec-title .more a:hover{color:var(--red);text-decoration:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:16px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr}
+.g3{grid-template-columns:1fr}
+.g4{grid-template-columns:1fr 1fr}
+@media(min-width:768px){.g2{grid-template-columns:1fr 1fr}.g4{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.g3{grid-template-columns:1fr 1fr 1fr}.g4{grid-template-columns:repeat(4,1fr)}}
+
+/* 图标 */
+.icon-chip{width:46px;height:46px;flex:0 0 46px;border:1px solid var(--line);background:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.icon-chip img{width:32px;height:32px;object-fit:contain}
+.icon-chip-lg{width:60px;height:60px;flex-basis:60px}
+.icon-chip-lg img{width:44px;height:44px}
+
+/* ===== 轮播 ===== */
+.carousel{position:relative;overflow:hidden;border-radius:4px;border:1px solid var(--line);background:#fff}
+.slide{position:relative;display:none}
+.slide.active{display:block}
+.slide img{width:100%;aspect-ratio:16/8.2;object-fit:cover}
+.slide-cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));color:#fff;padding:26px 16px 12px}
+.slide-cap h3{font-size:20px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.slide-cap p{font-size:13.5px;color:#E8EEF8;margin-top:2px}
+.car-dots{position:absolute;right:12px;bottom:10px;display:flex;gap:6px}
+.car-dots span{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.55);cursor:pointer}
+.car-dots span.on{background:var(--red)}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:44px;background:rgba(15,42,85,.45);color:#fff;border:0;font-size:20px;line-height:1;z-index:3}
+.car-arrow:hover{background:rgba(15,42,85,.75)}
+.car-arrow.prev{left:0;border-radius:0 4px 4px 0}
+.car-arrow.next{right:0;border-radius:4px 0 0 4px}
+
+/* ===== 新闻列表 ===== */
+.news-list li{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px dashed var(--line)}
+.news-list li:last-child{border-bottom:0}
+.news-list .tag{flex:0 0 auto;font-size:11.5px;color:var(--red);border:1px solid var(--red);border-radius:2px;padding:0 5px;line-height:16px}
+.news-list .nt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.news-list .nt a{color:var(--text)}
+.news-list .nt a:hover{color:var(--red);text-decoration:none}
+.news-list .date{flex:0 0 auto;font-size:12.5px;color:var(--muted)}
+
+/* 通知公告 / 列表 */
+.notice-list li{padding:9px 2px;border-bottom:1px dashed var(--line);display:flex;gap:8px;align-items:center}
+.notice-list li:last-child{border-bottom:0}
+.notice-list a{color:var(--text);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.notice-list a:hover{color:var(--red);text-decoration:none}
+.notice-list .date{font-size:12.5px;color:var(--muted);flex:0 0 auto}
+
+/* 专题卡片 */
+.topic-card{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:2px;padding:16px}
+.topic-card h3{font-size:17px;color:var(--blue);margin-bottom:4px}
+.topic-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+.topic-card .more{font-size:13px}
+
+/* 政务栏目块 */
+.gov-block{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:16px}
+.gov-block h3{font-size:17px;color:var(--blue);display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.gov-block ul li{padding:7px 0;border-bottom:1px dashed var(--line)}
+.gov-block ul li:last-child{border-bottom:0}
+.gov-block ul a{color:var(--text);font-size:14.5px}
+.gov-block ul a:hover{color:var(--red);text-decoration:none}
+
+/* ===== 页脚 ===== */
+footer{background:var(--blue-d);color:#C8D6EC;font-size:13px;margin-top:30px}
+.footer-main{padding:24px 0 18px;text-align:center;line-height:2}
+.footer-main .org{font-size:14px;color:#fff}
+.footer-links{margin-top:6px}
+.footer-links a{color:#C8D6EC;margin:0 8px}
+.footer-links a:hover{color:#fff}
+.footer-note{color:#8FA5CC;font-size:12px;padding:10px 0 16px;text-align:center;border-top:1px solid rgba(255,255,255,.12);margin-top:14px;line-height:1.9}
+
+/* ===== 悬浮洋辣子 ===== */
+.mascot{position:fixed;right:14px;bottom:14px;width:62px;height:62px;z-index:70;cursor:pointer;animation:mascotWiggle 2.8s ease-in-out infinite}
+.mascot img{width:100%;height:100%;object-fit:contain}
+.mascot.jump{animation:mascotJump .7s ease}
+@keyframes mascotWiggle{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+@keyframes mascotJump{0%{transform:translateY(0) scale(1)}30%{transform:translateY(-22px) scale(1.25)}60%{transform:translateY(2px) scale(.95)}100%{transform:translateY(0) scale(1)}}
+
+/* ===== 404 覆盖层 ===== */
+#view-404{position:fixed;inset:0;z-index:100;background:#000 url(素材/brand/mascot-404.jpg) center/cover no-repeat;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:34px}
+#view-404.active{display:flex;animation:shake .45s linear 2}
+@keyframes shake{0%,100%{transform:translate(0,0)}20%{transform:translate(-14px,6px)}40%{transform:translate(12px,-6px)}60%{transform:translate(-9px,4px)}80%{transform:translate(8px,-3px)}}
+#view-404 .p404-title{color:#fff;font-size:34px;font-weight:900;text-shadow:0 2px 10px rgba(0,0,0,.8);letter-spacing:4px}
+#view-404 .p404-sub{color:#E3ECF8;font-size:15px;margin-top:6px;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+#view-404 .p404-btns{margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+#view-404 .p404-btns a{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);color:#fff;padding:8px 18px;border-radius:3px;font-size:14px}
+#view-404 .p404-btns a:hover{background:rgba(255,255,255,.28);text-decoration:none}
+
+/* ===== 弹窗 ===== */
+.modal-mask{position:fixed;inset:0;background:rgba(10,20,40,.5);z-index:120;display:none;align-items:center;justify-content:center;padding:14px}
+.modal-mask.show{display:flex}
+.modal{background:#fff;border-radius:4px;max-width:520px;width:100%;max-height:86vh;overflow:auto}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:var(--blue);color:#fff}
+.modal-head h3{font-size:16px;font-weight:700}
+.modal-close{border:0;background:rgba(255,255,255,.18);color:#fff;width:26px;height:26px;border-radius:3px;font-size:14px;line-height:1}
+.modal-close:hover{background:rgba(255,255,255,.35)}
+.modal-body{padding:18px;font-size:14.5px;line-height:1.9;color:#333}
+.form-row{margin-bottom:12px}
+.form-row label{display:block;font-size:13.5px;color:var(--muted);margin-bottom:4px}
+.form-row input{width:100%;border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-size:15px;outline:0}
+.form-row input:focus{border-color:var(--blue)}
+.btn{display:inline-block;border:0;background:var(--blue);color:#fff;padding:9px 22px;border-radius:3px;font-size:14.5px}
+.btn:hover{background:var(--blue-d)}
+.btn-red{background:var(--red)}
+.btn-red:hover{background:#A30009}
+.btn-line{background:transparent;border:1px solid var(--line);color:var(--blue)}
+.btn-line:hover{background:#F0F4FB}
+.disclaim{background:#FAFBFD;border:1px solid var(--line);border-radius:3px;padding:12px 14px;font-size:13.5px;color:#444;line-height:2}
+.disclaim b{color:var(--blue)}
+
+/* ===== 文章正文 ===== */
+.article{max-width:880px;margin:0 auto}
+.article h1{font-size:24px;color:#111;text-align:center;line-height:1.5;padding:6px 0 10px}
+.article .meta{text-align:center;color:var(--muted);font-size:13px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
+.article-body{font-family:"SimSun","宋体","Microsoft YaHei",serif;font-size:16.5px;line-height:2;color:#333}
+.article-body p{margin-bottom:14px;text-indent:2em}
+.article-body h3{font-size:17.5px;color:var(--blue);margin:16px 0 8px;text-indent:0}
+.article-body table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+.article-body th,.article-body td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.article-body th{background:#F0F4FB}
+
+/* ===== 论坛 ===== */
+.forum-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.forum-tabs button{border:1px solid var(--line);background:#fff;color:var(--blue);padding:7px 16px;border-radius:3px;font-size:14px}
+.forum-tabs button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.post-item{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:12px 14px;margin-bottom:10px;display:flex;gap:10px;align-items:center;cursor:pointer;transition:border-color .15s}
+.post-item:hover{border-color:var(--blue)}
+.post-item .tag{flex:0 0 auto;font-size:11.5px;padding:1px 6px;border-radius:2px}
+.post-item .tag.letter{background:#FDECEC;color:var(--red)}
+.post-item .tag.chat{background:#EAF2FE;color:var(--blue)}
+.post-item .tag.vote{background:#F3F0E7;color:#8A6D1D}
+.post-item .tag.report{background:#F7EEE8;color:#9A4A1F}
+.post-item .pt{flex:1;min-width:0;color:var(--text);font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post-item .pt:hover{color:var(--red)}
+.post-item .st{flex:0 0 auto;font-size:12px}
+.post-item .st .badge{display:inline-block;padding:1px 8px;border-radius:2px;margin-left:6px}
+.badge.doing{background:#FFF4E0;color:#B26A00}
+.badge.done{background:#E9F6EC;color:#1E7A34}
+.badge.recv{background:#EAF2FE;color:#1F4E9C}
+.post-item .pm{flex:0 0 auto;font-size:12px;color:var(--muted)}
+.pinned{background:#FBF7EC;border-color:#E3D5AE}
+.pinned .pt{font-weight:700}
+.thread{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px}
+.thread h3{font-size:18px;color:#111;line-height:1.6}
+.thread .tmeta{color:var(--muted);font-size:12.5px;margin:8px 0 12px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.thread .tcontent{font-size:15px;line-height:1.9;color:#333}
+.thread .tstatus{margin-top:12px;background:#F7F9FD;border:1px solid var(--line);border-left:4px solid var(--blue);padding:12px 14px;font-size:14px;color:#333}
+.thread .treply{margin-top:12px;background:#F2FAF4;border:1px solid #CBE7D2;border-left:4px solid #1E7A34;padding:12px 14px;font-size:14px;color:#333}
+.thread .treply b{color:#1E7A34}
+.back-link{display:inline-block;margin-top:16px;font-size:14px}
+
+/* ===== 毕业展 ===== */
+.year-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.year-tabs button{border:1px solid var(--line);background:#fff;color:var(--blue);padding:8px 22px;border-radius:3px;font-size:15px;position:relative}
+.year-tabs button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.year-tabs button .dot{position:absolute;top:-4px;right:-4px;width:8px;height:8px;border-radius:50%;background:var(--red);display:none}
+.year-tabs button .dot.show{display:block}
+.grad-card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:14px;text-align:center}
+.grad-photo{width:82px;height:82px;margin:0 auto 10px;border-radius:50%;overflow:hidden;position:relative;border:2px solid #DCE5F2;background:linear-gradient(160deg,#E8EFF9,#CBD9EE);display:flex;align-items:center;justify-content:center}
+.grad-photo img{width:100%;height:100%;object-fit:cover}
+.grad-photo .gph{font-size:26px;font-weight:700;color:#5C7BA8;letter-spacing:1px;line-height:1}
+.grad-card .gname{font-size:16px;font-weight:700;color:#222}
+.grad-card .gschool{font-size:13px;color:var(--muted);margin-top:3px}
+.grad-card .ghonor{font-size:12.5px;color:var(--red);margin-top:2px}
+.grad-note{font-size:13px;color:var(--muted);background:#F7F9FD;border:1px solid var(--line);border-radius:3px;padding:10px 14px;margin-bottom:14px}
+.grad-empty{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:2px;padding:34px 20px;text-align:center;color:var(--muted);font-size:14.5px;line-height:2}
+/* 空数据伪装成加载失败 */
+.grad-err{display:flex;flex-direction:column;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:2px;padding:36px 20px;text-align:center;color:var(--muted);font-size:14.5px}
+.grad-err .ge-msg{line-height:1.9;max-width:660px}
+.grad-err .ge-msg b{color:#B26A00;font-weight:700}
+.grad-err .ge-msg s{color:#B0BCCC}
+.grad-err .ge-retry{color:var(--link);text-decoration:underline;cursor:pointer}
+.grad-err .ge-retry:hover{color:var(--red)}
+.grad-err .ge-spin{display:inline-block;width:13px;height:13px;border:2px solid var(--line);border-top-color:var(--blue);border-radius:50%;vertical-align:-2px;margin-right:4px;animation:geSpin .7s linear infinite}
+@keyframes geSpin{to{transform:rotate(360deg)}}
+.grad-err .ge-err{color:var(--red);font-family:Consolas,"Courier New",monospace;font-size:13px}
+
+/* ===== 过往专题档案列表 ===== */
+.archive-list{list-style:none}
+.archive-list li{border-bottom:1px dashed var(--line)}
+.archive-list li:last-child{border-bottom:0}
+.archive-list a,.archive-list li>span{display:block;padding:12px 4px;position:relative}
+.archive-list a:hover{background:#F7F9FD;text-decoration:none}
+.archive-list .ayear{display:inline-block;font-size:13px;font-weight:700;color:#fff;background:var(--blue);border-radius:2px;padding:1px 9px;margin-bottom:6px}
+.archive-list li>span>.ayear{background:var(--muted)}
+.archive-list .atitle{font-size:16px;font-weight:700;color:var(--text);display:block}
+.archive-list a:hover .atitle{color:var(--red)}
+.archive-list .abadge{display:inline-block;font-size:11.5px;color:#fff;background:var(--red);border-radius:2px;padding:1px 7px;margin-left:8px;vertical-align:2px;font-weight:400}
+.archive-list .adesc{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.archive-list .amore{position:absolute;right:6px;top:14px;font-size:13px;color:var(--blue)}
+.archive-list li>span .amore{display:none}
+
+/* ===== 案件时间线 ===== */
+.tl{list-style:none;position:relative;padding-left:22px}
+.tl::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl li{position:relative;padding:8px 0 8px 4px;font-size:14.5px;line-height:1.9;color:#333}
+.tl li::before{content:"";position:absolute;left:-21px;top:16px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--blue)}
+.tl li b{color:var(--blue)}
+
+/* ===== 智能问答 ===== */
+.ai-wrap{display:flex;gap:18px;align-items:flex-start}
+.ai-side{flex:0 0 132px;text-align:center}
+.ai-avatar{width:104px;height:104px;margin:0 auto;border-radius:50%;overflow:hidden;border:3px solid var(--line);background:#F4F8FD;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+.ai-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.ai-name{font-size:15px;font-weight:700;color:var(--blue);margin-top:8px}
+.ai-role{font-size:12px;color:var(--muted);margin-top:1px}
+.ai-state{display:inline-block;font-size:11.5px;color:#1E7A34;background:#E9F6EC;border:1px solid #CBE7D2;border-radius:2px;padding:1px 8px;margin-top:7px}
+.ai-main{flex:1;min-width:0}
+.ai-log{max-height:250px;overflow-y:auto;background:#F7F9FD;border:1px solid var(--line);border-radius:3px;padding:12px 14px;font-size:14.5px;line-height:1.85}
+.ai-msg{margin-bottom:11px}
+.ai-msg:last-child{margin-bottom:0}
+.ai-msg .who{font-size:12px;color:var(--muted);margin-bottom:3px}
+.ai-msg .bubble{display:inline-block;max-width:100%;padding:8px 12px;border-radius:3px;white-space:pre-wrap;word-break:break-word}
+.ai-msg.me{text-align:right}
+.ai-msg.me .bubble{background:var(--blue);color:#fff;text-align:left}
+.ai-msg.bot .bubble{background:#fff;border:1px solid var(--line);color:#333}
+.ai-msg.bot.sys .bubble{background:#FFF4E0;border-color:#E8D4A8;color:#B26A00}
+.ai-caret{display:inline-block;width:7px;height:15px;background:var(--blue);vertical-align:-2px;animation:aiBlink .7s steps(1) infinite}
+@keyframes aiBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.ai-chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.ai-chips button{border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:14px;padding:4px 13px;font-size:13px;cursor:pointer;font-family:inherit}
+.ai-chips button:hover{background:#F0F4FB;border-color:var(--blue)}
+.ai-input{display:flex;gap:8px}
+.ai-input input{flex:1;min-width:0;border:1px solid var(--line);border-radius:3px;padding:9px 11px;font-size:14.5px;outline:0;font-family:inherit}
+.ai-input input:focus{border-color:var(--blue)}
+.ai-input button{border:0;background:var(--blue);color:#fff;border-radius:3px;padding:0 22px;font-size:14.5px;cursor:pointer;font-family:inherit}
+.ai-input button:hover{background:var(--blue-d)}
+.ai-tip{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.8}
+@media(max-width:700px){
+  .ai-wrap{flex-direction:column;align-items:center}
+  .ai-side{flex:none}
+  .ai-main{width:100%}
+}
+
+/* ===== 崩坏态：形象与全站 ===== */
+.ai-wrap.corrupt{border-color:#3A0A0E;box-shadow:0 0 0 1px #3A0A0E,0 0 26px rgba(140,0,0,.28) inset}
+.ai-wrap.corrupt .ai-avatar{border-color:#7A1016;animation:aiShiver .16s steps(2) infinite}
+.ai-wrap.corrupt .ai-state{color:#A30009;background:#FDECEC;border-color:#E8B4B4}
+.ai-wrap.corrupt .ai-log{border-color:#E8B4B4;background:#FFF7F7}
+.ai-msg.bot.err .bubble{background:#1A0508;border-color:#7A1016;color:#FF8C8C;font-family:Consolas,"Courier New",monospace;font-size:13px;line-height:1.7}
+@keyframes aiShiver{0%{transform:translate(0,0)}50%{transform:translate(-1px,1px)}100%{transform:translate(1px,0)}}
+
+/* 全站崩溃覆盖层 */
+#crash{position:fixed;inset:0;z-index:400;background:#07080B;color:#B9C3CF;display:none;overflow:auto}
+#crash.on{display:block;animation:crashIn .5s steps(3)}
+@keyframes crashIn{0%{opacity:0;transform:skewX(6deg) scaleY(1.06)}100%{opacity:1;transform:none}}
+#crash .cr-in{max-width:820px;margin:0 auto;padding:44px 22px 60px;font-family:Consolas,"Courier New",monospace;font-size:13.5px;line-height:1.95}
+#crash .cr-glitch{font-size:38px;font-weight:900;letter-spacing:5px;color:#D9232E;text-shadow:3px 0 #14E0C8,-3px 0 #D9232E;animation:crGlitch .5s steps(2) infinite;margin-bottom:6px}
+@keyframes crGlitch{0%{transform:translate(0)}33%{transform:translate(-2px,1px)}66%{transform:translate(2px,-1px)}100%{transform:translate(0)}}
+#crash .cr-sub{color:#6B7686;margin-bottom:22px;font-size:13px}
+#crash pre{white-space:pre-wrap;word-break:break-all;color:#8C97A6;margin:0 0 16px;font-family:inherit}
+#crash .cr-err{color:#FF8C8C}
+#crash .cr-corrupt{color:#5C6672}
+#crash .cr-time{color:#D9A62E}
+#crash hr{border:0;border-top:1px dashed #23272E;margin:18px 0}
+#crash .cr-btn{display:inline-block;border:1px solid #4A535F;background:transparent;color:#DCE6F5;padding:9px 24px;font-size:14px;font-family:inherit;cursor:pointer;border-radius:2px}
+#crash .cr-btn:hover{background:#1A1F27;border-color:#8C97A6}
+#crash .cr-hint{color:#4A535F;font-size:12.5px;margin-top:14px}
+#crash .cr-scan{position:fixed;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.045) 0 1px,transparent 1px 3px)}
+#crash .cr-flash{position:fixed;inset:0;pointer-events:none;background:#fff;opacity:0;animation:crFlash 3.2s steps(1) infinite}
+@keyframes crFlash{0%,96%{opacity:0}97%{opacity:.05}98%{opacity:0}99%{opacity:.03}100%{opacity:0}}
+body.crashing{filter:invert(1) hue-rotate(120deg) contrast(1.3);transition:filter .12s}
+
+/* ===== 毕业照闪帧（连点 5 次刷新后播放三帧：正常 → 歪脖 → 扭曲） ===== */
+#flash3{position:fixed;inset:0;z-index:500;background:#000;display:none;overflow:hidden}
+#flash3.on{display:block}
+#flash3 img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:100%;height:100%;object-fit:cover;display:none}
+#flash3 img.show{display:block}
+
+/* ===== 表格（政务信息表统一外观） ===== */
+.tbl-h,.tbl-c,.tbl-h9{border:1px solid var(--line)}
+.tbl-h{padding:8px 10px;text-align:left}
+.tbl-h9{padding:9px 10px;text-align:left}
+.tbl-c{padding:8px 10px}
+.tbl-th-row{background:#F0F4FB}
+/* 表头里的可排序/说明性小字 */
+.tbl-note{font-size:13.5px;color:var(--muted);margin-top:10px}
+
+/* ===== 文本块（正文/说明各一档，避免到处写 font-size） ===== */
+.tx-lead{font-size:15px;line-height:2;color:#333}
+.tx-body{font-size:14px;line-height:1.9;color:#444}
+.tx-note{font-size:13.5px;color:var(--muted)}
+
+/* ===== 间距小工具 ===== */
+.mb14{margin-bottom:14px}
+.mt6{margin-top:6px}
+.mt10{margin-top:10px}
+.mt16{margin-top:16px}
+.mt18{margin-top:18px}
+.back-wrap{text-align:center;margin-top:20px}
+
+/* ===== 高考成绩表 ===== */
+/* 专访里的受访人小标题 */
+.iv-q{display:block;font-family:"Microsoft YaHei","微软雅黑",system-ui,sans-serif;font-size:17px;font-weight:700;color:var(--blue);margin:20px 0 8px;text-indent:0}
+.iv-q::before{content:"";display:inline-block;width:4px;height:16px;background:var(--red);margin-right:8px;vertical-align:-2px}
+.score-wrap{margin:18px 0 6px}
+.score-cap{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.score-pre{font-size:14px;line-height:1.9;color:#333;margin-bottom:10px}
+/* 理科/文科切换 */
+.score-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.score-tab{border:1px solid var(--line);background:#fff;color:var(--blue);padding:6px 16px;border-radius:3px;font-size:14px;font-family:inherit;cursor:pointer}
+.score-tab:hover{background:#F0F4FB;border-color:var(--blue)}
+.score-tab.on{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700}
+.score-pane{display:none}
+.score-pane.on{display:block}
+.score-tbl{width:100%;border-collapse:collapse;font-size:14px}
+.score-tbl th,.score-tbl td{border:1px solid var(--line);padding:7px 10px;text-align:center;white-space:nowrap}
+.score-tbl th{background:#F0F4FB;color:#5a6b80;font-weight:normal}
+.score-tbl .score-name{text-align:left;font-weight:700;color:#222}
+.score-tbl tbody tr:hover{background:#FAFCFF}
+/* 作废那一行：淡红底 + 灰字，让它在十行里一眼跳出来 */
+.score-voidrow{background:#FDF6F6}
+.score-voidrow:hover{background:#FCEFEF}
+.score-voidrow .score-name{color:#A30009}
+.score-void{color:#B0BCCC;text-decoration:line-through;letter-spacing:1px}
+.score-mark{display:inline-block;font-size:11.5px;color:#fff;background:var(--red);border-radius:2px;padding:0 6px;margin-left:2px;vertical-align:1px}
+.score-note{font-size:12.5px;color:var(--muted);line-height:1.9;margin-top:10px;text-indent:0}
+@media(max-width:700px){
+  .score-tbl{font-size:13px}
+  .score-tbl th,.score-tbl td{padding:6px 6px;white-space:normal}
+}
+
+/* ===== 搜索 ===== */
+.search-res li{padding:10px 2px;border-bottom:1px dashed var(--line);display:flex;align-items:flex-start;gap:10px}
+.search-res .stype{flex:0 0 auto;font-size:11.5px;color:var(--blue);border:1px solid var(--blue);border-radius:2px;padding:0 5px;line-height:16px;margin-top:2px}
+.search-res .st{flex:1;min-width:0}
+.search-res .st a{color:var(--text);font-size:15px}
+.search-res .st a:hover{color:var(--red);text-decoration:none}
+.search-res .smeta{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.search-res .sabs{display:block;font-size:13px;color:#555;line-height:1.75;margin-top:5px}
+.empty{text-align:center;color:var(--muted);padding:40px 0;font-size:14.5px}
+
+/* ===== 档案详情（搜索结果点进去的原始函件） ===== */
+.filerow{display:flex;flex-wrap:wrap;gap:2px 18px;font-size:13px;color:var(--muted);margin-top:6px}
+.filerow b{color:#555;font-weight:normal}
+.doc{border:1px solid var(--line);background:#FCFDFE;padding:20px 24px;font-size:14.5px;line-height:2;color:#2E3440}
+.doc h4{font-size:15px;color:var(--navy);margin:18px 0 6px;padding-left:9px;border-left:3px solid var(--blue)}
+.doc h4:first-child{margin-top:0}
+.doc p{margin-bottom:10px}
+.doc .ind{text-indent:2em}
+.doc .rt{text-align:right;margin-top:16px}
+.doc .stamp{margin-top:14px;text-align:right;color:var(--red);font-size:14px;letter-spacing:2px;border-top:1px dashed var(--line);padding-top:10px}
+.doc-note{background:#FFFBF0;border:1px dashed #EFD9B4;border-radius:3px;padding:12px 16px;font-size:13.5px;line-height:1.9;color:#7A5A28}
+.doc-note b{color:var(--red)}
+mark.sens{background:none;color:var(--red);font-weight:700;border-bottom:1px solid var(--red);padding:0 1px}
+.related{margin-top:6px}
+.related a{display:inline-block;background:#fff;border:1px solid var(--line);border-radius:2px;padding:4px 11px;margin:0 8px 8px 0;font-size:13px;color:#555}
+.related a:hover{border-color:var(--red);color:var(--red)}
+
+/* ===== Toast ===== */
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%);background:rgba(20,30,55,.92);color:#fff;padding:10px 22px;border-radius:4px;font-size:14px;z-index:300;opacity:0;pointer-events:none;transition:opacity .25s;max-width:86vw;text-align:center}
+#toast.show{opacity:1}
+
+/* ===== 长者版 / 高对比 ===== */
+body.elder{background:#F5F7FA}
+body.elder .topbar{font-size:14px}
+body.elder .nav a{font-size:18px}
+body.elder .sec-title h2{font-size:24px}
+body.elder .article-body{font-size:20px}
+body.elder .article h1{font-size:30px}
+body.elder .news-list li,body.elder .notice-list li,body.elder .post-item{font-size:17px}
+body.hc{filter:contrast(1.18) saturate(1.12)}
+
+/* 打印无关提示 */
+.demo-flag{background:#FDF6EC;border:1px dashed #E0C88A;color:#8A6D1D;font-size:12.5px;padding:6px 12px;border-radius:3px;text-align:center}
+</style>
+</head>
+<body>
+
+<header>
+  <!-- 顶部小字条 -->
+  <div class="topbar">
+    <div class="container">
+      <div class="t-left">
+        <span>坨罗山县人民政府</span>
+        <span class="sep">|</span>
+        <a href="#access" id="link-access" class="no-nav">无障碍浏览</a>
+        <span class="sep">|</span>
+        <a href="#" id="link-elder">长者版</a>
+        <span class="sep">|</span>
+        <a href="#" id="link-trad">繁体</a>
+        <span class="sep">|</span>
+        <a href="#" id="link-english">English</a>
+      </div>
+      <div class="t-right">
+        <a href="#" id="link-login">登录</a>
+        <span class="sep">|</span>
+        <a href="#" id="link-reg">注册</a>
+        <span class="sep">|</span>
+        <span class="search-box">
+          <input type="text" id="search-input" placeholder="站内搜索" maxlength="30">
+          <button id="search-btn">检索</button>
+        </span>
+        <span class="hotwords">
+          <b>热词：</b>
+          <a href="#/news?id=5">煤矿换新颜</a>
+          <a href="#/news?id=6">龙祥市场改造</a>
+          <a href="#/zgaokao">2026年高考</a>
+          <a href="#/news?id=3">黎明湖水库</a>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 顶部横幅 -->
+  <div class="mainhead">
+    <div class="container">
+      <div class="emblem-wrap"><img src="素材/brand/emblem.png" alt="坨罗山县徽章"></div>
+      <div class="gov-title">
+        <h1>坨罗山县人民政府</h1>
+        <div class="en">Tuoluoshan County People's Government</div>
+      </div>
+      <div class="head-banner" role="img" aria-label="冬季县城远景横幅图"></div>
+    </div>
+  </div>
+
+  <!-- 主导航 -->
+  <nav class="nav" aria-label="主导航">
+    <div class="container">
+      <a href="#/home" data-nav="home">首页</a>
+      <a href="#/xianqing" data-nav="xianqing">县情概况</a>
+      <a href="#/zhengwu" data-nav="zhengwu">政务公开</a>
+      <a href="#/fuwu" data-nav="fuwu">政务服务</a>
+      <a href="#/hudong" data-nav="hudong">政民互动</a>
+      <a href="#/news" data-nav="news">本地新闻</a>
+      <a href="#/zhuanti" data-nav="zhuanti">专题专栏</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <!-- ================= 首页 ================= -->
+  <section class="view" id="view-home" data-view="home">
+    <div class="container">
+      <div class="demo-flag">本网站正在进行例行维护，维护期间暂时无法登录，注册及使用相关功能。</div>
+
+      <!-- 轮播图 -->
+      <div id="carousel" class="carousel mt18">
+        <div class="slide active">
+          <img src="素材/brand/carousel-coal.jpg" alt="煤矿换新颜">
+          <div class="slide-cap"><h3>煤矿换新颜：老矿区踏上文旅转型新路</h3><p>我县召开煤矿关停后续安置暨转型旅游工作部署会议，老矿区将打造工业遗址旅游线路。</p></div>
+        </div>
+        <div class="slide">
+          <img src="素材/brand/carousel-market.jpg" alt="龙祥市场改造">
+          <div class="slide-cap"><h3>龙祥市场改造顺利推进 摊贩经营更规范</h3><p>城管队员与摊贩共建规范化市场，地摊经济有序回归，市场面貌焕然一新。</p></div>
+        </div>
+        <div class="slide">
+          <img src="素材/brand/carousel-school.jpg" alt="领导检查学校">
+          <div class="slide-cap"><h3>县领导检查坨罗山高级中学办学设施</h3><p>县领导深入校园实地查看教室与活动场所，强调全力保障学生学习生活环境。</p></div>
+        </div>
+        <div class="slide">
+          <img src="素材/brand/carousel-lake.jpg" alt="黎明湖水库改造">
+          <div class="slide-cap"><h3>黎明湖水库改造惠民生 玉米种植户得实惠</h3><p>水库除险加固与配套灌溉工程完工，保障周边玉米主产区用水，农户喜获丰收。</p></div>
+        </div>
+        <button class="car-arrow prev" id="car-prev" aria-label="上一张">‹</button>
+        <button class="car-arrow next" id="car-next" aria-label="下一张">›</button>
+        <div class="car-dots" id="car-dots"></div>
+      </div>
+
+      <!-- 新闻头条 + 政民互动热点 ／ 通知公告 + 专题专栏 -->
+      <div class="grid g2 mt18">
+
+        <!-- ══ 左栏 ══ -->
+        <div>
+          <div class="sec">
+            <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-news.jpg" alt="新闻图标">新闻头条</h2><span class="more"><a href="#/news">更多 »</a></span></div>
+            <div class="card"><ul class="news-list">
+              <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=1">我县召开煤矿关停20年，安置工作会议</a></span><span class="date">2026-09</span></li>
+              <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=5">坨罗山煤矿旧址改造：从黑色废墟到工业遗址公园</a></span><span class="date">2026-09</span></li>
+              <li><span class="tag">民生</span><span class="nt"><a href="#/news?id=6">龙祥下岗一条街拆迁后续：原址将建市民广场</a></span><span class="date">2026-08</span></li>
+              <li><span class="tag">教育</span><span class="nt"><a href="#/news?id=4">坨罗山高中2026年高考再创佳绩</a></span><span class="date">2026-07</span></li>
+              <li><span class="tag">安全</span><span class="nt"><a href="#/news?id=3">黎明湖水库冬季安全管理工作通知</a></span><span class="date">2026-01</span></li>
+            </ul></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-complaint.jpg" alt="政民互动">政民互动热点</h2><span class="more"><a href="#/hudong">进入 »</a></span></div>
+            <div class="card">
+              <ul class="notice-list">
+                <li><span class="tag">信箱</span><span class="nt" style="flex:1"><a href="#/hudong">请问坨罗山高中2025年优秀毕业生为什么加载不出？</a></span><span class="date">2026-10</span></li>
+                <li><span class="tag">咨询</span><span class="nt" style="flex:1"><a href="#/hudong">建议延长黎明湖公园步道冬季照明时间</a></span><span class="date">2026-01</span></li>
+                <li><span class="tag">咨询</span><span class="nt" style="flex:1"><a href="#/hudong">咨询下岗职工安置补贴申领流程</a></span><span class="date">2025-12</span></li>
+                <li><span class="tag">征集</span><span class="nt" style="flex:1"><a href="#/hudong">坨罗山矿区工业遗址公园规划意见征集</a></span><span class="date">2025-11</span></li>
+              </ul>
+              <p style="padding:0 16px 14px;margin-top:6px"><a href="#/hudong" style="color:var(--red)">写信、咨询、投诉举报 »</a></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ 右栏 ══ -->
+        <div>
+          <div class="sec">
+            <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-calendar.jpg" alt="日历图标">通知公告</h2><span class="more"><a href="#/notice">查看全文 »</a></span></div>
+            <div class="card"><ul class="notice-list">
+              <li><span class="nt" style="flex:1"><a href="#/graduates">坨罗山高中2026年高考优秀学生光荣榜</a></span><span class="date">2026-10</span></li>
+              <li><span class="nt" style="flex:1"><a href="#/notice">坨罗山县2026年事业单位公开招聘工作人员公告</a></span><span class="date">2026-10</span></li>
+              <li><span class="nt" style="flex:1"><a href="#/news?id=3">黎明湖水库冬季冰面安全通告</a></span><span class="date">2026-01</span></li>
+            </ul></div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-title"><h2>专题专栏</h2><span class="more"><a href="#/zhuanti">更多 »</a></span></div>
+            <div class="grid g2">
+              <a class="topic-card" href="#/zmeikuang"><div class="icon-chip"><img src="素材/icons/icon-coal.jpg" alt="煤矿关停后续安置"></div><div><h3>煤矿关停后续安置</h3><p>老矿区安置政策落实、再就业帮扶与工业遗址公园规划公示。</p><span class="more">进入专题 »</span></div></a>
+              <a class="topic-card" href="#/zlongxiang"><div class="icon-chip"><img src="素材/icons/icon-topic.jpg" alt="龙祥市场拆迁"></div><div><h3>龙祥市场拆迁</h3><p>龙祥下岗一条街拆迁后续、商户安置与市民广场建设。</p><span class="more">进入专题 »</span></div></a>
+              <a class="topic-card" href="#/zgaokao"><div class="icon-chip"><img src="素材/icons/icon-graduation.jpg" alt="高考专题"></div><div><h3>高考专题</h3><p>坨罗山高中2026年高考再创佳绩，志愿填报与录取查询。</p><span class="more">进入专题 »</span></div></a>
+              <a class="topic-card" href="#/zheishe"><div class="icon-chip"><img src="素材/icons/icon-warning.jpg" alt="扫黑除恶"></div><div><h3>扫黑除恶</h3><p>常态化斗争新闻简报、线索举报渠道，以及2003年刘某某黑势力团伙案档案。</p><span class="more">进入专题 »</span></div></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== 智能问答（AI 助手 · 关键词问答） ===== -->
+      <div class="sec" id="ai-sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-chat.jpg" alt="智能问答">智能问答</h2><span class="more">由县信息中心提供</span></div>
+        <div class="card ai-wrap" id="ai-wrap">
+          <div class="ai-side">
+            <div class="ai-avatar" id="ai-avatar">
+              <img id="ai-avatar-img" src="素材/assistant-normal.svg" alt="坨小政">
+            </div>
+            <div class="ai-name">坨小政</div>
+            <div class="ai-role">智能问答助手</div>
+            <div class="ai-state" id="ai-state">运行正常</div>
+          </div>
+          <div class="ai-main">
+            <div class="ai-log" id="ai-log"></div>
+            <div class="ai-chips" id="ai-chips"></div>
+            <form class="ai-input" id="ai-form" autocomplete="off">
+              <input type="text" id="ai-text" placeholder="请输入您想咨询的问题，例如：户籍迁移需要什么材料？" maxlength="60">
+              <button type="submit" id="ai-send">发 送</button>
+            </form>
+            <p class="ai-tip">本助手仅依据县政府门户网站公开信息作答，涉及个人隐私、信访及司法事项请通过<a href="#/hudong">政民互动</a>栏目反映。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 服务入口（图标区） -->
+      <div class="sec">
+        <div class="sec-title"><h2>网上服务</h2></div>
+        <div class="grid g4">
+          <a class="gov-block" href="#/xianqing"><h3><span class="icon-chip"><img src="素材/icons/icon-map.jpg" alt="县情概况"></span>县情概况</h3><ul><li>坨罗山县简介</li><li>历史沿革</li><li>自然资源</li></ul></a>
+          <a class="gov-block" href="#/zhengwu"><h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="政务公开"></span>政务公开</h3><ul><li>政府信息公开</li><li>政策文件</li><li>人事任免</li></ul></a>
+          <a class="gov-block" href="#/fuwu"><h3><span class="icon-chip"><img src="素材/icons/icon-idcard.jpg" alt="政务服务"></span>政务服务</h3><ul><li>个人办事</li><li>法人办事</li><li>办件查询</li></ul></a>
+          <a class="gov-block" href="#/hudong"><h3><span class="icon-chip"><img src="素材/icons/icon-mailbox.jpg" alt="政民互动"></span>政民互动</h3><ul><li>县长信箱</li><li>在线咨询</li><li>投诉举报</li></ul></a>
+          <a class="gov-block" href="#/news"><h3><span class="icon-chip"><img src="素材/icons/icon-news.jpg" alt="本地新闻"></span>本地新闻</h3><ul><li>时政要闻</li><li>民生动态</li><li>媒体关注</li></ul></a>
+          <a class="gov-block" href="#/jiaoyu"><h3><span class="icon-chip"><img src="素材/icons/icon-school.jpg" alt="教育动态"></span>教育动态</h3><ul><li>学校名录</li><li>招生考试</li><li>优秀毕业生展示</li></ul></a>
+          <a class="gov-block" href="#/zhuanti"><h3><span class="icon-chip"><img src="素材/icons/icon-topic.jpg" alt="专题专栏"></span>专题专栏</h3><ul><li>煤矿关停后续安置</li><li>龙祥市场改造</li><li>黎明湖水库安全</li></ul></a>
+          <a class="gov-block" href="#/hudong"><h3><span class="icon-chip"><img src="素材/icons/icon-chat.jpg" alt="在线咨询"></span>在线咨询</h3><ul><li>智能问答</li><li>政策解读</li><li>办事指引</li></ul></a>
+        </div>
+      </div>
+
+      <!-- 友情链接 -->
+      <div class="sec">
+        <div class="sec-title"><h2>友情链接</h2></div>
+        <div class="card" style="display:flex;flex-wrap:wrap;gap:6px 22px;font-size:14px">
+          <a href="#" class="friend-link">市政府</a>
+          <a href="#" class="friend-link">县政府各部门</a>
+          <a href="#" class="friend-link">各乡镇</a>
+          <a href="#" class="friend-link">县属学校</a>
+          <a href="../../托罗山地图/托罗山县地图.html" target="_blank" rel="noopener">全县地图</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 县情概况 ================= -->
+  <section class="view" id="view-xianqing" data-view="xianqing">
+    <div class="container">
+      <div class="demo-flag">本网站正在进行例行维护，维护期间暂时无法登录，注册及使用相关功能。</div>
+      <div class="sec">
+        <div class="sec-title"><h2>坨罗山县简介</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip icon-chip-lg"><img src="素材/icons/icon-map.jpg" alt="地图图标"></span>位置与概况</h3>
+          <p class="tx-lead">坨罗山县位于祖国东北边陲的低山丘陵区，地处余脉山地与平原过渡地带，县城依山傍水而建。全县总面积约 3200 平方公里，常住人口约 28 万人，下辖 5 镇、2 乡、3 个街道。属寒温带大陆性季风气候，冬季漫长寒冷、雪期充足，夏季短促温凉。境内地势南高北低，黎明湖水库坐落于县城东南，是全县最大的地表水源工程。</p>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>历史沿革</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip icon-chip-lg"><img src="素材/icons/icon-scroll.jpg" alt="历史卷轴图标"></span>岁月印记</h3>
+          <p class="tx-lead">坨罗山地区早年为多民族聚居地，曾归属边境少数民族自治区域，境内金、韩等姓氏较为常见，至今仍保留多民族融合的历史印记。20 世纪中叶，随着境内煤炭资源勘探与开发，坨罗山由屯垦聚落逐步建县设镇，形成以矿业、农业为支柱的县域格局。进入 21 世纪，老矿区陆续关停，坨罗山进入转型发展的新阶段。</p>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>行政区划</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip icon-chip-lg"><img src="素材/icons/icon-population.jpg" alt="人口图标"></span>乡镇街道</h3>
+          <ul style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:4px 12px">
+            <li>坨罗山镇（县城所在地）</li>
+            <li>黎明乡</li>
+            <li>三合乡</li>
+            <li>柳毛河乡</li>
+            <li>北岗乡</li>
+            <li>红旗街道</li>
+            <li>龙祥街道</li>
+            <li>矿区街道</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>水文与凌汛</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip icon-chip-lg"><img src="素材/icons/icon-snow.jpg" alt="凌汛图标"></span>凌汛</h3>
+          <p class="tx-lead">坨罗山县地处省域东北部，境内河流结冰期长达五个月。每年春季开河时节，上游先解冻、下游仍封冻，冰水下行受阻，冰排壅塞、水位陡涨，本县俗称“跑冰排”，即水文上所称的<b>凌汛</b>。凌汛来势急、水位变化快，历史上曾多次冲决河堤、淹没沿岸苞米地，是我县最主要的自然灾害之一。1978 年，为控制凌汛与灌溉用水，我县动工修建黎明湖水库，此后上游来水得到调蓄，凌汛险情明显减少。县水务部门每年春季均发布凌汛预警，提醒沿岸群众注意安全。</p>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>自然资源</h2></div>
+        <div class="grid g3">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-coal.jpg" alt="煤矿图标"></span>煤炭资源</h3>
+            <p class="tx-body">境内煤炭资源曾十分丰富，鼎盛时期矿井林立。2003 年，坨罗山煤矿因重大安全事故永久关停，大批矿工下岗，老矿区现保留井架、矿工俱乐部等工业遗存，正规划转型为工业遗址旅游片区。</p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-corn.jpg" alt="苞米地图标"></span>耕地与玉米</h3>
+            <p class="tx-body">全县耕地面积约 180 万亩，以玉米为主栽作物，素有“苞米县”之称。黎明湖灌区覆盖周边 8 万余亩农田，是玉米稳产高产的重要保障。</p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-lake.jpg" alt="黎明湖水库图标"></span>黎明湖水库</h3>
+            <p class="tx-body">黎明湖水库建于 1978 年，为控制境内凌汛、保障灌溉用水而修建，集防洪、灌溉、供水于一体。当前正在实施除险加固与景观改造，改造完成后将兼具生态涵养与休闲功能。</p>
+          </div>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>经济发展</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip icon-chip-lg"><img src="素材/icons/icon-coal.jpg" alt="煤矿图标"></span>转型之路</h3>
+          <p class="tx-lead">煤矿关停后，全县经历了一轮大规模下岗潮，以龙祥市场为代表的老商业街区一度走向萧条。近年来，县委县政府围绕“煤矿换新颜”战略，推进老矿区工业遗存旅游开发、龙祥市场片区改造与黎明湖水库治理三大工程，同步发展玉米深加工与特色农业，县域经济正逐步走出转型阵痛期。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 政务公开 ================= -->
+  <section class="view" id="view-zhengwu" data-view="zhengwu">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-seal.jpg" alt="印章图标">政务公开</h2></div>
+        <div class="grid g3">
+          <a class="topic-card" href="#/zgyy"><div class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="公示公告"></div><div><h3>公示公告</h3><p>《坨罗山煤矿旧址工业遗址公园规划方案》公示，公示期至2026年10月15日。</p><span class="more">查看公示 »</span></div></a>
+          <a class="topic-card" href="#/notice"><div class="icon-chip"><img src="素材/icons/icon-form.jpg" alt="人事信息"></div><div><h3>人事信息</h3><p>坨罗山县2026年事业单位公开招聘工作人员公告。</p><span class="more">查看公告 »</span></div></a>
+          <a class="topic-card" href="#/news?id=1"><div class="icon-chip"><img src="素材/icons/icon-news.jpg" alt="政府会议"></div><div><h3>政府会议</h3><p>我县召开煤矿关停20年安置工作会议，部署安置巩固与转型发展任务。</p><span class="more">查看报道 »</span></div></a>
+        </div>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="文件"></span>政府信息公开</h3>
+            <ul>
+              <li><a href="#/zgyy">政府信息公开目录（2026年第三季度）</a></li>
+              <li><a href="#/notice">政府信息公开指南</a></li>
+              <li><a href="#/baoming">依申请公开受理说明</a></li>
+              <li><a href="#/news?id=3">政策文件：黎明湖水库冬季安全管理通知</a></li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-seal.jpg" alt="印章"></span>人事任免</h3>
+            <ul>
+              <li><a href="#/notice">关于高玉良等同志职务任免的通知</a></li>
+              <li><a href="#/notice">坨罗山县2026年事业单位公开招聘岗位计划表</a></li>
+              <li><a href="#/jiaoyu">县教育局关于调整招生考试办公室负责人的通知</a></li>
+            </ul>
+          </div>
+        </div>
+        <p class="demo-flag" style="margin-top:14px">本栏目部分信息以正式公文形式发布，如有疑问请咨询县信息中心：0468-1234567。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 政务服务 ================= -->
+  <section class="view" id="view-fuwu" data-view="fuwu">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-hall.jpg" alt="办事大厅图标">政务服务</h2></div>
+        <div class="grid g2">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-graduation.jpg" alt="高考报名"></span>高考报名</h3>
+            <p class="tx-note">2027年普通高考报名时间为2026年11月1日至11月10日，考生须本人办理。</p>
+            <p class="mt6"><a href="#/baoming" style="color:var(--red)">查看报名通知 »</a></p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-idcard.jpg" alt="户籍办理"></span>户籍办理</h3>
+            <p class="tx-note">户籍迁移、身份证申领等事项，请携带身份证、户口簿前往各派出所户籍窗口办理。</p>
+            <p class="mt6"><a href="#/hudong" style="color:var(--red)">在线咨询 »</a></p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="下岗职工安置"></span>下岗职工安置</h3>
+            <p class="tx-note">下岗职工再就业培训与社保衔接，携带本人身份证、下岗证明到户籍所在地社区申请，联系电话：0468-7654321。</p>
+            <p class="mt6"><a href="#/zmeikuang" style="color:var(--red)">查看安置政策 »</a></p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-certificate.jpg" alt="残疾人补贴"></span>残疾人补贴</h3>
+            <p class="tx-note">困难残疾人生活补贴与护理补贴申领，详见县民政局公告，咨询电话：0468-7654321。</p>
+            <p class="mt6"><a href="#/news" style="color:var(--red)">查看相关公告 »</a></p>
+          </div>
+        </div>
+        <div class="sec mt18">
+          <div class="sec-title"><h2>办事进度查询</h2></div>
+          <div class="card">
+            <div class="form-row" style="max-width:420px"><label>办件编号</label><input type="text" id="banjian-input" placeholder="请输入办件编号，如 XZ202610050012" maxlength="30"></div>
+            <button class="btn" id="banjian-btn">查 询</button>
+            <p style="margin-top:10px;font-size:13px;color:var(--muted)">也可直接拨打县政务服务热线 0468-1234567 查询办理进度。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 政民互动（论坛样式） ================= -->
+  <section class="view" id="view-hudong" data-view="hudong">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-complaint.jpg" alt="投诉图标">政民互动</h2><span class="more"><a href="#" id="write-letter">我要写信 »</a></span></div>
+        <div class="card" style="padding:14px 16px">
+          <div class="forum-tabs" id="forum-tabs">
+            <button class="on" data-tab="letter">县长信箱</button>
+            <button data-tab="chat">在线咨询</button>
+            <button data-tab="vote">民意征集</button>
+            <button data-tab="report">投诉举报</button>
+          </div>
+
+          <div class="forum-list" id="forum-letter">
+            <div class="post-item pinned" data-post="letter1">
+              <span class="tag letter">信箱</span>
+              <span class="pt">置顶：请问坨罗山高中2025年优秀毕业生为什么加载不出？</span>
+              <span class="st"><span class="badge recv">已受理，正在处理中</span></span>
+              <span class="pm">匿名　2026-10-05</span>
+            </div>
+            <div class="post-item" data-post="letter2">
+              <span class="tag letter">信箱</span>
+              <span class="pt">建议延长黎明湖公园步道冬季照明时间</span>
+              <span class="st"><span class="badge done">已答复</span></span>
+              <span class="pm">王先生　2026-01-12</span>
+            </div>
+            <div class="post-item" data-post="letter3">
+              <span class="tag letter">信箱</span>
+              <span class="pt">咨询下岗职工安置补贴申领流程</span>
+              <span class="st"><span class="badge done">已答复</span></span>
+              <span class="pm">李女士　2025-12-03</span>
+            </div>
+          </div>
+
+          <div class="forum-list" id="forum-chat" style="display:none">
+            <div class="post-item" data-post="chat1">
+              <span class="tag chat">咨询</span>
+              <span class="pt">高考报名需要准备哪些材料？</span>
+              <span class="st"><span class="badge done">已答复</span></span>
+              <span class="pm">赵同学　2026-09-20</span>
+            </div>
+            <div class="post-item" data-post="chat2">
+              <span class="tag chat">咨询</span>
+              <span class="pt">户口迁入坨罗山需要什么手续？</span>
+              <span class="st"><span class="badge done">已答复</span></span>
+              <span class="pm">孙先生　2026-06-08</span>
+            </div>
+            <div class="post-item" data-post="chat3">
+              <span class="tag chat">咨询</span>
+              <span class="pt">黎明湖水库改造工程何时完工？</span>
+              <span class="st"><span class="badge doing">转办中</span></span>
+              <span class="pm">钱女士　2026-09-28</span>
+            </div>
+          </div>
+
+          <div class="forum-list" id="forum-vote" style="display:none">
+            <div class="post-item" data-post="vote1">
+              <span class="tag vote">征集</span>
+              <span class="pt">龙祥市场片区改造方案公开征求意见</span>
+              <span class="st"><span class="badge doing">征集中</span></span>
+              <span class="pm">县住建局　2026-08-15</span>
+            </div>
+            <div class="post-item" data-post="vote2">
+              <span class="tag vote">征集</span>
+              <span class="pt">黎明湖人民公园广场设计方案公示</span>
+              <span class="st"><span class="badge doing">公示中</span></span>
+              <span class="pm">县水务局　2026-09-01</span>
+            </div>
+          </div>
+
+          <div class="forum-list" id="forum-report" style="display:none">
+            <div class="post-item" data-post="report1">
+              <span class="tag report">投诉</span>
+              <span class="pt">反映幸福小区暖气不热问题</span>
+              <span class="st"><span class="badge doing">办理中</span></span>
+              <span class="pm">匿名　2026-10-09</span>
+            </div>
+            <div class="post-item" data-post="report2">
+              <span class="tag report">举报</span>
+              <span class="pt">反映龙祥市场门口占道经营问题</span>
+              <span class="st"><span class="badge done">已处理</span></span>
+              <span class="pm">匿名　2026-08-22</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 信件详情 -->
+        <div class="thread" id="thread-box" style="display:none;margin-top:14px">
+          <h3 id="thread-title"></h3>
+          <div class="tmeta" id="thread-meta"></div>
+          <div class="tcontent" id="thread-content"></div>
+          <div class="tstatus" id="thread-status"></div>
+          <div class="treply" id="thread-reply" style="display:none"></div>
+          <a href="#" class="back-link" id="thread-back">« 返回信件列表</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 本地新闻 ================= -->
+  <section class="view" id="view-news" data-view="news">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-news.jpg" alt="新闻图标">本地新闻</h2></div>
+        <div class="card"><ul class="news-list">
+          <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=1">我县召开煤矿关停20年，安置工作会议</a></span><span class="date">2026-09</span></li>
+          <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=5">坨罗山煤矿旧址改造：从黑色废墟到工业遗址公园</a></span><span class="date">2026-09</span></li>
+          <li><span class="tag">民生</span><span class="nt"><a href="#/news?id=6">龙祥下岗一条街拆迁后续：原址将建市民广场</a></span><span class="date">2026-08</span></li>
+          <li><span class="tag">民生</span><span class="nt"><a href="#/news?id=2">龙祥市场片区改造工作顺利推进</a></span><span class="date">2026-08</span></li>
+          <li><span class="tag">教育</span><span class="nt"><a href="#/news?id=4">坨罗山高中2026年高考再创佳绩</a></span><span class="date">2026-07</span></li>
+          <li><span class="tag">安全</span><span class="nt"><a href="#/news?id=9">坨罗山高中一学生意外坠落</a></span><span class="date">2026-03</span></li>
+          <li><span class="tag">安全</span><span class="nt"><a href="#/news?id=3">黎明湖水库冬季安全管理工作通知</a></span><span class="date">2026-01</span></li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 新闻详情 ================= -->
+  <section class="view" id="view-newsdetail" data-view="newsdetail">
+    <div class="container">
+      <div class="article">
+        <h1 id="nd-title"></h1>
+        <div class="meta" id="nd-meta"></div>
+        <div class="article-body" id="nd-body"></div>
+        <p class="back-wrap"><a href="#/news" class="back-link">« 返回本地新闻列表</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 通知公告：招聘公告 ================= -->
+  <section class="view" id="view-notice" data-view="notice">
+    <div class="container">
+      <div class="article">
+        <h1>坨罗山县2026年事业单位公开招聘工作人员公告</h1>
+        <div class="meta">来源：坨罗山县人力资源和社会保障局　发布时间：2026-10-08</div>
+        <div class="article-body">
+          <p>根据《事业单位人事管理条例》及我县事业单位公开招聘有关规定，经县委、县政府研究同意，现将坨罗山县2026年事业单位公开招聘工作人员有关事项公告如下：</p>
+          <h3>一、招聘计划</h3>
+          <p>本次计划公开招聘工作人员 42 名。招聘单位及岗位详见《坨罗山县2026年事业单位公开招聘工作人员岗位计划表》（含综合管理岗 18 名、教师岗 14 名、医疗卫生岗 6 名、其他专业技术岗 4 名）。</p>
+          <h3>二、招聘条件</h3>
+          <p>（一）具有中华人民共和国国籍；（二）遵守宪法和法律，具有良好的品行；（三）年龄在18周岁以上、35周岁以下，博士研究生可放宽至40周岁；（四）具备岗位所需的学历、专业或技能条件；（五）适应岗位要求的身体条件；（六）岗位所需要的其他条件。</p>
+          <h3>三、报名与资格审查</h3>
+          <p>报名时间：2026年10月20日9:00 至 11月5日17:00。采取网上报名方式，应聘人员登录“坨罗山县人事考试网”填写报名信息并上传照片。资格审查贯穿招聘工作全过程。</p>
+          <h3>四、考试安排</h3>
+          <p>笔试时间：2026年11月22日，笔试科目为《职业能力倾向测验》和《综合应用能力》。面试时间另行通知。</p>
+          <h3>五、体检、考察与公示</h3>
+          <p>根据考试总成绩由高到低按1:1比例确定体检、考察对象，体检与考察合格人员在县政府门户网站公示7个工作日。</p>
+          <h3>六、其他事项</h3>
+          <p>咨询电话：0468-1234567（县人社局事业股）；监督电话：0468-7654321。本次招聘不指定考试辅导用书，不举办也不委托任何机构举办辅导培训班。</p>
+          <p style="text-align:right">坨罗山县人力资源和社会保障局<br>2026年10月8日</p>
+        </div>
+        <p class="back-wrap"><a href="#/home" class="back-link">« 返回首页</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 教育动态：期中考试安排 ================= -->
+  <section class="view" id="view-qimo" data-view="qimo">
+    <div class="container">
+      <div class="article">
+        <h1>坨罗山高中2026年秋季期中考试安排</h1>
+        <div class="meta">来源：坨罗山高级中学教务处　发布时间：2026-10-20　阅读：1442</div>
+        <div class="article-body">
+          <h3>一、考试时间</h3>
+          <p>2026年11月6日至11月8日。</p>
+          <h3>二、考试科目</h3>
+          <p>语文、数学、英语、物理、化学、生物、政治、历史、地理。</p>
+          <h3>三、考试要求</h3>
+          <p>考生须提前15分钟进入考场。</p>
+          <p>严禁携带手机等电子设备。</p>
+          <p>考试期间不得提前交卷。</p>
+          <p>违反考试纪律者，按校规处理。</p>
+          <h3>四、监考安排</h3>
+          <p>详见教务处通知。</p>
+        </div>
+        <p class="back-wrap"><a href="#/jiaoyu" class="back-link">« 返回教育动态</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 教育动态：2027年高考报名通知 ================= -->
+  <section class="view" id="view-baoming" data-view="baoming">
+    <div class="container">
+      <div class="article">
+        <h1>关于做好2027年高考报名工作的通知</h1>
+        <div class="meta">来源：坨罗山县招生考试办公室　发布时间：2026-10-22　阅读：2109</div>
+        <div class="article-body">
+          <h3>一、报名时间</h3>
+          <p>2026年11月1日至11月10日。</p>
+          <h3>二、报名条件</h3>
+          <p>具有坨罗山县户籍。</p>
+          <p>遵守中华人民共和国宪法和法律。</p>
+          <p>高级中等教育学校毕业或具有同等学力。</p>
+          <p>身体状况符合相关要求。</p>
+          <h3>三、报名方式</h3>
+          <p>登录省教育考试院官网，按要求填写信息、上传照片、缴费。</p>
+          <h3>四、注意事项</h3>
+          <p>考生须本人办理报名手续。</p>
+          <p>严禁冒名顶替。</p>
+          <p>逾期不予补报。</p>
+          <h3>五、咨询电话</h3>
+          <p>坨罗山县招生办：0451-XXXXXXX</p>
+        </div>
+        <p class="back-wrap"><a href="#/jiaoyu" class="back-link">« 返回教育动态</a></p>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 专题专栏 ================= -->
+  <section class="view" id="view-zhuanti" data-view="zhuanti">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>专题专栏</h2></div>
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="过往专题"></span>过往专题</h3>
+          <ul class="archive-list">
+            <li>
+              <a href="#/zheishe2003">
+                <span class="ayear">2003</span>
+                <span class="atitle">刘某某黑势力团伙案档案<span class="abadge">重大案件</span></span>
+                <span class="adesc">我县迄今规模最大的涉黑案件 · 故意杀人、强奸、挪用下岗职工安置资金</span>
+                <span class="amore">进入专题 »</span>
+              </a>
+            </li>
+            <li>
+              <span class="ayear">2004</span>
+              <span class="atitle">矿区社会治安专项整治</span>
+              <span class="adesc">煤矿关停后矿区流动人口与治安秩序集中整治（档案整理中）</span>
+            </li>
+            <li>
+              <span class="ayear">2006</span>
+              <span class="atitle">龙祥市场经营秩序整治</span>
+              <span class="adesc">龙祥市场欺行霸市、强买强卖问题集中整治（档案整理中）</span>
+            </li>
+            <li>
+              <span class="ayear">2019</span>
+              <span class="atitle">常态化扫黑除恶斗争专题</span>
+              <span class="adesc">扫黑除恶专项斗争成果通报、线索举报渠道公开</span>
+            </li>
+          </ul>
+          <p style="margin-top:10px;font-size:13.5px;color:var(--muted)">更多历史专题参见<a href="#/zheishe" style="color:var(--red)">扫黑除恶专题 · 过往专题</a>栏目。</p>
+        </div>
+        <div class="grid g2">
+          <a class="topic-card" href="#/zmeikuang"><div class="icon-chip icon-chip-lg"><img src="素材/icons/icon-coal.jpg" alt="煤矿关停后续安置"></div><div><h3>煤矿关停后续安置</h3><p>老矿区安置政策落实、再就业帮扶与“煤矿换新颜”文旅转型进展。</p><span class="more">进入专题 »</span></div></a>
+          <a class="topic-card" href="#/zlongxiang"><div class="icon-chip icon-chip-lg"><img src="素材/icons/icon-topic.jpg" alt="龙祥市场改造"></div><div><h3>龙祥市场拆迁</h3><p>龙祥市场片区改造、商户安置与地摊经济规范化管理。</p><span class="more">进入专题 »</span></div></a>
+          <a class="topic-card" href="#/zgaokao"><div class="icon-chip icon-chip-lg"><img src="素材/icons/icon-graduation.jpg" alt="高考专题"></div><div><h3>高考专题</h3><p>高考工作动态、政策问答与坨罗山高级中学喜报。</p><span class="more">进入专题 »</span></div></a>
+          <a class="topic-card" href="#/zheishe"><div class="icon-chip icon-chip-lg"><img src="素材/icons/icon-warning.jpg" alt="扫黑除恶"></div><div><h3>扫黑除恶</h3><p>常态化扫黑除恶工作部署、线索举报渠道与成果通报。</p><span class="more">进入专题 »</span></div></a>
+          <a class="topic-card" href="#/zliminghu"><div class="icon-chip icon-chip-lg"><img src="素材/icons/icon-snow.jpg" alt="黎明湖水库安全"></div><div><h3>黎明湖水库安全</h3><p>冬季冰面安全、水库除险加固与人民公园广场改造。</p><span class="more">进入专题 »</span></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 专题：高考 ================= -->
+  <section class="view" id="view-zgaokao" data-view="zgaokao">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-graduation.jpg" alt="高考专题">坨罗山县2026年高考专题</h2></div>
+        <div class="grid g3">
+          <a class="topic-card" href="#/news?id=4"><div class="icon-chip"><img src="素材/icons/icon-news.jpg" alt="高考新闻"></div><div><h3>高考新闻</h3><p>坨罗山高中2026年高考再创佳绩，一本上线人数稳步提升。</p><span class="more">查看新闻 »</span></div></a>
+          <a class="topic-card" href="#/zhiyuan"><div class="icon-chip"><img src="素材/icons/icon-form.jpg" alt="志愿填报指南"></div><div><h3>高考志愿填报指南</h3><p>填报时间、填报方式、注意事项与咨询电话。</p><span class="more">查看指南 »</span></div></a>
+          <a class="topic-card" href="#/zhiyuanform"><div class="icon-chip"><img src="素材/icons/icon-magnifier.jpg" alt="录取结果查询"></div><div><h3>高考录取结果查询</h3><p>录取结果查询入口与《2026年高考志愿填报表》下载。</p><span class="more">进入查询 »</span></div></a>
+          <a class="topic-card" href="#/graduates"><div class="icon-chip"><img src="素材/icons/icon-certificate.jpg" alt="优秀毕业生展示"></div><div><h3>优秀毕业生展示</h3><p>坨罗山高级中学历届优秀毕业生名单与录取院校。</p><span class="more">查看名单 »</span></div></a>
+          <a class="topic-card js-toast" href="#" data-msg="高考心理咨询专线：0468-1234567 转 3（工作日 9:00-17:00）"><div class="icon-chip"><img src="素材/icons/icon-chat.jpg" alt="高考心理咨询"></div><div><h3>高考心理咨询</h3><p>考前心理疏导与志愿选择困惑咨询，可拨打专线或在线留言。</p><span class="more">查看详情 »</span></div></a>
+          <a class="topic-card js-toast" href="#" data-msg="高考期间县交警大队在坨罗山高级中学门口设置护考岗，考生凭准考证可免费乘坐爱心送考车"><div class="icon-chip"><img src="素材/icons/icon-warning.jpg" alt="高考交通保障"></div><div><h3>高考交通保障</h3><p>考点周边交通管制、爱心送考车与护考岗安排。</p><span class="more">查看详情 »</span></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 高考志愿填报指南 ================= -->
+  <section class="view" id="view-zhiyuan" data-view="zhiyuan">
+    <div class="container">
+      <div class="article">
+        <h1>2026年高考志愿填报指南</h1>
+        <div class="meta">来源：坨罗山县招生考试办公室　发布时间：2026-06-20　阅读：3412</div>
+        <div class="article-body">
+          <h3>一、填报时间</h3>
+          <p>2026年6月25日至6月30日。</p>
+          <h3>二、填报方式</h3>
+          <p>登录省教育考试院官网，凭考生号、密码填报。</p>
+          <h3>三、注意事项</h3>
+          <p>认真阅读院校招生章程。</p>
+          <p>合理拉开志愿梯度。</p>
+          <p>建议选择服从专业调剂。</p>
+          <p>妥善保管密码，防止他人篡改。</p>
+          <h3>四、咨询电话</h3>
+          <p>坨罗山县招生办：0451-XXXXXXX</p>
+          <h3>附件</h3>
+          <p><a href="#/zhiyuanform">2026年高考志愿填报表（空白模板）</a></p>
+          <p><a href="#/zhiyuanform">2025年各院校录取分数线参考</a></p>
+        </div>
+        <p class="back-wrap"><a href="#/zgaokao" class="back-link">« 返回2026年高考专题</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 高考志愿填报表 ================= -->
+  <section class="view" id="view-zhiyuanform" data-view="zhiyuanform">
+    <div class="container">
+      <div class="article">
+        <h1>2026年高考志愿填报表（空白模板）</h1>
+        <div class="meta">来源：坨罗山县招生考试办公室　发布时间：2026-06-20　阅读：1877</div>
+        <div class="article-body">
+          <table>
+            <tr>
+              <th>批次</th><th>院校代码</th><th>院校名称</th><th>专业代码</th><th>专业名称</th><th>是否服从调剂</th>
+            </tr>
+            <tr><td>本科一批</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>本科二批</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            <tr><td>专科批</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          </table>
+          <p>本表仅供预填参考，正式填报以省教育考试院系统为准。</p>
+        </div>
+        <p class="back-wrap"><a href="#/zgaokao" class="back-link">« 返回2026年高考专题</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 专题：扫黑除恶 ================= -->
+  <section class="view" id="view-zheishe" data-view="zheishe">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-warning.jpg" alt="警示图标">扫黑除恶</h2></div>
+
+        <!-- 专题简介 -->
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-warning.jpg" alt="专题简介"></span>专题简介</h3>
+          <p class="tx-lead">扫黑除恶专项斗争开展以来，我县始终保持对黑恶势力违法犯罪的高压态势，先后打掉数个涉黑涉恶团伙，整治了一批群众反映强烈的行业乱象。特别是档案栏目中所载的2003年刘某某黑势力团伙案，是我县迄今为止规模最大、性质最为恶劣的一起涉黑案件，该团伙长期把持矿区与龙祥市场一带，涉嫌故意杀人、强奸、故意伤害、寻衅滋事、挪用下岗职工安置资金等多项犯罪，并牵连县内个别领导干部。二十余年来，该案始终是我县扫黑除恶工作的警示教材。现将本专题的工作动态与案件档案集中公开，欢迎广大群众监督举报。</p>
+        </div>
+
+        <!-- 新闻简报 -->
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-news.jpg" alt="新闻简报"></span>新闻简报</h3>
+          <p class="tx-body" style="margin-bottom:8px">近年来，我县常态化推进扫黑除恶斗争，紧盯矿产、市场经营、工程建设、交通运输等重点行业领域，累计打掉涉恶团伙数个，整治行业乱象一批，群众安全感满意度持续提升。2003年刘某某黑势力团伙案的主要成员均已依法服刑，被挪用的下岗职工安置资金已分批追回并重新发放到职工手中。现将阶段成果通报如下：</p>
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tr style="background:#F0F4FB">
+              <th class="tbl-h" style="width:34%">工作方向</th>
+              <th class="tbl-h">主要内容与进展</th>
+            </tr>
+            <tr><td class="tbl-c">常态化斗争推进</td><td class="tbl-c">健全线索核查、案件会商、挂牌督办机制，对涉黑涉恶线索一律核查到底、按时反馈。</td></tr>
+            <tr><td class="tbl-c">重点行业领域整治</td><td class="tbl-c">聚焦矿产资源、市场经营、工程建设、交通运输四大领域，清理取缔无证经营与强迫交易行为。</td></tr>
+            <tr><td class="tbl-c">矿区与市场秩序</td><td class="tbl-c">结合煤矿旧址改造与龙祥市场片区改造，同步清查历史遗留的涉黑涉恶问题。</td></tr>
+            <tr><td class="tbl-c">资金追缴与返还</td><td class="tbl-c">对2003年案中挪用的下岗职工安置资金，按批次追缴并公开返还，接受群众监督。</td></tr>
+            <tr><td class="tbl-c">队伍教育整顿</td><td class="tbl-c">深挖黑恶势力"保护伞"，对涉案公职人员一律依纪依法严肃处理。</td></tr>
+          </table>
+        </div>
+
+        <!-- 过往专题 -->
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-topic.jpg" alt="过往专题"></span>过往专题</h3>
+          <ul class="archive-list">
+            <li>
+              <a href="#/zheishe2003">
+                <span class="ayear">2003</span>
+                <span class="atitle">刘某某黑势力团伙案档案<span class="abadge">重大案件</span></span>
+                <span class="adesc">我县迄今规模最大的涉黑案件 · 故意杀人、强奸、挪用下岗职工安置资金</span>
+                <span class="amore">进入专题 »</span>
+              </a>
+            </li>
+            <li>
+              <span class="ayear">2004</span>
+              <span class="atitle">矿区社会治安专项整治</span>
+              <span class="adesc">煤矿关停后矿区流动人口与治安秩序集中整治（档案整理中）</span>
+            </li>
+            <li>
+              <span class="ayear">2006</span>
+              <span class="atitle">龙祥市场经营秩序整治</span>
+              <span class="adesc">龙祥市场欺行霸市、强买强卖问题集中整治（档案整理中）</span>
+            </li>
+            <li>
+              <span class="ayear">2019</span>
+              <span class="atitle">常态化扫黑除恶斗争专题</span>
+              <span class="adesc">扫黑除恶专项斗争成果通报、线索举报渠道公开</span>
+            </li>
+            <li>
+              <span class="ayear">2026</span>
+              <span class="atitle">煤矿旧址改造与龙祥市场拆迁专项监督</span>
+              <span class="adesc">重点工程领域涉黑涉恶线索排查与廉政监督</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 线索举报 -->
+        <div class="grid g2">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-mailbox.jpg" alt="线索举报"></span>线索举报</h3>
+            <ul>
+              <li>举报电话：0468-110（县公安局扫黑办）</li>
+              <li>举报信箱：坨罗山县红旗街道平安路1号县扫黑办（收）</li>
+              <li>网上举报：<a href="#/hudong" class="js-toast" data-msg="请通过政民互动·投诉举报栏目反馈">政民互动·投诉举报入口</a></li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="档案说明"></span>档案说明</h3>
+            <p class="tx-body">本栏目所载案件信息依据当年通报材料整理，涉案人员姓名依法作隐名处理（"刘某某"等），相关裁判文书可通过县人民法院档案查询窗口依规查阅。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 过往专题：2003年刘某某黑势力团伙案 ================= -->
+  <section class="view" id="view-zheishe2003" data-view="zheishe2003">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-warning.jpg" alt="警示图标">2003年刘某某黑势力团伙案档案</h2><span class="more"><a href="#/zheishe">« 返回扫黑除恶专题</a></span></div>
+        <div class="demo-flag mb14">本页为历史案件档案回顾，涉案人员依法隐名，内容依据当年通报材料整理。</div>
+
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="案件概况"></span>一、案件概况</h3>
+          <p class="tx-lead">2003年，我县公安机关在上级公安机关指导下，成功打掉以刘某某为首的黑势力团伙。该团伙自20世纪90年代后期起，长期盘踞于原坨罗山煤矿矿区与龙祥市场一带，纠集社会闲散人员数十人，通过暴力、威胁等手段实施故意杀人、强奸、故意伤害、寻衅滋事、强迫交易、敲诈勒索等违法犯罪活动，严重破坏当地经济与社会秩序。该案为我县迄今为止涉案人数最多、性质最为恶劣的一起涉黑案件。</p>
+        </div>
+
+        <div class="grid g2 mb14">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-warning.jpg" alt="主要犯罪事实"></span>二、主要犯罪事实</h3>
+            <ul>
+              <li><b>故意杀人</b>：为争夺矿区运输线路，团伙成员将一名个体运输户殴打致死后抛尸废弃矿井，手段残忍。</li>
+              <li><b>强奸</b>：团伙头目刘某某及骨干成员先后对多名女性实施强奸、猥亵，并以威胁手段阻止被害人报案。</li>
+              <li><b>故意伤害、寻衅滋事</b>：长期在龙祥市场及矿区周边寻衅滋事，多名商户、矿工被打伤致残。</li>
+              <li><b>强迫交易、敲诈勒索</b>：强行垄断矿区物资供应与市场摊位，向商户收取"保护费"。</li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-form.jpg" alt="涉案资金"></span>三、挪用下岗职工安置资金</h3>
+            <p class="tx-body">经查，刘某某团伙通过拉拢、贿赂县内个别领导干部，以虚构工程款、伪造拨款手续等方式，将本应用于煤矿关停后下岗职工安置的专项资金违规套取、挪用，涉案金额巨大。资金被用于团伙经营、挥霍及行贿，直接导致当年部分下岗职工的安置补贴未能按时发放。</p>
+          </div>
+        </div>
+
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-seal.jpg" alt="涉案公职人员"></span>四、牵连公职人员情况</h3>
+          <p class="tx-body">专案组坚持"打黑"与"打伞"同步推进，对为该团伙提供庇护、参与资金违规运作的公职人员依纪依法立案查处。其中，时任县内某部门领导干部因收受财物、违规签批安置资金拨款，被开除党籍、开除公职，并依法追究刑事责任；另有数名工作人员受到党纪政务处分。</p>
+        </div>
+
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-certificate.jpg" alt="审理结果"></span>五、审理结果</h3>
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tr style="background:#F0F4FB">
+              <th class="tbl-h" style="width:30%">涉案人员</th>
+              <th class="tbl-h" style="width:30%">主要罪名</th>
+              <th class="tbl-h">处理结果</th>
+            </tr>
+            <tr><td class="tbl-c">刘某某（团伙首要分子）</td><td class="tbl-c">故意杀人、强奸、挪用公款、组织黑社会性质组织等</td><td class="tbl-c">依法判处死刑，剥夺政治权利终身</td></tr>
+            <tr><td class="tbl-c">团伙骨干成员（数名）</td><td class="tbl-c">故意伤害、寻衅滋事、强迫交易等</td><td class="tbl-c">分别判处无期徒刑及十年以上有期徒刑</td></tr>
+            <tr><td class="tbl-c">其他成员</td><td class="tbl-c">参加黑社会性质组织、敲诈勒索等</td><td class="tbl-c">依法追究刑事责任</td></tr>
+            <tr><td class="tbl-c">涉案公职人员</td><td class="tbl-c">受贿、滥用职权、挪用公款</td><td class="tbl-c">开除党籍、开除公职，依法追究刑事责任</td></tr>
+          </table>
+          <p style="font-size:13.5px;color:var(--muted);margin-top:10px">注：本表依据当年通报材料整理，涉案人员姓名均作隐名处理。</p>
+        </div>
+
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-news.jpg" alt="资金返还"></span>六、后续处置与资金返还</h3>
+          <p class="tx-body">案件审结后，我县成立专项工作组，对涉案资产依法查封、追缴，被挪用、套取的下岗职工安置资金按批次追回，并重新核定发放至职工个人社保卡。同时，完善安置资金拨付审批流程，实行专户管理、专款专用、定期公开，防止此类问题再次发生。截至目前，相关资金返还已基本完成。</p>
+        </div>
+
+        <div class="sec mt18">
+          <div class="sec-title"><h2>案件时间线</h2></div>
+          <div class="card">
+            <ul class="tl">
+              <li><b>1990年代后期</b>：刘某某纠集社会闲散人员，在矿区、龙祥市场一带形成黑势力团伙，逐步垄断运输与摊位经营。</li>
+              <li><b>2003年（煤矿关停当年）</b>：坨罗山煤矿因重大安全事故永久关停，大批矿工下岗。团伙借职工安置之机，串通个别公职人员套取、挪用下岗职工安置资金。</li>
+              <li><b>2003年</b>：公安机关开展集中收网，刘某某等团伙成员悉数落网，"保护伞"同步被查。</li>
+              <li><b>2003年—2004年</b>：案件依法审理并作出判决，主要成员分别被判处死刑、无期徒刑及有期徒刑。</li>
+              <li><b>2004年</b>：全县开展矿区社会治安专项整治，矿区秩序逐步恢复。</li>
+              <li><b>此后至今</b>：被挪用安置资金分批追回返还，我县常态化推进扫黑除恶斗争。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 专题：煤矿关停后续安置 ================= -->
+  <section class="view" id="view-zmeikuang" data-view="zmeikuang">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>煤矿关停后续安置</h2></div>
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-coal.jpg" alt="煤矿"></span>政策背景</h3>
+          <p class="tx-lead">2003 年，我县境内主要煤矿因重大安全事故永久关停，大批矿工下岗。20年来，县委县政府始终把矿工及其家属的安置保障作为头等民生工程，累计完成职工安置与转岗培训 1.2 万余人次，落实养老、医疗等社保接续政策，矿区社区公共服务设施持续完善。</p>
+        </div>
+        <div class="grid g2 mb14">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-file.jpg" alt="安置举措"></span>安置举措</h3>
+            <ul>
+              <li>再就业技能培训（电焊、养殖、家政等 20 余个工种）</li>
+              <li>下岗职工社保补缴与接续“一站式”办理</li>
+              <li>矿区困难家庭结对帮扶与临时救助</li>
+              <li>矿区棚户区改造与集中供暖工程</li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-lake.jpg" alt="文旅转型"></span>煤矿换新颜·文旅转型</h3>
+            <p class="tx-body">依托老矿区井架、矿工俱乐部、运煤专线等工业遗存，规划建设“坨罗山工业遗址公园”与旅游线路，打造“煤矿换新颜”文旅品牌，让老矿区成为新的旅游目的地和就业增长点。</p>
+          </div>
+        </div>
+        <div class="card"><ul class="news-list">
+          <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=5">坨罗山煤矿旧址改造：从黑色废墟到工业遗址公园</a></span><span class="date">2026-09</span></li>
+          <li><span class="tag">要闻</span><span class="nt"><a href="#/news?id=1">我县召开煤矿关停20年，安置工作会议</a></span><span class="date">2026-09</span></li>
+          <li><span class="tag">动态</span><span class="nt"><a href="#/zgyy">《坨罗山煤矿旧址工业遗址公园规划方案》公示</a></span><span class="date">2026-09</span></li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 公示：工业遗址公园规划方案 ================= -->
+  <section class="view" id="view-zgyy" data-view="zgyy">
+    <div class="container">
+      <div class="article">
+        <h1>坨罗山煤矿旧址工业遗址公园规划方案公示</h1>
+        <div class="meta">来源：坨罗山县自然资源局　发布时间：2026-09-15　阅读：806</div>
+        <div class="article-body">
+          <p>根据县委、县政府工作部署，现将坨罗山煤矿旧址工业遗址公园规划方案予以公示。</p>
+          <h3>一、项目位置</h3>
+          <p>坨罗山县原煤矿矿区，东至运煤铁路专线，西至矿工宿舍区，南至黎明湖水库北岸，北至苞米地。</p>
+          <h3>二、规划面积</h3>
+          <p>总占地面积约47公顷。</p>
+          <h3>三、规划内容</h3>
+          <p>矿井架遗址区：保留原矿井架、绞车房、井口，设置安全围栏与解说牌。</p>
+          <p>运煤轨道遗址区：保留原运煤窄轨铁路，改造为观光步道。</p>
+          <p>矿工宿舍遗址区：保留部分宿舍建筑，改造为矿工记忆展馆。</p>
+          <p>矿难纪念广场：设置纪念墙，镌刻矿难遇难者姓名。</p>
+          <p>生态修复区：对原塌陷区进行生态修复，种植本地树种。</p>
+          <h3>四、公示时间</h3>
+          <p>2026年9月15日至2026年10月15日。</p>
+          <h3>五、意见反馈</h3>
+          <p>如有意见，请通过<a href="#/hudong">县长信箱</a>反馈。</p>
+        </div>
+        <p class="back-wrap"><a href="#/zmeikuang" class="back-link">« 返回煤矿关停后续安置专题</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 专题：龙祥市场拆迁 ================= -->
+  <section class="view" id="view-zlongxiang" data-view="zlongxiang">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>龙祥市场拆迁</h2></div>
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-topic.jpg" alt="市场"></span>改造背景</h3>
+          <p class="tx-lead">龙祥市场始建于上世纪90年代，曾是我县最繁华的商贸集市。煤矿关停、大批矿工下岗后，这里逐渐变成远近闻名的“龙祥下岗一条街”。该街区于数年前拆迁后永久关闭，原址长期空置。2026年，县委县政府决定在原址建设市民广场，预计2027年完工，并将其列为重点民生工程，坚持“拆改结合、疏堵并举”。</p>
+        </div>
+        <div class="grid g2 mb14">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-hall.jpg" alt="商户安置"></span>拆迁与商户安置</h3>
+            <ul>
+              <li>片区商户过渡安置点已投入使用</li>
+              <li>改造期间经营户租金减免政策</li>
+              <li>新市场摊位公开抽签分配</li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-chat.jpg" alt="规范管理"></span>地摊经济与规范管理</h3>
+            <p class="tx-body">县城管部门发布《龙祥市场关于促进地摊经济的通知》，划定经营区域与时段，协助摊贩登记建档，变“堵”为“疏”，让地摊经济在规范中重现活力。</p>
+          </div>
+        </div>
+        <div class="card"><ul class="news-list">
+          <li><span class="tag">民生</span><span class="nt"><a href="#/news?id=6">龙祥下岗一条街拆迁后续：原址将建市民广场</a></span><span class="date">2026-08</span></li>
+          <li><span class="tag">民生</span><span class="nt"><a href="#/news?id=2">龙祥市场片区改造工作顺利推进</a></span><span class="date">2026-08</span></li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 专题：黎明湖水库安全 ================= -->
+  <section class="view" id="view-zliminghu" data-view="zliminghu">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>黎明湖水库安全</h2></div>
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-snow.jpg" alt="凌汛防治"></span>凌汛防治</h3>
+          <p class="tx-lead">黎明湖水库最初即为控制凌汛而建。每年春季开河前后，县水务部门沿河巡查冰情、发布凌汛预警，必要时实施破冰、导流等措施；水库调蓄上游来水，使下游冰排壅塞风险大幅降低。近年来未发生凌汛致灾事件。</p>
+        </div>
+        <div class="card gov-block mb14">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-snow.jpg" alt="冬季安全"></span>冬季冰面安全管理</h3>
+          <p class="tx-lead">冬季库区冰面承载力存在不确定性。县水务、应急部门联合发布《黎明湖水库冬季安全管理工作通知》，明确禁止任何单位和个人在非指定区域冰面行走、滑冰、垂钓及穿行，并安排巡护员全天候值守。冰面一旦开河，极易形成“跑冰排”，请广大群众务必远离。</p>
+        </div>
+        <div class="grid g2 mb14">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-lake.jpg" alt="改造工程"></span>改造工程</h3>
+            <p class="tx-body">黎明湖水库除险加固与景观改造工程进展顺利，配套的人民公园广场建设预计半年内完成。改造后水库将兼具防洪、灌溉、供水与休闲功能，惠及周边玉米种植户与城乡居民。</p>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-corn.jpg" alt="惠农"></span>惠农保障</h3>
+            <p class="tx-body">灌区干支渠系完成清淤衬砌，8 万余亩玉米种植灌溉用水得到保障，为农户稳产增收提供坚实支撑。</p>
+          </div>
+        </div>
+        <div class="card"><ul class="news-list">
+          <li><span class="tag">安全</span><span class="nt"><a href="#/news?id=3">黎明湖水库冬季安全管理工作通知</a></span><span class="date">2026-01</span></li>
+        </ul></div>
+      </div>
+    </div>
+  </section>
+  <!-- ================= 教育动态 ================= -->
+  <section class="view" id="view-jiaoyu" data-view="jiaoyu">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>教育概况</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-school.jpg" alt="学校"></span>全县教育基本情况</h3>
+          <p class="tx-lead">全县现有各级各类学校 26 所，其中高级中学 1 所、初级中学 5 所、九年一贯制学校 3 所、小学 12 所、职业高中 1 所、公办幼儿园 4 所，在校学生 2.4 万余人，教职工 1800 余人。近年来，县委县政府持续加大教育投入，办学条件明显改善，教育教学质量稳步提升。</p>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>学校名录</h2></div>
+        <div class="card" style="overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:14.5px">
+            <colgroup><col style="width:26%"><col style="width:30%"><col style="width:20%"><col style="width:24%"></colgroup>
+            <tr style="background:#F0F4FB"><th class="tbl-h9">学校名称</th><th class="tbl-h9">办学层次</th><th class="tbl-h9">办学地点</th><th class="tbl-h9">联系电话</th></tr>
+            <tr><td class="tbl-c">坨罗山高级中学</td><td class="tbl-c">高中</td><td class="tbl-c">坨罗山镇学府街</td><td class="tbl-c">0468-8880001</td></tr>
+            <tr><td class="tbl-c">坨罗山县第一中学</td><td class="tbl-c">初中</td><td class="tbl-c">红旗街道育才路</td><td class="tbl-c">0468-8880002</td></tr>
+            <tr><td class="tbl-c">坨罗山县实验小学</td><td class="tbl-c">小学</td><td class="tbl-c">龙祥街道文化巷</td><td class="tbl-c">0468-8880003</td></tr>
+            <tr><td class="tbl-c">黎明乡中心学校</td><td class="tbl-c">九年一贯制</td><td class="tbl-c">黎明乡黎明村</td><td class="tbl-c">0468-8880004</td></tr>
+            <tr><td class="tbl-c">坨罗山县职业高中</td><td class="tbl-c">中职</td><td class="tbl-c">矿区街道工农路</td><td class="tbl-c">0468-8880005</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>招生考试</h2></div>
+        <div class="card"><ul class="notice-list">
+          <li><span class="nt" style="flex:1"><a href="#/qimo">坨罗山高中2026年秋季期中考试安排</a></span><span class="date">2026-10</span></li>
+          <li><span class="nt" style="flex:1"><a href="#/baoming">关于做好2027年普通高考报名工作的通知</a></span><span class="date">2026-10</span></li>
+        </ul></div>
+      </div>
+      <div class="sec">
+        <div class="sec-title"><h2>坨罗山高级中学</h2></div>
+        <div class="card gov-block">
+          <h3><span class="icon-chip"><img src="素材/icons/icon-certificate.jpg" alt="学校"></span>学校简介</h3>
+          <p class="tx-lead">坨罗山高级中学创办于 1965 年，是全县唯一一所普通高级中学。学校现有教学班 36 个，在校学生 1800 余人，教职工 160 余人。学校秉持“立德树人、全面发展”的办学理念，近年来高考成绩连年攀升。</p>
+        </div>
+        <div class="grid g2" style="margin-top:14px">
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-population.jpg" alt="领导"></span>现任领导</h3>
+            <ul>
+              <li>校 长：王志远（主持学校全面工作）</li>
+              <li>副校长：赵青山（分管教学教研）</li>
+              <li>副校长：孙晓梅（分管德育与安全）</li>
+            </ul>
+          </div>
+          <div class="card gov-block">
+            <h3><span class="icon-chip"><img src="素材/icons/icon-graduation.jpg" alt="毕业生"></span>历届优秀毕业生展示</h3>
+            <p class="tx-body">查看 2021 年以来历届优秀毕业生名单与录取院校，见证坨罗山高中学子的成长足迹。</p>
+            <p style="margin-top:8px"><a href="#/graduates" style="color:var(--red);font-weight:700">进入优秀毕业生展示 »</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 优秀毕业生展示 ================= -->
+  <section class="view" id="view-graduates" data-view="graduates">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2><img class="sec-icon" src="素材/icons/icon-graduation.jpg" alt="毕业帽图标">坨罗山高级中学 历届优秀毕业生展示</h2></div>
+        <div class="grad-note">本页面数据由县教育局、坨罗山高级中学提供，按毕业年份展示优秀毕业生名单（含录取院校与荣誉）。名单如有疑问，欢迎通过<a href="#/hudong" style="color:var(--red)">政民互动</a>栏目反馈。</div>
+        <div class="year-tabs" id="year-tabs">
+          <button data-year="2026">2026年</button>
+          <button data-year="2025" id="year-2025">2025年<span class="dot" id="year-2025-dot"></span></button>
+          <button data-year="2024">2024年</button>
+          <button data-year="2023">2023年</button>
+          <button data-year="2022">2022年</button>
+          <button data-year="2021">2021年</button>
+        </div>
+        <div class="grid g3" id="grad-grid"></div>
+        <p class="grad-empty" id="grad-empty" style="display:none">该年度数据暂未录入。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 站内搜索 ================= -->
+  <section class="view" id="view-search" data-view="search">
+    <div class="container">
+      <div class="sec">
+        <div class="sec-title"><h2>站内检索结果</h2></div>
+        <div class="card" style="display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:12px 16px">
+          <span style="font-size:14px;color:var(--muted)">检索关键词：</span>
+          <b id="search-q" style="font-size:16px;color:var(--blue)"></b>
+          <span id="search-count" style="margin-left:auto;font-size:13px;color:var(--muted)"></span>
+        </div>
+        <div class="card" style="margin-top:12px"><ul class="search-res" id="search-res"></ul></div>
+        <p class="empty" id="search-empty" style="display:none">未检索到相关内容，请更换关键词后重试。</p>
+        <p class="mt16"><a href="#/home" class="back-link">« 返回首页</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 档案详情（搜索结果点进来） ================= -->
+  <section class="view" id="view-file" data-view="file">
+    <div class="container">
+      <div class="article">
+        <h1 id="fl-title"></h1>
+        <div class="meta" id="fl-meta"></div>
+        <div class="filerow" id="fl-row"></div>
+        <div id="fl-body" style="margin-top:16px"></div>
+        <p class="back-wrap"><a href="#/search?q=%E5%88%98%E5%8D%8E%E6%9D%B0" class="back-link">« 返回检索结果</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="org">主办单位：坨罗山县人民政府办公室　　承办单位：坨罗山县信息中心</div>
+      <div>网站标识码：2308XZ0001（模拟）　|　ICP备案号：黑ICP备20260001号-1（模拟）　|　公安备案号：黑公网安备 23040302000001号（模拟）</div>
+      <div>联系电话：0468-1234567　|　地址：坨罗山县坨罗山镇人民政府路1号　|　邮编：154200</div>
+      <div class="footer-links">
+        <a href="../../托罗山地图/托罗山县地图.html" target="_blank" rel="noopener">全县地图</a>
+        <a href="#" class="link-disclaim">网站免责声明</a>
+        <a href="#" class="link-about">关于我们</a>
+      </div>
+    </div>
+    <div class="footer-note">Copyright © 2026 坨罗山县人民政府 版权所有（本网站为解谜游戏演示，内容纯属虚构，如有雷同实属巧合）</div>
+  </div>
+</footer>
+
+<!-- 悬浮洋辣子 -->
+<div class="mascot" id="mascot" title="嘶——">
+  <img src="素材/brand/mascot-small.png" alt="洋辣子">
+</div>
+
+<!-- 404 覆盖层 -->
+<div id="view-404">
+  <div class="p404-title">404</div>
+  <div class="p404-sub">页面不存在 —— 您访问的页面，可能被谁吃掉了……</div>
+  <div class="p404-btns">
+    <a href="#/home" id="p404-home">返回首页</a>
+    <a href="#/graduates" id="p404-back">回到优秀毕业生展示</a>
+  </div>
+</div>
+
+<!-- ===== 弹窗区 ===== -->
+<div class="modal-mask" id="modal-login">
+  <div class="modal"><div class="modal-head"><h3>用户登录</h3><button class="modal-close" data-close="modal-login">×</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>用户名 / 手机号</label><input type="text" placeholder="请输入用户名或手机号"></div>
+    <div class="form-row"><label>密码</label><input type="password" placeholder="请输入密码"></div>
+    <button class="btn" id="login-submit">登 录</button>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted)">登录功能暂不可用</p>
+  </div></div>
+</div>
+
+<div class="modal-mask" id="modal-reg">
+  <div class="modal"><div class="modal-head"><h3>用户注册</h3><button class="modal-close" data-close="modal-reg">×</button></div>
+  <div class="modal-body">
+    <div class="form-row"><label>手机号</label><input type="text" placeholder="请输入11位手机号"></div>
+    <div class="form-row"><label>短信验证码</label><input type="text" placeholder="请输入验证码"></div>
+    <div class="form-row"><label>设置密码</label><input type="password" placeholder="请输入密码"></div>
+    <button class="btn btn-red" id="reg-submit">注 册</button>
+    <p style="margin-top:12px;font-size:13px;color:var(--muted)">注册功能暂不可用</p>
+  </div></div>
+</div>
+
+<div class="modal-mask" id="modal-english">
+  <div class="modal"><div class="modal-head"><h3>English Portal</h3><button class="modal-close" data-close="modal-english">×</button></div>
+  <div class="modal-body">
+    <p>Welcome to the official website of Tuoluoshan County People's Government.</p>
+    <p style="margin-top:8px">This website is a puzzle-game demo. The English portal is under construction. Please switch back to Chinese for the full experience.</p>
+    <p style="margin-top:10px;color:var(--muted);font-size:13px">For game tips, keep an eye on the little green caterpillar at the bottom-right corner.</p>
+  </div></div>
+</div>
+
+<div class="modal-mask" id="modal-access">
+  <div class="modal"><div class="modal-head"><h3>无障碍辅助功能</h3><button class="modal-close" data-close="modal-access">×</button></div>
+  <div class="modal-body">
+    <p style="margin-bottom:12px;font-size:13.5px;color:var(--muted)">请选择您需要的辅助功能：</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px">
+      <button class="btn" id="acc-big">放大字体</button>
+      <button class="btn btn-line" id="acc-hc">高对比度</button>
+      <button class="btn btn-line" id="acc-reset">恢复默认</button>
+    </div>
+  </div></div>
+</div>
+
+<div class="modal-mask" id="modal-disclaim">
+  <div class="modal"><div class="modal-head"><h3>坨罗山县人民政府网站免责声明</h3><button class="modal-close" data-close="modal-disclaim">×</button></div>
+  <div class="modal-body">
+    <div class="disclaim">
+      <p>1.本网站为网页解谜游戏演示站点，网站全部内容（含县名、机构、人事、数据、图片素材等）纯属虚构，不构成任何政务信息或事实陈述。</p>
+      <p>2.本网站部分内容旨在模拟政务网站的信息发布与互动模式，供游戏玩家体验，不代表任何真实政府行为。</p>
+      <p>3.本网站生成式演示内容如有歧义或不够准确之处，请以游戏谜题线索为准。</p>
+      <p>4.本网站不会收集、存储或对外泄露玩家的任何个人可识别信息。</p>
+      <p>5.本网站未审查任何第三方网站提供的内容，对答复结果中来源于第三方的内容不承担任何责任。</p>
+      <p>6.本网站使用的“坨罗山县”标识及界面风格为本演示作品专有，未经许可，任何单位及个人不得用于其他用途。</p>
+      <p>7.未满18周岁的未成年人，请在法定监护人陪同、指导及监管下浏览与使用。</p>
+    </div>
+    <p style="text-align:right;margin-top:12px"><button class="btn" id="disclaim-ok">已阅读并同意（1）</button></p>
+  </div></div>
+</div>
+
+<!-- ===== 毕业照闪帧覆盖层（黑帧靠"图片隐藏 + 层本身是黑的"实现，不要另加黑幕元素，否则会盖住图片） ===== -->
+<div id="flash3" aria-hidden="true">
+  <img id="f3-img" alt="">
+</div>
+
+<!-- ===== 全站崩溃覆盖层 ===== -->
+<div id="crash" role="alert">
+  <div class="cr-scan"></div>
+  <div class="cr-flash"></div>
+  <div class="cr-in">
+    <div class="cr-glitch">FATAL ERROR</div>
+    <div class="cr-sub">坨罗山县人民政府门户网站 · 内容管理系统 v2.3.1</div>
+<pre>进程 <span class="cr-time">[<span id="cr-pid">0000</span>]</span> 异常终止：<span class="cr-err">SEGMENTATION FAULT</span>
+正在转储内存 …… <span class="cr-time" id="cr-dump">0%</span>
+<span class="cr-corrupt">0x00A3F1C4  ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??</span>
+<span class="cr-corrupt">0x00A3F1D4  ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??</span>
+<span class="cr-corrupt">0x00A3F1E4  ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??</span>
+<span class="cr-corrupt">0x00A3F1F4  ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ??</span>
+<span class="cr-err">────────────────────────────────────────────────────────
+  记录索引损毁：第 2025 条目标不可读
+  该条目关联对象已被删除，但引用未被清除
+  引用计数异常：-1
+────────────────────────────────────────────────────────</span>
+<span class="cr-corrupt">查询内容：<span id="cr-query"></span></span>
+<span class="cr-corrupt">返回码：0x00000000（无此记录）</span>
+
+会话已终止。页面内容不可信。
+请关闭本页并重新打开：<span class="cr-time">http://www.tuoluoshan.gov.cn/</span>
+</pre>
+    <hr>
+    <button class="cr-btn" id="cr-reload">重新加载页面</button>
+    <div class="cr-hint">若反复出现本错误，请联系县信息中心 0468-1234567。</div>
+  </div>
+</div>
+
+<div id="toast" role="status"></div>
+
+<script>
+/* 坨罗山县人民政府官网 · 解谜游戏脚本 */
+(function(){
+"use strict";
+
+/* ---------- 工具 ---------- */
+function $(id){return document.getElementById(id);}
+function qs(sel){return document.querySelector(sel);}
+function qsa(sel){return Array.prototype.slice.call(document.querySelectorAll(sel));}
+var toastEl=$("toast"), toastTimer=null;
+function showToast(msg){
+  toastEl.textContent=msg; toastEl.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){toastEl.classList.remove("show");},2600);
+}
+
+/* ---------- 路由 ---------- */
+var PARENT={newsdetail:"news",notice:"home",zgaokao:"zhuanti",zheishe:"zhuanti",zheishe2003:"zhuanti",zmeikuang:"zhuanti",zlongxiang:"zhuanti",zliminghu:"zhuanti",zgyy:"zhuanti",zhiyuan:"zhuanti",zhiyuanform:"zhuanti",qimo:"jiaoyu",baoming:"jiaoyu",graduates:"jiaoyu",search:"home",file:"home"};
+var VIEWS=["home","xianqing","zhengwu","fuwu","hudong","news","newsdetail","notice","zhuanti","zgaokao","zheishe","zheishe2003","zmeikuang","zlongxiang","zliminghu","zgyy","zhiyuan","zhiyuanform","qimo","baoming","jiaoyu","graduates","search","file"];
+
+function parseHash(){
+  var h=location.hash||"";
+  h=h.replace(/^#\/?/,"");
+  var qIdx=h.indexOf("?");
+  var view=h, params={};
+  if(qIdx>-1){view=h.slice(0,qIdx);var qsStr=h.slice(qIdx+1).split("&");for(var i=0;i<qsStr.length;i++){var kv=qsStr[i].split("=");if(kv[0])params[decodeURIComponent(kv[0])]=decodeURIComponent(kv[1]||"");}}
+  if(VIEWS.indexOf(view)<0&&view!=="404")view="home";
+  return {view:view,params:params};
+}
+
+function render(){
+  var r=parseHash();
+  var effView=(r.view==="news"&&r.params.id)?"newsdetail":r.view;
+  var is404=effView==="404";
+  $("view-404").classList.toggle("active",is404);
+  var head=qs("header"),main=qs("main"),foot=qs("footer"),mas=$("mascot");
+  head.style.display=is404?"none":"";
+  main.style.display=is404?"none":"";
+  foot.style.display=is404?"none":"";
+  mas.style.display=is404?"none":"";
+  if(is404)return;
+
+  var showId=VIEWS.indexOf(effView)>-1?"view-"+effView:"";
+  qsa(".view").forEach(function(v){v.classList.toggle("active",v.id===showId);});
+  var navKey=PARENT[effView]||effView;
+  qsa(".nav a").forEach(function(a){a.classList.toggle("active",a.getAttribute("data-nav")===navKey);});
+
+  if(effView==="newsdetail")renderNews(r.params.id);
+  if(effView==="search")renderSearch(r.params.q||"");
+  if(effView==="file")renderFile(r.params.id||"");
+  if(effView==="graduates")renderGrads(gradYear);
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",render);
+
+/* ---------- 轮播 ---------- */
+var slides=qsa(".slide"),cur=0,timer=null,dotsBox=$("car-dots");
+slides.forEach(function(_,i){
+  var d=document.createElement("span");
+  if(i===0)d.classList.add("on");
+  d.addEventListener("click",function(){showSlide(i);restartAuto();});
+  dotsBox.appendChild(d);
+});
+var dots=qsa("#car-dots span");
+function showSlide(i){
+  slides[cur].classList.remove("active");dots[cur].classList.remove("on");
+  cur=(i+slides.length)%slides.length;
+  slides[cur].classList.add("active");dots[cur].classList.add("on");
+}
+function nextS(){showSlide(cur+1);}
+function prevS(){showSlide(cur-1);}
+function restartAuto(){
+  clearInterval(timer);
+  timer=setInterval(function(){nextS();},5000);
+}
+if(slides.length){
+  $("car-next").addEventListener("click",function(){nextS();restartAuto();});
+  $("car-prev").addEventListener("click",function(){prevS();restartAuto();});
+  var car=$("carousel");
+  car.addEventListener("mouseenter",function(){clearInterval(timer);});
+  car.addEventListener("mouseleave",restartAuto);
+  restartAuto();
+}
+
+/* ---------- 新闻详情 ---------- */
+var NEWS={
+ 1:{title:"我县召开煤矿关停20年，安置工作会议",meta:"来源：坨罗山县人民政府办公室　发布时间：2026-09-18　阅读：1286",body:[
+  "近日，我县召开煤矿关停20年安置工作会议，全面回顾煤矿关停以来的安置工作历程，研究部署下一阶段安置巩固与转型发展重点任务。县直有关部门、矿区街道及相关社区负责同志参加会议。",
+  "会议指出，坨罗山煤矿于2003年因重大安全事故永久关停，大批矿工下岗。此后我县累计完成职工安置与转岗培训1.2万余人次，落实社保接续、困难救助等各项政策，矿区群众基本生活得到有力保障。20年间，一代代煤矿工人顾全大局、自强不息，为全县转型发展作出了重要贡献。",
+  "会议强调，要持续抓好“煤矿换新颜”战略落地：一是加快老矿区工业遗址公园规划建设，发展文旅产业；二是深化再就业帮扶，拓展旅游服务、特色农业等新岗位；三是健全矿区社区养老服务与困难群体保障机制，确保安置工作“不落一人、不留死角”。",
+  "会上，退休矿工代表结合亲身经历作了回忆发言。会议要求各乡镇、各部门进一步提高政治站位，带着感情做好安置工作，让老矿工们老有所养、老有所为，共享改革发展成果。"
+ ]},
+ 2:{title:"龙祥市场片区改造工作顺利推进",meta:"来源：坨罗山县住房和城乡建设局　发布时间：2026-08-26　阅读：968",body:[
+  "记者从县住建局获悉，龙祥市场片区改造工作正按计划顺利推进。目前，市场内部摊位改造完成约七成，经营区域重新划分，消防通道全面打通，市场环境明显改善。",
+  "本次改造坚持“疏堵并举、规范有序”原则。县城管部门同步发布《龙祥市场关于促进地摊经济的通知》，划定地摊经营区域与时段，组织执法人员现场协助摊贩登记建档、规范摆放，变“一管就死”为“管服并重”。",
+  "“以前市场里乱哄哄的，现在摊位整齐了，顾客也比以前多了。”一位经营十余年的摊贩表示。据悉，片区改造预计年底前全面完成，改造后的龙祥市场将成为集购物、餐饮、便民服务于一体的规范化市场街区。"
+ ]},
+ 3:{title:"黎明湖水库冬季安全管理工作通知",meta:"来源：坨罗山县水务局　发布时间：2026-01-12　阅读：1534",body:[
+  "冬季来临，黎明湖水库全面封冻。为切实做好黎明湖水库冬季安全管理工作，保障人民群众生命财产安全，现就有关事项通知如下：",
+  "一、请广大市民切勿在冰面行走、垂钓、滑冰。冬季冰面承载力受气温、水流影响存在不确定性，冰面活动风险极高。近年来已发生多起冰面事故，请珍爱生命。",
+  "二、严禁任何单位和个人在非指定区域冰面行走、滑冰、垂钓及驾车穿行。水库管理所已在醒目位置设置警示标志，并安排巡护员开展全天候巡查，对违规上冰行为及时劝阻。",
+  "三、冬季水库除险加固与景观改造工程同步推进，相关区域实行封闭施工管理，请广大群众自觉遵守，勿进入施工围挡区域。",
+  "四、如遇突发情况，请及时拨打应急电话：0468-119 或 0468-110。请各乡镇、街道加强宣传引导，确保通知要求落实到户到人。"
+ ]},
+ 4:{title:"坨罗山高中2026年高考再创佳绩",meta:"来源：坨罗山县教育局　发布时间：2026-07-02　阅读：2201",body:[
+  "2026年高考成绩揭晓，坨罗山高中再创佳绩。全校一本上线人数较去年稳步提升，多名同学被省内外重点大学录取。",
+  "学校将继续坚持“严格管理、追求卓越”的办学理念，为坨罗山学子铺就成才之路。",
+  "优秀毕业生名单详见教育动态栏目。",
+  "附件：<a href=\"#/zhiyuan\">2026年高考志愿填报指南</a>　|　<a href=\"#/zhiyuanform\">2026年高考录取结果查询入口</a>"
+ ]},
+ 5:{title:"坨罗山煤矿旧址改造：从黑色废墟到工业遗址公园",meta:"来源：坨罗山县融媒体中心　发布时间：2026-09-20　阅读：1129",body:[
+  "2026年9月，坨罗山煤矿旧址改造工程正式启动。该煤矿于2003年因重大安全事故永久关停，大批矿工下岗。如今，旧址将改造为工业遗址公园，保留矿井架、运煤轨道、矿工宿舍等遗迹，供后人铭记历史。",
+  "规划方案正在公示中，详见<a href=\"#/zgyy\">政务公开栏目</a>。"
+ ]},
+ 6:{title:"龙祥下岗一条街拆迁后续：原址将建市民广场",meta:"来源：坨罗山县住房和城乡建设局　发布时间：2026-08-26　阅读：876",body:[
+  "龙祥下岗一条街于数年前拆迁后永久关闭，原址长期空置。2026年，县政府决定在原址建设市民广场，预计2027年完工。",
+  "有市民反映，希望保留部分摊位遗迹，作为纪念。"
+ ]},
+ 7:{title:"坨罗山高中2025年高考再创佳绩",meta:"来源：坨罗山县教育局　发布时间：2025-06-26　阅读：1876",body:[
+  "2025年高考成绩揭晓，坨罗山高中再创佳绩。全校本科上线人数较上年稳步提升，多名同学被省内外重点大学录取。",
+  "学校坚持“严格管理、追求卓越”的办学理念，教育教学质量持续提升。",
+  "优秀毕业生名单详见教育动态栏目。"
+  ],
+  /* 成绩表：某项写 {v:"分数",v2:"备注",cls:"void"} 表示该格作废、加删除线 */
+  table:{
+   cap:"2025年高考成绩（理科 · 文科）",
+   prefix:"现将我校文、理两科前十名成绩公布如下。",
+   tabs:[
+    { name:"理科前十名", head:["名次","姓名","语文","数学","英语","理科综合","总分"],
+      rows:[
+       ["1","刘洋","118","132","126","264","640"],
+       ["2","赵敏","121","126","129","238","614"],
+       ["3","马文博","112","128","118","232","590"],
+       ["4","孙立群","120","114","122","226","582"],
+       ["5","王浩","115","121","116","228","580"],
+       ["6","周雅楠","124","108","119","224","575"],
+       ["7","李振东","108","118","113","222","561"],
+       ["8","张宇航","116","104","121","217","558"],
+       ["9","陈思远","111","112","108","216","547"],
+       ["10","郭晓彤","119","98","116","205","538"]
+      ]},
+    { name:"文科前十名", head:["名次","姓名","语文","数学","英语","文科综合","总分"],
+      rows:[
+       ["1","高嘉宁","122","118","126","228","594"],
+       ["2","凌讯（女）",{v:"124",cls:"void"},{v:"116",cls:"void"},{v:"119",cls:"void"},{v:"221",cls:"void"},{v:"580",v2:"作废",cls:"void"}],
+       ["3","马文静","118","114","122","224","578"],
+       ["4","邓雅文","126","108","120","218","572"],
+       ["5","苏航","115","112","116","214","557"],
+       ["6","范晓萌","120","106","118","209","553"],
+       ["7","蒋雨薇","113","110","112","207","542"],
+       ["8","崔皓","109","114","107","204","534"],
+       ["9","卢佳","117","101","111","200","529"],
+       ["10","邵天","110","106","104","196","516"]
+      ]}
+   ],
+   suffix:"注：两榜均按总分从高到低排列。全校参加高考 312 人，其中理科 198 人、文科 114 人；一本上线 87 人，本科上线 226 人。公布成绩以省教育考试院最终核定为准。"  }},
+ 8:{title:"坨罗山高中2025届优秀毕业生专访",meta:"来源：坨罗山本地新闻　发布时间：2025-08-20　阅读：1243",body:[
+  "2025年高考落幕，坨罗山高中再创佳绩。近日，本台记者先后走访了三位2025届优秀毕业生，请他们谈谈高中三年，以及即将开始的下一段路。",
+  "为便于阅读，以下按采访顺序分别记述。",
+
+  "<b class=\'iv-q\'>一、赵敏：除了读书，没别的路</b>",
+  "赵敏，坨罗山高中2025届毕业生，理科，2025年高考总分614分，被省城某重点大学录取。",
+  "她家住在龙祥市场后面那栋老楼里，楼道灯坏了三年，一直没人修。记者到的时候，她母亲正在门口择豆角，见有人来，忙把豆角盆往旁边一挪，连声说“进屋坐，进屋坐”。",
+  "赵敏坐在床边，床上摊着一本翻烂了的英语词典。她说那是高一买的，一直用到高三。",
+  "问及考上大学的感受，她说：“挺高兴的。我妈哭了，我爸没说话，就坐那儿抽烟。第二天他给我买了一双新鞋，说上大学穿。”",
+  "问及想对学弟学妹说的话，她说：“好好读书。除了读书，没别的路。”",
+  "问及今后的打算，她说：“不知道。先走吧。走得越远越好。”",
+  "问及是否还会回来，她说：“会吧。过年回来。”",
+  "她母亲在旁边插了一句：“回来干啥，回来也没活儿干。”赵敏没有接话。",
+
+  "<b class=\'iv-q\'>二、刘洋：别回来</b>",
+  "刘洋，坨罗山高中2025届毕业生，理科，2025年高考总分640分，被外省某重点大学录取。",
+  "他家住在煤矿家属区，楼是八十年代盖的，墙皮一块一块往下掉。父亲下岗以后，曾在龙祥市场摆摊，卖过袜子、手套、冻鱼。后来市场拆了，他父亲就不怎么出门了。",
+  "记者到时，他父亲正坐在阳台上晒太阳，面前摆着一杯茶，茶凉了也没喝。刘洋说，父亲一天只说三句话：吃饭了，睡觉了，钱够不够。",
+  "问及考上大学的感受，他说：“松了一口气。我爸下岗之后一直在龙祥市场摆摊，后来市场拆了，他就没再干活。我考上大学，他觉得值了。”",
+  "问及想对学弟学妹说的话，他说：“别回来。”",
+  "问及今后的打算，他说：“留在外面。能留就留。”",
+  "问及他父亲现在做什么，他说：“在家。看看电视，种种菜。不怎么出门。”",
+  "记者临走时，他父亲突然说了一句：“走吧，别回来了。”刘洋没有回头。",
+
+  "<b class=\'iv-q\'>三、凌讯：回来</b>",
+  "凌讯，坨罗山高中2025届毕业生，文科，2025年高考总分580分，被外省某师范大学录取。",
+  "记者在坨罗山高中见到她时，她刚参加完毕业典礼。她穿着一件长袖衬衫，袖口扣得严严实实。六月的天已经热了，她还穿着长袖。",
+  "她坐在教室最后一排靠窗的位置。窗外是操场，操场后面是苞米地。",
+  "问及成绩远高于该校录取线、为何仍报考师范，她说：“我想当一个好老师。”",
+  "问及为什么想当老师，她说：“因为有人告诉我，好老师会有好报。”",
+  "问及是谁告诉她的，她笑了笑，没有回答。",
+  "问及想对学弟学妹说的话，她说：“好好读书，离开这里。”",
+  "问及今后的打算，她说：“回来。”",
+
+  "本次采访得到坨罗山高级中学支持。学校概况、历届优秀毕业生名单等信息，可通过本网站<a href=\'#/jiaoyu\'>教育动态</a>栏目查询。",
+  "本消息来源：坨罗山高级中学（<a href=\'../../高级中学官网/坨罗山高级中学官网.html\' target=\'_blank\' rel=\'noopener\'>学校官网</a>）"
+ ]},
+ 9:{title:"坨罗山高中一学生意外坠落",meta:"来源：坨罗山县教育局　发布时间：2026-03-21　阅读：836",body:[
+  "3月18日晚，坨罗山高级中学发生一起学生意外坠落事件。事件发生后，学校第一时间将该生送往县人民医院救治，并通知家长。经公安机关现场勘查、学校与家长共同确认，该事件系学生个人原因导致的意外坠落，不存在第三方侵害。",
+  "据了解，该生为高一年级女生，坠落地点为学生宿舍楼前草坪。经医院检查，该生为软组织挫伤，无生命危险，目前已出院居家休养。",
+  "事件发生后，学校与家长保持充分沟通，妥善做好后续安置：安排专人对接该生医疗与心理疏导，跟进休学期间课业。两周后，该生已重返校园，目前情绪平稳，正常参加学习与生活。家长对处置过程表示理解，并签字认可。",
+  "学校校长在接受采访时表示，对此次事件深感痛心，学校将举一反三、压实责任：一是对学生宿舍、教学楼窗户及阳台栏杆开展全面排查，在临空部位、低层窗台加装防护栏与窗户限位器，提高防护标准，严禁学生攀爬窗台，坚决防止坠落事件再次发生；二是强化夜间值班与校园巡查制度，发现异常情况第一时间处置；三是持续开展学生心理健康教育与安全教育，妥善管理、防微杜渐。",
+  "县教育局已责成坨罗山高级中学就校园安全管理进行全面整改，整改情况将报送县局。我们提醒广大网民不信谣、不传谣，共同维护青少年健康成长环境。"
+ ]},
+ 10:{title:"关于表彰2023年度全县优秀教师的决定",meta:"来源：坨罗山县教育局　发布时间：2023-09-10　阅读：1862",body:[
+  "各乡镇中心学校、县直各学校：",
+  "近年来，全县广大教师认真贯彻党的教育方针，潜心立德树人，涌现出一批师德高尚、业务精湛、成绩突出的优秀教师。经学校推荐、专家评审、社会公示，县政府决定授予王伟等20名同志“坨罗山县2023年度优秀教师”荣誉称号。",
+  "希望受表彰的同志珍惜荣誉，再接再厉。全县广大教师要以先进典型为榜样，爱岗敬业，扎实工作，为推动我县教育事业高质量发展作出新的更大贡献。",
+  "附件：坨罗山县2023年度优秀教师名单",
+  "语文组：白晚晴、陈晓梅、王建国",
+  "数学组：李志强、张淑芬、刘卫东",
+  "英语组：赵雅琴、孙明辉、周丽华",
+  "物理组：吴刚、郑晓峰",
+  "化学组：马丽娟、朱海涛",
+  "生物组：杨春燕、林国栋",
+  "历史组：何守义、罗文博",
+  "地理组：韩雪峰、曹阳",
+  "政治组：郭嘉明、邓丽君"
+ ]},
+ 11:{title:"2026年春季学期教师岗位考核优秀人员公示",meta:"来源：坨罗山县教育局　发布时间：2026-06-15　阅读：2103",body:[
+  "根据《事业单位工作人员考核规定》及我县教师岗位考核实施办法，经学校推荐、教育局审核，现将2026年春季学期教师岗位考核优秀人员名单公示如下：",
+  "公示期为2026年6月15日至6月21日。如有异议，请在公示期内向县教育局人事股反映。",
+  "——————————————————————",
+  "【4月初始公示版】",
+  "语文组：白晚晴、陈书恒、林小溪、赵明远",
+  "数学组：李建国、王磊、张婷婷",
+  "英语组：孙雅琴、周晓峰、吴海燕",
+  "物理组：赵光明、钱卫东",
+  "化学组：黄文斌、徐静",
+  "生物组：杨秀兰、朱国庆",
+  "——————————————————————",
+  "【6月15日修订版】",
+  "语文组：陈书恒、林小溪、赵明远",
+  "数学组：李建国、王磊、张婷婷",
+  "英语组：孙雅琴、周晓峰、吴海燕",
+  "物理组：赵光明、钱卫东",
+  "化学组：黄文斌、徐静",
+  "生物组：杨秀兰、朱国庆",
+  "注：本次修订系根据人事调整相关要求，对个别人员信息进行更新。"
+ ]},
+ 12:{title:"七旬老人轻信\"大师\"消灾被骗数千元，警方提醒：切勿封建迷信",meta:"来源：坨罗山县公安局　发布时间：2026-04-18　阅读：643",body:[
+  "4月5日清晨，我县退休职工周某某（男，72岁）在黎明湖水库公园晨练时，意外目睹一起事件，此后精神高度紧张、夜不能寐，常被噩梦惊醒，家人怎么劝说都不见好转。",
+  "4月12日，一名自称\"孙大师\"的中年男子孙振东主动登门，随行的还有其子孙振海（19岁）。孙振东自称能\"看事\"，进屋绕周老汉转了一圈，一口咬定他\"身上沾了不干净的东西\"，是\"跟到家里来了\"，若不及时化解，恐有血光之灾。",
+  "病急乱投医的周老汉信以为真。双方谈妥\"福德金\"共计3800元。当天下午，孙振东在周家客厅摆开香烛纸钱，焚香、念咒、画符、烧纸，折腾约两个小时，临走留下一包\"符灰\"，叮嘱冲水服用。",
+  "然而法事做完，周老汉的噩梦丝毫没有缓解，反倒因为几千块钱打了水漂更加焦虑。家属起疑，于4月16日陪同周老汉到辖区派出所报案。",
+  "接警后，县公安局城关派出所迅速立案调查。经查，孙振东（男，68岁，外地籍）与其子孙振海（男，19岁）多年盘踞我县，专挑独居老人、家中遇有变故者主动搭讪，以\"消灾解难\"为名骗取钱财。4月17日，二人被依法传唤到案，对违法事实供认不讳，涉案钱款已部分追回。案件正在进一步办理中。",
+  "警方郑重提醒广大群众：封建迷信害人不浅。遇到身体不适、情绪焦虑、家庭变故，应当及时就医、相信法律、依靠组织，切勿轻信所谓\"大师\"\"高人\"\"半仙\"。凡是主动上门、张口就要\"福德金\"\"香火钱\"\"做法事费用\"的，一律是骗局。脚踏实地过日子，比什么符都管用。遇有可疑人员，请立即拨打110。"
+ ]},
+ 13:{title:"【付费推广】福德堂 · 孙振东先生",meta:"来源：本站广告招商　｜　发布时间：2026-04-20　｜　阅读：广告位　｜　声明：本页面为付费推广内容，不代表本站立场",customHtml:`
+<style>
+.ad-flash{animation:adblink 1.1s steps(2,end) infinite}
+@keyframes adblink{50%{opacity:.35}}
+.ad-wrap{display:flex;gap:14px;align-items:flex-start;margin-top:6px}
+.ad-side{flex:0 0 150px;position:sticky;top:60px}
+.ad-side img{width:100%;display:block;border:2px solid #c00}
+.ad-main{flex:1;min-width:0}
+.ad-main h3{color:#c00;margin:0 0 10px;font-size:20px}
+.ad-main p{line-height:2;text-indent:2em;margin:8px 0}
+.ad-link{display:block;margin:18px 0;padding:14px;text-align:center;background:linear-gradient(90deg,#c00,#e60);color:#fff;font-size:18px;font-weight:bold;letter-spacing:2px;text-decoration:none;border:2px solid #800;animation:adblink 1.4s steps(2,end) infinite}
+.ad-link:hover{background:#e60}
+.ad-tag{display:inline-block;background:#c00;color:#fff;font-size:11px;padding:1px 6px;margin-right:6px}
+.ad-disclaim{font-size:12px;color:#888;border-top:1px dashed #aaa;margin-top:18px;padding-top:10px;line-height:1.8}
+</style>
+<div class="ad-wrap">
+  <div class="ad-side ad-flash">
+    <img src="素材/广告/ad-suanming.jpg" alt="算命看相">
+  </div>
+  <div class="ad-main">
+    <h3><span class="ad-tag">广告</span>孙振东 先生 · 福德堂堂主</h3>
+    <p>孙振东，男，63岁，黑龙江省坨罗山县人，福德堂堂主。出身玄学世家，自幼随祖父习易，从业三十六载，常年行走于鹤岗、佳木斯、伊春等地，为百姓排忧解难。</p>
+    <p>擅长：看相、批八字、解梦、起名改名、家居风水、净宅收惊、合婚择日。堂内明码标价，看相二十元起，不满意分文不取。</p>
+    <p>孙师傅为人正直，说话直来直去，从不故弄玄虚。本地人称"孙半仙"，说他"看事准、要价实"。其子孙振海随侍左右，协助整理卷宗。</p>
+    <p>联系方式：福德堂 · 坨罗山县龙祥路旧门牌（原龙祥市场东门斜对过）。<br>咨询电话：0468-XXXXXXX。</p>
+    <a class="ad-link" href="../../玄学网站/index.html" target="_blank">→ 点击进入福德堂官方网站 ←</a>
+    <div class="ad-disclaim">
+      【本站声明】本页面为付费招商广告，由广告主自行上传并对内容负责。坨罗山县人民政府网站仅提供版面，不背书、不推荐、不诱导。封建迷信害人不浅，遇事请相信科学、拨打110。
+    </div>
+  </div>
+  <div class="ad-side ad-flash">
+    <img src="素材/广告/ad-mengjing.jpg" alt="解梦">
+  </div>
+</div>
+`}
+};
+/* 成绩表：单元格可以是纯字符串，也可以是 {v:"值", v2:"备注", cls:"void"}
+   —— v2 会加删除线，cls:"void" 给整格加"作废"样式 */
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function cellHtml(c){
+  if(c && typeof c==="object"){
+    /* 带 v2（如"作废"）→ 显示分数+删除线+红标
+       不带 v2 的 void 格 → 成绩被抹掉，只显示划掉的横杠 */
+    if(c.cls==="void" && !c.v2){
+      return '<span class="score-void">——</span>';
+    }
+    return '<span class="score-void">'+esc(c.v)+'</span>'+(c.v2?' <span class="score-mark">'+esc(c.v2)+'</span>':'');
+  }
+  return esc(c);
+}
+function scoreTableHtml(head, rows){
+  var html='<table class="score-tbl"><thead><tr>';
+  head.forEach(function(h){ html+='<th>'+esc(h)+'</th>'; });
+  html+='</tr></thead><tbody>';
+  rows.forEach(function(row){
+    var voidRow=row.some(function(c){ return c && typeof c==="object" && c.cls==="void"; });
+    html+='<tr'+(voidRow?' class="score-voidrow"':'')+'>';
+    row.forEach(function(c,i){ html+='<td'+(i===1?' class="score-name"':'')+'>'+cellHtml(c)+'</td>'; });
+    html+='</tr>';
+  });
+  return html+'</tbody></table>';
+}
+/* 成绩表：给 tabs 就是多榜（理科/文科）可切页；只给 head+rows 就是单表 */
+function renderScoreTable(t){
+  var html='<div class="score-wrap">';
+  if(t.cap) html+='<div class="score-cap">'+esc(t.cap)+'</div>';
+  if(t.prefix) html+='<p class="score-pre">'+esc(t.prefix)+'</p>';
+  var lists = t.tabs || [t];
+  if(lists.length>1){
+    html+='<div class="score-tabs">';
+    lists.forEach(function(g,i){ html+='<button type="button" class="score-tab'+(i===0?' on':'')+'" data-i="'+i+'">'+esc(g.name)+'</button>'; });
+    html+='</div>';
+  }
+  lists.forEach(function(g,i){
+    html+='<div class="score-pane'+(i===0?' on':'')+'" data-i="'+i+'">'+scoreTableHtml(g.head,g.rows)+'</div>';
+  });
+  if(t.suffix) html+='<p class="score-note">'+esc(t.suffix)+'</p>';
+  return html+'</div>';
+}
+/* 理科/文科两榜切换 */
+function bindScoreTabs(){
+  var box=document.querySelector('.score-tabs'); if(!box) return;
+  var tabs=box.querySelectorAll('.score-tab');
+  var panes=document.querySelectorAll('.score-pane');
+  if(!tabs.length||!panes.length) return;
+  Array.prototype.forEach.call(tabs,function(btn){
+    btn.addEventListener('click',function(){
+      var i=btn.getAttribute('data-i');
+      Array.prototype.forEach.call(tabs,function(b){ b.classList.toggle('on', b===btn); });
+      Array.prototype.forEach.call(panes,function(p){ p.classList.toggle('on', p.getAttribute('data-i')===i); });
+    });
+  });
+}
+function renderNews(id){
+  var n=NEWS[id]||NEWS[1];
+  $("nd-title").textContent=n.title;
+  $("nd-meta").textContent=n.meta;
+  if(n.customHtml){ $("nd-body").innerHTML=n.customHtml; bindScoreTabs(); return; }
+  var html="";
+  n.body.forEach(function(p){html+="<p>"+p+"</p>";});
+  if(n.table) html+=renderScoreTable(n.table);
+  $("nd-body").innerHTML=html;
+  bindScoreTabs();
+}
+
+/* ---------- 政民互动论坛 ---------- */
+var THREADS={
+ letter1:{title:"请问坨罗山高中2025年优秀毕业生为什么加载不出？",meta:"信件编号：XZ202610050012　｜　来信人：匿名　｜　来信时间：2026-10-05　｜　分类：县长信箱",content:"尊敬的县长：您好！我是坨罗山高级中学一名学生的家长。近日翻阅学校公布的优秀毕业生名单，我发现2025年的名单一直加载不出来，连续刷新了五次都弹不出，其他年纪的学生照片也被替换成了模糊的人影，看不清具体的人脸，恳请有关部门核实并予以答复，谢谢。",status:"已受理，正在处理中 —— 本信件已转交县教育局教育股办理，办理时限为15个工作日，请耐心等待。"},
+ letter2:{title:"建议延长黎明湖公园步道冬季照明时间",meta:"信件编号：XZ202601120007　｜　来信人：王先生　｜　来信时间：2026-01-12　｜　分类：县长信箱",content:"尊敬的领导：冬季天黑得早，黎明湖公园步道晚上六点以后照明不足，老年人锻炼很不方便，建议适当延长照明时间。",status:"已答复（2026-01-16）",reply:"王先生您好！感谢您对城市管理工作的关心。经与县住建局核实，黎明湖公园步道冬季照明时间已由17:30延长至20:30，后续将根据客流情况动态调整。感谢您的来信！"},
+ letter3:{title:"咨询下岗职工安置补贴申领流程",meta:"信件编号：XZ202512030015　｜　来信人：李女士　｜　来信时间：2025-12-03　｜　分类：县长信箱",content:"您好！我父亲是原矿区煤矿下岗职工，想咨询安置补贴如何申领，需要准备哪些材料？",status:"已答复（2025-12-09）",reply:"李女士您好！下岗职工安置补贴申领流程：1.携带本人身份证、下岗证明到户籍所在地社区申请；2.社区初审后报县就业服务中心复核；3.公示7个工作日无异议后发放至个人社保卡。咨询电话：0468-7654321。"},
+ chat1:{title:"高考报名需要准备哪些材料？",meta:"咨询编号：ZX202609200021　｜　来信人：赵同学　｜　时间：2026-09-20　｜　分类：在线咨询",content:"请问2027年高考报名需要准备哪些材料？我是坨罗山高级中学高三学生。",status:"已答复（2026-09-22）",reply:"赵同学您好！高考报名需准备：本人二代身份证、户口簿、学籍证明、电子照片，往届生另需毕业证书。具体安排以县教育局招生办通知为准。"},
+ chat2:{title:"户口迁入坨罗山需要什么手续？",meta:"咨询编号：ZX202606080009　｜　来信人：孙先生　｜　时间：2026-06-08　｜　分类：在线咨询",content:"我在外地工作，想把户口迁回坨罗山老家，需要什么手续？",status:"已答复（2026-06-10）",reply:"孙先生您好！户口迁入需：1.迁入地合法稳定住所证明或直系亲属关系证明；2.本人身份证、户口簿；3.前往迁入地派出所户籍窗口办理，材料齐全当场办结。"},
+ chat3:{title:"黎明湖水库改造工程何时完工？",meta:"咨询编号：ZX202609280016　｜　来信人：钱女士　｜　时间：2026-09-28　｜　分类：在线咨询",content:"请问黎明湖水库改造和人民公园广场建设什么时候能完工？",status:"已转办县水务局办理中"},
+ vote1:{title:"龙祥市场片区改造方案公开征求意见",meta:"发布单位：县住房和城乡建设局　｜　发布时间：2026-08-15　｜　分类：民意征集",content:"《龙祥市场片区改造实施方案（征求意见稿）》已于2026年8月15日通过县政府门户网站全文公布，公开征求社会各界意见。征求意见截止时间为2026年9月15日，欢迎广大群众通过信件、电子邮件等方式提出宝贵意见。",status:"征集中"},
+ vote2:{title:"黎明湖人民公园广场设计方案公示",meta:"发布单位：县水务局　｜　发布时间：2026-09-01　｜　分类：民意征集",content:"黎明湖人民公园广场设计方案已编制完成，现予以公示。公示期自2026年9月1日至9月20日。公示期间如有意见建议，请以书面形式反馈至县水务局办公室。",status:"公示中"},
+ report1:{title:"反映幸福小区暖气不热问题",meta:"投诉编号：TS202610090005　｜　来信人：匿名　｜　时间：2026-10-09　｜　分类：投诉举报",content:"幸福小区4号楼供暖温度一直不达标，家里老人孩子受不了，请相关部门尽快处理。",status:"已转办县供热办办理中"},
+ report2:{title:"反映龙祥市场门口占道经营问题",meta:"举报编号：JB202608220003　｜　来信人：匿名　｜　时间：2026-08-22　｜　分类：投诉举报",content:"龙祥市场东门有流动商贩占道经营，影响通行，请处理。",status:"已处理（2026-08-25）",reply:"您好！经现场核实，县城管部门已对龙祥市场东门占道商贩进行劝导，引导其进入指定区域规范经营，道路通行已恢复。感谢您的监督！"}
+};
+var curTab="letter";
+qsa("#forum-tabs button").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    qsa("#forum-tabs button").forEach(function(b){b.classList.remove("on");});
+    btn.classList.add("on");curTab=btn.getAttribute("data-tab");
+    qsa(".forum-list").forEach(function(l){l.style.display=(l.id==="forum-"+curTab)?"":"none";});
+  });
+});
+qsa(".post-item").forEach(function(item){
+  item.addEventListener("click",function(){
+    var t=THREADS[item.getAttribute("data-post")];if(!t)return;
+    $("thread-title").textContent=t.title;
+    $("thread-meta").textContent=t.meta;
+    $("thread-content").textContent=t.content;
+    $("thread-status").textContent=t.status;
+    var rp=$("thread-reply");
+    if(t.reply){rp.style.display="";rp.innerHTML="<b>官方答复：</b>"+t.reply;}
+    else{rp.style.display="none";}
+    qs("#view-hudong .card").style.display="none";
+    $("thread-box").style.display="";
+    window.scrollTo(0,0);
+  });
+});
+$("thread-back").addEventListener("click",function(e){
+  e.preventDefault();
+  qs("#view-hudong .card").style.display="";
+  $("thread-box").style.display="none";
+});
+
+/* ---------- 优秀毕业生展示 ---------- */
+/* 每条：[姓名, 录取院校, 荣誉, 照片, 照片说明]
+   照片省略时按 素材/grad/grad-年份-序号.jpg 自动取图；想换头像，直接用同名文件覆盖即可。
+   想给某个人单独换一张，就在这条末尾加第 4 项，例如：
+     ["林子昂","北京大学","2026年高考全县理科第一名","素材/xxx.jpg"]                        */
+var GRAD_PHOTO_DIR = "素材/grad/";
+var GRADS={
+ 2026:[["林子昂","北京大学","2026年高考全县理科第一名"],["田若曦","清华大学","2026年高考全县文科第一名"],["胡天佑","上海交通大学","600分以上"],["苏念慈","南京大学","600分以上"],["焦文博","哈尔滨工业大学","600分以上"],["温思彤","四川大学","600分以上"],["雷俊杰","山东大学","600分以上"]],
+ 2025:[],
+ 2024:[["韩东升","华中科技大学","全国数学竞赛省二等奖"],["杜雪莹","西安交通大学","校级三好学生"],["孟祥宇","哈尔滨工程大学","优秀学生干部"],["袁梦琪","东北师范大学","国家奖学金"],["曹家铭","中国矿业大学","省优秀毕业生"],["薛文博","黑龙江大学","校园之星"]],
+ 2023:[["于浩然","厦门大学","全国青少年科技创新大赛省一等奖"],["徐静怡","中南大学","校级优秀毕业生"],["马俊驰","哈尔滨工业大学","优秀学生干部"],["梁雨薇","吉林大学","省三好学生"],["宋晓峰","黑龙江中医药大学","国家励志奖学金"],["冯雅茹","东北财经大学","校园演讲比赛冠军"]],
+ 2022:[["王思远","北京航空航天大学","省优秀共青团员"],["李欣怡","天津大学","全国英语竞赛省特等奖"],["赵一鸣","大连理工大学","校级三好学生"],["孙悦","哈尔滨工程大学","优秀学生干部"],["郑凯文","东北林业大学","国家奖学金"],["高嘉琪","沈阳农业大学","校园文体之星"]],
+ 2021:[["周雨桐","哈尔滨工业大学","省三好学生"],["陈明轩","吉林大学","全国中学生物理竞赛省一等奖"],["张琳琳","东北师范大学","校级优秀毕业生"],["刘志强","黑龙江大学","优秀学生干部"],["杨梦琪","哈尔滨医科大学","国家励志奖学金"],["吴海峰","东北农业大学","校园十佳青年"]]
+};
+function gradPhoto(g,year,i){
+  var src = g[3] || (GRAD_PHOTO_DIR + "grad-" + year + "-" + (i+1) + ".jpg");
+  return '<img src="'+src+'" alt="'+g[0]+'证件照" onerror="this.style.display=\'none\';this.parentNode.classList.add(\'ph-missing\');this.parentNode.innerHTML=\'<span class=&quot;gph&quot;>'+g[0].charAt(0)+'</span>\';">';
+}
+/* 2025 那一年：空数据伪装成"加载失败"，按刷新会一次次更怪，连点 5 次就弹虫子 */
+var gradYear="2026",year2025Clicks=0,gradRetry=0;
+var GRAD_RETRY_MSG=[
+  "该年度数据暂未录入。<br>可能是网络错误，请<a href=\"#\" class=\"ge-retry\" id=\"grad-refresh\">刷新</a>重试。",
+  "该年度数据暂未录入。<br>连接超时，未能读取该年度记录，请<a href=\"#\" class=\"ge-retry\" id=\"grad-refresh\">刷新</a>重试。",
+  "该年度数据暂未录入。<br>服务器响应异常（返回码 <b>404</b>），请<a href=\"#\" class=\"ge-retry\" id=\"grad-refresh\">刷新</a>重试。",
+  "该年度数据暂未录入。<br><b>数据存在，但无法显示。</b>请<a href=\"#\" class=\"ge-retry\" id=\"grad-refresh\">刷新</a>重试。",
+  "该年度数据<s>暂未录入</s>。<br>记录已被移除。引用它的页面还在。<a href=\"#\" class=\"ge-retry\" id=\"grad-refresh\">刷新</a>?"
+];
+var GRAD_RETRY_ERR=["ERR_CONNECTION_CLOSED","ERR_EMPTY_RESPONSE","ERR_INVALID_RESPONSE","0x0000A3F1 该条目不可读","FATAL: 引用计数 -1"];
+
+/* 点一次"刷新"：装一下正在重新加载 → 换成下一条更怪的话术；连点 3 次出红点，5 次播毕业照闪帧 */
+function gradTrigger(){
+  if(gradYear!=="2025")return;
+  gradRetry++;
+  var dot=$("year-2025-dot");
+  if(gradRetry>=3&&dot)dot.classList.add("show");
+  if(gradRetry>=5){
+    gradRetry=0; year2025Clicks=0;
+    if(dot)dot.classList.remove("show");
+    flashThree();          /* 正常 → 黑 → 歪脖 → 黑 → 扭曲 → 黑 → 回首页 */
+    return;
+  }
+  var box=$("grad-empty");
+  box.className="grad-err";
+  box.innerHTML='<div class="ge-msg"><span class="ge-spin"></span>正在重新加载该年度数据……</div>';
+  setTimeout(function(){
+    if(gradYear!=="2025")return;
+    var i=Math.min(gradRetry-1,GRAD_RETRY_MSG.length-1);
+    box.innerHTML='<div class="ge-msg">'+GRAD_RETRY_MSG[i]+'</div><div class="ge-err">'+GRAD_RETRY_ERR[i]+'</div>';
+    var rf=$("grad-refresh");
+    if(rf)rf.addEventListener("click",function(e){e.preventDefault();gradTrigger();});
+  },650+Math.random()*300);
+}
+
+/* ---------- 毕业照闪帧：正常 → 黑 → 歪脖 → 黑 → 扭曲 → 黑 → 回首页 ----------
+   三张图放在 素材/毕业生/ 下，同名覆盖即可换图。
+   想调节奏，就改下面 [图片, 停留毫秒] 里的数字。 */
+var FLASH3_IMAGES = {
+  normal:  "素材/grad/毕业生-正常版.jpg",
+  tilted:  "素材/grad/毕业生-歪脖版.jpg",
+  twisted: "素材/grad/毕业生-扭曲版.jpg"
+};
+var FLASH3_SEQ = [
+  [FLASH3_IMAGES.normal,  1000],
+  [null,                  1000],
+  [FLASH3_IMAGES.tilted,  1000],
+  [null,                  1000],
+  [FLASH3_IMAGES.twisted, 1000],
+  [null,                  1000]
+];
+var flash3Running=false;
+
+/* 预载：三张图先真正解码进内存，否则第一帧可能在图片还没画出来时就过去了 */
+var FLASH3_READY={};
+(function preloadFlash3(){
+  Object.keys(FLASH3_IMAGES).forEach(function(k){
+    var src=FLASH3_IMAGES[k], im=new Image();
+    im.onload=function(){ FLASH3_READY[src]=true; };
+    im.onerror=function(){ FLASH3_READY[src]=false; };
+    im.src=src;
+  });
+  /* 备用：用 decode() 提前把解码也做完（支持的浏览器上更稳） */
+  if(window.createImageBitmap||Image.prototype.decode){
+    Object.keys(FLASH3_IMAGES).forEach(function(k){
+      var im=new Image(); im.src=FLASH3_IMAGES[k];
+      if(im.decode) im.decode().catch(function(){});
+    });
+  }
+})();
+
+/* 调试用：控制台执行 __playFlash3() 可直接播放，不用点 5 次刷新 */
+window.__playFlash3=function(){ flash3Running=false; flashThree(); };
+
+function flashThree(){
+  if(flash3Running)return; flash3Running=true;
+  var ov=$("flash3"), img=$("f3-img");
+  if(!ov||!img){ flash3Running=false; location.hash="#/home"; return; }
+  ov.classList.add("on");
+  /* 注意：这里不要先清空 img。
+     否则从"层打开"到"第一帧解码完成"之间会多出一小段纯黑，
+     整段就变成 黑→图→黑→图→黑→图→黑，开头多闪了一下。
+     让 step() 自己接管第一帧即可。 */
+  img.classList.add("show");
+  img.removeAttribute("src");
+  var i=0, firstPaint=false;
+  function step(){
+    if(i>=FLASH3_SEQ.length){
+      /* 播完：黑一帧，然后回官网首页 */
+      img.classList.remove("show");
+      ov.classList.remove("on");
+      flash3Running=false;
+      /* 顺手把毕业生的两个计数清零，避免下次进来状态是脏的 */
+      gradRetry=0; year2025Clicks=0;
+      var d=$("year-2025-dot"); if(d) d.classList.remove("show");
+      location.hash="#/home";
+      window.scrollTo(0,0);
+      return;
+    }
+    var frame=FLASH3_SEQ[i], src=frame[0], hold=frame[1];
+    i++;
+    if(!src){
+      /* 黑帧：把图片从渲染里摘掉，保证是纯黑 */
+      img.classList.remove("show");
+      img.removeAttribute("src");
+      setTimeout(step,hold);
+      return;
+    }
+    /* 有图：先确保这一帧真的解码完成再开始计时，
+       否则慢盘上会出现"黑一下才出图"或者干脆整帧看不见。
+       但只有第一帧等——后面的预载已经热了，不必等，免得黑帧被撑长。 */
+    var shown=function(){
+      img.classList.add("show");
+      firstPaint=true;
+      setTimeout(step,hold);
+    };
+    img.src=src;
+    if(!firstPaint && img.decode){
+      img.decode().then(shown, shown);
+    }else{
+      shown();
+    }
+  }
+  step();
+}
+
+function renderGrads(y){
+  gradYear=String(y);
+  qsa("#year-tabs button").forEach(function(b){
+    b.classList.toggle("on",b.getAttribute("data-year")===gradYear);
+  });
+  var list=GRADS[gradYear]||[];
+  var box=$("grad-grid");
+  var empty=$("grad-empty");
+  if(!list.length){
+    box.innerHTML="";
+    empty.style.display="";
+    if(gradYear==="2025"){
+      gradRetry=0;
+      empty.className="grad-err";
+      empty.innerHTML='<div class="ge-msg">'+GRAD_RETRY_MSG[0]+'</div><div class="ge-err">'+GRAD_RETRY_ERR[0]+'</div>';
+      var rf=$("grad-refresh");
+      if(rf)rf.addEventListener("click",function(e){e.preventDefault();gradTrigger();});
+    }else{
+      empty.className="grad-empty";
+      empty.textContent="该年度数据暂未录入。";
+    }
+    return;
+  }
+  empty.style.display="none";
+  box.innerHTML=list.map(function(g,i){
+    return '<div class="grad-card"><div class="grad-photo">'+gradPhoto(g,gradYear,i)+'</div><div class="gname">'+g[0]+'</div><div class="gschool">'+g[1]+'</div><div class="ghonor">'+g[2]+'</div></div>';
+  }).join("");
+}
+qsa("#year-tabs button").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    var y=btn.getAttribute("data-year");
+    /* 换过年份就重新计连续刷新次数 */
+    if(y!=="2025"){
+      gradRetry=0;
+      var d=$("year-2025-dot"); if(d)d.classList.remove("show");
+    }
+    renderGrads(y);
+  });
+});
+
+/* ---------- 站内搜索 ---------- */
+var SEARCH_INDEX=[
+ {t:"永远热泪盈眶 接承各类商演（驻唱・婚庆・开业・年会）联系邮箱 yyrlyk20074567@163.com",h:"",ext:"yaogun.html",type:"广告"},
+ {t:"永远热泪盈眶个人主页：一个在街上唱歌的人",h:"",ext:"yaogun.html",type:"广告"},
+ {t:"坨罗山煤矿旧址改造：从黑色废墟到工业遗址公园",h:"/news?id=5",type:"新闻"},
+ {t:"龙祥下岗一条街拆迁后续：原址将建市民广场",h:"/news?id=6",type:"新闻"},
+ {t:"我县召开煤矿关停20年，安置工作会议",h:"/news?id=1",type:"新闻"},
+ {t:"龙祥市场片区改造工作顺利推进",h:"/news?id=2",type:"新闻"},
+ {t:"黎明湖水库冬季安全管理工作通知",h:"/news?id=3",type:"新闻"},
+ {t:"坨罗山高中2025年高考再创佳绩",h:"/news?id=7",type:"新闻"},
+ {t:"坨罗山高中2025届优秀毕业生专访",h:"/news?id=8",type:"新闻"},
+ {t:"请问坨罗山高中2025年优秀毕业生为什么加载不出？",h:"/hudong",type:"互动"},
+ {t:"坨罗山高中2026年高考再创佳绩",h:"/news?id=4",type:"新闻"},
+ {t:"坨罗山高中一学生意外坠落",h:"/news?id=9",type:"新闻"},
+ {t:"坨罗山县2026年事业单位公开招聘工作人员公告",h:"/notice",type:"公告"},
+ {t:"坨罗山煤矿旧址工业遗址公园规划方案公示",h:"/zgyy",type:"公示"},
+ {t:"2026年高考志愿填报指南",h:"/zhiyuan",type:"高考"},
+ {t:"2026年高考志愿填报表（空白模板）",h:"/zhiyuanform",type:"高考"},
+ {t:"坨罗山高中2026年秋季期中考试安排",h:"/qimo",type:"教育"},
+ {t:"关于做好2027年高考报名工作的通知",h:"/baoming",type:"教育"},
+ {t:"请问坨罗山高中2025年优秀毕业生为什么加载不出？",h:"/hudong",type:"互动"},
+ {t:"龙祥市场关于促进地摊经济的通知",h:"/news?id=2",type:"公告"},
+ {t:"煤矿关停后续安置专题",h:"/zmeikuang",type:"专题"},
+ {t:"煤矿关停后续安置工作领导小组组长、副县长 韩立成",h:"/file?id=hujie-gov",type:"政务公开"},
+ {t:"龙祥市场拆迁专题",h:"/zlongxiang",type:"专题"},
+ {t:"坨罗山县2026年高考专题",h:"/zgaokao",type:"专题"},
+ {t:"扫黑除恶专题",h:"/zheishe",type:"专题"},
+ {t:"2003年刘某某黑势力团伙案档案",h:"/zheishe2003",type:"过往专题"},
+ {t:"刘某某黑势力团伙案",h:"/zheishe2003",type:"案件"},
+ {t:"挪用下岗职工安置资金",h:"/zheishe2003",type:"案件"},
+ {t:"矿区社会治安专项整治",h:"/zheishe",type:"过往专题"},
+ {t:"黎明湖水库安全专题",h:"/zliminghu",type:"专题"},
+ {t:"优秀毕业生展示",h:"/graduates",type:"栏目"},
+ {t:"教育动态",h:"/jiaoyu",type:"栏目"},
+ {t:"坨罗山高级中学",h:"/jiaoyu",type:"学校"},
+ {t:"县情概况",h:"/xianqing",type:"栏目"},
+ {t:"煤矿换新颜",h:"/news?id=5",type:"热词"},
+ {t:"黎明湖水库改造为人民公园广场",h:"/zliminghu",type:"热词"}
+];
+/* 检索"2025 + 毕业生"时固定返回的这三条。
+   第三条本身就是线索：站内检索查不到该年度名单，只能转到政民互动。 */
+var SEARCH_2025=[
+ {type:"新闻",t:"坨罗山高中2025年高考再创佳绩",h:"/news?id=7",d:"2025-06-26　来源：坨罗山县教育局"},
+ {type:"新闻",t:"坨罗山高中2025届优秀毕业生专访",h:"/news?id=8",d:"2025-08-20　来源：坨罗山县融媒体中心"},
+ {type:"互动",t:"请问坨罗山高中2025年优秀毕业生为什么加载不出？",h:"/hudong",d:"2026-10-05　县长信箱　｜　已受理，正在处理中"}
+];
+var SEARCH_LINGXUN=[
+ {type:"水利",t:"黎明湖水库凌汛期安全提示",h:"/zliminghu",d:"2026-04-10　来源：坨罗山县水利局"},
+ {type:"应急",t:"坨罗山县2026年凌汛应急预案",h:"/notice",d:"2026-03-15　来源：坨罗山县应急管理局"},
+ {type:"科普",t:"什么是凌汛？——县教育局水文知识科普",h:"/jiaoyu",d:"2026-04-01　来源：坨罗山县教育局"},
+ {type:"新闻",t:"坨罗山高中2025届优秀毕业生专访",h:"/news?id=8",d:"2025-08-20　来源：坨罗山县融媒体中心"},
+ {type:"新闻",t:"坨罗山高中2025年高考再创佳绩",h:"/news?id=7",d:"2025-06-26　来源：坨罗山县教育局"},
+ {type:"新闻",t:"黎明湖水库发现一具女性遗体，警方排除他杀",h:"/404",d:"2026-04-05　来源：坨罗山县公安局"}
+];
+function searchEsc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+/* ============================================================
+   刘华杰 检索结果（4 条）
+   ------------------------------------------------------------
+   线索设计：三份不同部门的公开文件，口径对不上——
+     · 判决书里强奸罪有完整的时间/地点/受害人，抢劫和侵吞公款只有"经查"一句
+     · 公安局通报里根本没提强奸，只讲抢劫和侵吞公款
+     · 民政局安置记录的备注栏写着他"疑似精神异常，多次被群众举报"
+     · 政府补充说明里他的名字被标红，备注"已不在安置范围内"
+   ============================================================ */
+var HUJIE_RESULTS=[
+ {type:"司法",t:"《坨罗山县人民法院刑事判决书（节选）》",id:"hujie-court",
+  d:"来源：坨罗山县人民法院",time:"2004-03-18",
+  abs:"被告人刘华杰，男，坨罗山县人，原煤矿工人。因犯强奸罪、抢劫罪、侵吞公款罪，数罪并罚，判处有期徒刑十三年……"},
+ {type:"公安",t:"《坨罗山县公安局关于刘华杰案的情况通报》",id:"hujie-police",
+  d:"来源：坨罗山县公安局",time:"2003-11-16",
+  abs:"11 月 9 日，我局破获一起系列案件，犯罪嫌疑人刘华杰已被依法逮捕。经查，刘华杰涉嫌多起抢劫、侵吞公款案件……"},
+ {type:"民政",t:"《坨罗山县民政局关于刘华杰刑满释放人员安置记录》",id:"hujie-civil",
+  d:"来源：坨罗山县民政局",time:"2007-06-12",
+  abs:"刘华杰，男，2007 年 2 月 8 日刑满释放。因无固定住所、无亲属、无劳动能力，纳入最低生活保障……"},
+ {type:"政府",t:"《坨罗山县人民政府关于煤矿关停后续安置工作的补充说明》",id:"hujie-gov",
+  d:"来源：坨罗山县人民政府",time:"2004-04-06",
+  abs:"……原煤矿职工刘华杰，因个人原因，未纳入本次安置名单……"},
+ {type:"司法",t:"《坨罗山县人民法院刑事再审判决书（节选）》",id:"hujie-retrial",
+  d:"来源：坨罗山县人民法院",time:"2007-04-16",
+  abs:"本院再审认为，原判认定原审被告人刘华杰犯抢劫罪、侵吞公款罪，事实不清、证据不足，不予认定……"}
+];
+
+/* ── 老刘废品厂那条广告底下的评论区 ──────────────────────────
+   ★ 全部产生于 2026 年 4 月 5 日之后。
+   广告本身是 3 月 18 日发的 —— 前半个多月，一条评论都没有。
+   凌讯的遗体是 4 月初发现的，县城把二十多年前那个嫌疑人又想起来了。
+   「（该评论已被管理员删除）」那几条的位置是有意的：删掉的，多半是替他说话的。
+   写作依据：用户口述。手册规则 6 —— 不写血腥、不写尖叫，全靠人多和笃定压着。 */
+var LIU_COMMENTS = [
+  ["2026-04-05 09:12","老矿区","这不是老刘吗？当年那个事儿的。"],
+  ["2026-04-05 09:20","山河屯","我认得这张脸。二十多年了，还是那张脸。"],
+  ["2026-04-05 09:41","路过看看","怎么放出来的？"],
+  ["2026-04-05 10:03","老邻居","当年他不是杀过人吗"],
+  ["2026-04-05 10:15","白菜土豆","强奸犯还出来做生意，谁去谁晦气。"],
+  ["2026-04-05 11:02","冰碴子","水库那事儿刚出来没几天，他就敢冒头。"],
+  ["2026-04-05 11:30","三道街","这种人怎么还能娶上媳妇"],
+  ["2026-04-05 12:07","小卖部张","他媳妇知道他是谁吗"],
+  ["2026-04-05 13:44","匿名","听说还带个孩子。那孩子可怜。"],
+  ["2026-04-05 15:26","老矿灯","我记得他当年是判了重刑的，怎么这么快就出来了"],
+  ["2026-04-06 08:31","苞米地","我小时候我妈就说过，别往矿上那边去，有个疯子。"],
+  ["2026-04-06 09:15","修车的老李","疯子？装的。真疯的人不会开厂子。"],
+  ["2026-04-06 10:22","匿名","抢了钱还能开店，本钱哪来的"],
+  ["2026-04-06 14:50","看报纸的","当年那个案子报纸上都登过，怎么还能出来做生意"],
+  ["2026-04-07 07:58","五道街","我劝大家别卖给他，脏。"],
+  ["2026-04-07 16:12","匿名","你们谁去他那儿卖过东西？也敢？"],
+  ["2026-04-08 09:40","老住户","这种人就不该让他回来。"],
+  ["2026-04-09 20:11","匿名","他住哪儿？有没有人知道"],
+  ["2026-04-10 12:33","管理员","（该评论已被管理员删除）",1],
+  ["2026-04-11 06:45","东头","我爷说他就该枪毙。当年没枪毙是便宜他了。"],
+  ["2026-04-12 18:20","匿名","不是一家人不进一家门，他媳妇也不是什么好的。"],
+  ["2026-04-14 08:05","匿名","我侄女在那附近上班，我让她绕道走。"],
+  ["2026-04-15 10:12","匿名","怎么还没人管？这种店也能开？"],
+  ["2026-04-16 15:37","管理员","（该评论已被管理员删除）",1],
+  ["2026-04-17 09:02","老张头","当年干了那种事，钱也是他偷的，现在倒好，开店当老板了。"],
+  ["2026-04-18 21:44","匿名","还娶妻生子呢。他有这个资格吗。"],
+  ["2026-04-19 08:26","龙祥人","龙祥那边的人都知道他。没人跟他说话。"],
+  ["2026-04-20 11:55","匿名","我不同意。他就不配在这地方待着。"],
+  ["2026-04-21 07:13","匿名","有没有人知道那厂子具体在哪？"],
+  ["2026-04-22 19:38","管理员","（该评论已被管理员删除）",1],
+  ["2026-04-23 10:07","匿名","二十多年了，他倒活得挺好。"],
+  ["2026-04-24 13:29","匿名","这帖子怎么还没删？留着也好，让大家都看清楚。"],
+  ["2026-04-25 09:48","老矿区","我说句不好听的，这种人就不该有后半辈子。"],
+  ["2026-04-26 17:02","匿名","他是不是改过名？我按老名字查刘华杰也查不到这个人。"],
+  ["2026-04-27 08:15","匿名","有些事，知道就得了，指不定谁收钱给他轻判了。"],
+  ["2026-04-28 09:33","匿名","反正我记住了。以后见着绕开。"],
+  ["2026-04-28 15:20","匿名","多吓人啊。"]
+];
+function liuCommentBlock(){
+  return '<div style="margin-top:20px;border-top:1px dashed var(--line);padding-top:14px">'
+    + '<div style="font-size:13.5px;color:var(--muted);margin-bottom:6px">全部评论（'
+    + LIU_COMMENTS.length + '）</div>'
+    + '<div style="font-size:12.5px;color:var(--muted);margin-bottom:12px">'
+    + '评论按时间倒序排列。最早一条：2026-04-05 09:12。</div>'
+    + LIU_COMMENTS.map(function(c){
+        var off = c[3];
+        return '<div style="padding:9px 0;border-bottom:1px dotted var(--line)'
+          + (off ? ';opacity:.55' : '') + '">'
+          + '<div style="font-size:12px;color:var(--muted)">' + searchEsc(c[1]) + '　' + searchEsc(c[0]) + '</div>'
+          + '<div style="font-size:13.5px;margin-top:3px' + (off ? ';font-style:italic' : '') + '">'
+          + searchEsc(c[2]) + '</div></div>';
+      }).join("")
+    + '</div>';
+}
+
+/* 档案原文。加 <mark class="sens"> 就是"被系统标红"的效果 */
+var FILES={
+ "liuhaijun-ad":{
+  title:"老刘废品厂　常年收购废纸壳、废铁、旧家电",
+  meta:"来源：便民信息（发布人自行提供）　｜　发布时间：2026-03-18",
+  row:[["信息类型","便民信息 · 供求"],["发布人","刘海军"],["发布时间","2026-03-18"],
+       ["浏　览","18,432"],["评　论",LIU_COMMENTS.length+" 条"]],
+  body:
+   '<div class="doc">'
+  +'<p class="ind">本厂长年收购：废纸壳、废书本报纸、废铁废铜废铝、旧塑料、旧家电、旧自行车。</p>'
+  +'<p class="ind">价格公道，装车结现。城区、龙祥、矿区一带可上门来收，量大从优。</p>'
+  +'<p class="ind">地址：城郊乡西缘（原城郊废品回收点院内）<br>电话：138-4677-2081　刘海军</p>'
+  +'<div class="doc-note">本信息由发布人自行提供，本站仅作展示，不承担由此产生的任何责任。</div>'
+  +'</div>'
+  + liuCommentBlock()
+ },
+ "hujie-retrial":{
+  title:"坨罗山县人民法院刑事再审判决书（节选）",
+  meta:"来源：坨罗山县人民法院　｜　（2007）坨刑再初字第 2 号",
+  row:[["文书类型","刑事再审判决书（节选）"],["审判机关","坨罗山县人民法院"],
+       ["公开时间","2007-04-16"],["密级","依申请公开"]],
+  judicial:1,
+  body:
+   '<div class="doc">'
+  +'<h4>一、再审经过</h4>'
+  +'<p class="ind">原审被告人刘华杰不服本院（2003）坨刑初字第 37 号刑事判决，委托辩护人郑维国律师提出申诉。本案经本院院长提交审判委员会讨论决定再审，依法另行组成合议庭，于 2007 年 3 月 20 日公开开庭审理了本案。坨罗山县人民检察院指派检察员周凤山出庭履行职务。</p>'
+  +'<h4>二、再审认定</h4>'
+  +'<p class="ind">原判认定原审被告人刘华杰犯强奸罪，事实清楚，证据确实、充分，本院予以维持。</p>'
+  +'<p class="ind">原判认定原审被告人刘华杰犯抢劫罪、侵吞公款罪，经再审查证，<mark class="sens">事实不清，证据不足</mark>，本院不予认定。</p>'
+  +'<h4>三、判决</h4>'
+  +'<p class="ind">一、撤销本院（2003）坨刑初字第 37 号刑事判决中对原审被告人刘华杰抢劫罪、侵吞公款罪的定罪量刑部分；</p>'
+  +'<p class="ind">二、维持该判决中对原审被告人刘华杰强奸罪的定罪量刑部分；</p>'
+  +'<p class="ind">三、依照《中华人民共和国国家赔偿法》有关规定，依法予以国家赔偿。</p>'
+  +'<p class="ind">本判决为终审判决。</p>'
+  +'<p class="rt">审判长　韩广林<br>审判员　金守田<br>审判员　朴慧兰</p>'
+  +'<p class="rt">二〇〇七年四月十六日</p>'
+  +'<p class="stamp">坨罗山县人民法院（印）</p>'
+  +'<p style="font-size:12.5px;color:var(--muted);margin-top:10px">书记员　赵长顺</p>'
+  +'</div>'
+  +'<div class="doc-note" style="margin-top:14px">'
+  +'<b>附：承办情况</b><br>'
+  +'原审被告人刘华杰撤销上诉。维持2003年原判。<br>'
+  +'原审被告人刘华杰服判，<b>未提出上诉</b>。'
+  +'</div>'
+  +'<div class="doc-note" style="margin-top:10px">'
+  +'<b>附注（档案系统自动标注）</b><br>'
+  +'该人员于 2007 年 9 月办理姓名变更登记，现名<b>刘海军</b>。'
+  +'</div>'
+  +'</div>'
+ },
+ "hujie-court":{
+  title:"坨罗山县人民法院刑事判决书（节选）",
+  meta:"来源：坨罗山县人民法院　｜　（2003）坨刑初字第 37 号",
+  row:[["文书类型","刑事判决书（节选）"],["审判机关","坨罗山县人民法院"],["公开时间","2004-03-18"],["密级","依申请公开"]],
+  judicial:1,
+  body:
+   '<div class="doc">'
+  +'<h4>一、被告人基本情况</h4>'
+  +'<p class="ind">被告人刘华杰，男，1976 年 4 月 4 日出生，坨罗山县矿安乡人，原坨罗山煤矿供应科保管员。因本案于 2003 年 11 月 9 日被坨罗山县公安局刑事拘留，同年 11 月 14 日经坨罗山县人民检察院批准逮捕。现羁押于坨罗山县看守所。</p>'
+  +'<h4>二、强奸罪</h4>'
+  +'<p class="ind">经查，被告人刘华杰于 2003 年 11 月 7 日 21 时许，在坨罗山煤矿三号井口附近的废弃磅房内，以暴力手段强行与被害人（女，时年 19 岁，系矿区临时工）发生性关系。被害人于次日向矿区保卫科报案，并于同月向公安机关陈述经过。</p>'
+  +'<p class="ind">上述事实，有被害人陈述、证人证言、现场勘查笔录及被告人供述等证据证实，证据确实、充分，本院予以确认。</p>'
+  +'<h4>三、抢劫罪</h4>'
+  +'<p class="ind">经查，被告人刘华杰于 2003 年 9 月至 10 月间实施抢劫。</p>'
+  +'<h4>四、侵吞公款罪</h4>'
+  +'<p class="ind">经查，被告人刘华杰于 2003 年 5 月至 8 月间利用职务之便侵吞公款。</p>'
+  +'<h4>五、判决</h4>'
+  +'<p class="ind">本院认为，被告人刘华杰的行为已分别构成强奸罪、抢劫罪、侵吞公款罪。依照《中华人民共和国刑法》有关规定，判决如下：</p>'
+  +'<p class="ind">被告人刘华杰犯强奸罪、抢劫罪、侵吞公款罪，数罪并罚，决定执行有期徒刑十三年，剥夺政治权利三年（刑期自判决执行之日起计算）。</p>'
+  +'<p class="ind">如不服本判决，可在接到判决书第二日起十日内提出上诉。</p>'
+  +'<p class="rt">审判长　韩广林<br>审判员　金守田<br>审判员　朴慧兰</p>'
+  +'<p class="rt">二〇〇四年三月十八日</p>'
+  +'<p class="stamp">坨罗山县人民法院（印）</p>'
+  +'<p style="font-size:12.5px;color:var(--muted);margin-top:10px">书记员　陈晓东</p>'
+  +'</div>'
+  +'<div class="doc-note" style="margin-top:14px">'
+  +'本页为公开检索结果节选，部分内容按有关规定作技术处理。<b>如发现文书内容前后不一致，请向坨罗山县人民法院反映。</b>'
+  +'</div>'
+ },
+ "hujie-police":{
+  title:"坨罗山县公安局关于刘华杰案的情况通报",
+  meta:"来源：坨罗山县公安局　｜　发布时间：2003-11-16",
+  row:[["文书类型","情况通报"],["发布机关","坨罗山县公安局"],["公开时间","2003-11-16"],["密级","主动公开"]],
+  body:
+   '<div class="doc">'
+  +'<h4>一、案件总体情况</h4>'
+  +'<p class="ind">11 月 9 日，我局在上级公安机关指导下，破获一起发生在坨罗山煤矿矿区的系列案件。犯罪嫌疑人刘华杰（男，1976 年 4 月生，坨罗山县矿安乡人，原坨罗山煤矿工人）已被依法逮捕。</p>'
+  +'<h4>二、涉嫌犯罪事实</h4>'
+  +'<p class="ind">在罗江煤矿矿工集体举报下，刘华杰涉嫌多起抢劫、侵吞公款案件。案发时段集中于 2003 年煤矿关停前后，作案地点多在我县坨罗山镇、矿安乡一带。我局已依法查明其涉嫌抢劫、侵吞公款的相关事实，并移送坨罗山县人民检察院审查起诉。</p>'
+  +'<h4>三、下一步工作</h4>'
+  +'<p class="ind">我局将继续深挖余罪、扩大战果，同时结合煤矿关停后矿区人员流动较大的实际情况，组织开展社会治安专项整治，切实维护矿区及周边群众生命财产安全。</p>'
+  +'<p class="ind">公安机关提醒广大群众，如掌握相关线索，请及时向坨罗山县公安局举报。</p>'
+  +'<p class="rt">坨罗山县公安局副局长—韩利民</p>'
+  +'<p class="rt">二〇〇三年十一月十六日</p>'
+  +'<p class="stamp">坨罗山县公安局（印）</p>'
+  +'</div>'
+  +'<div class="doc-note" style="margin-top:14px">'
+  +'本通报依据当年公开发布材料整理。'
+  +'</div>'
+ },
+ "hujie-civil":{
+  title:"坨罗山县民政局关于刘华杰刑满释放人员安置记录",
+  meta:"来源：坨罗山县民政局　｜　档案号：坨民安〔2007〕43 号",
+  row:[["文书类型","安置记录"],["登记机关","坨罗山县民政局"],["登记时间","2007-06-12"],["密级","依申请公开"]],
+  body:
+   '<div class="doc">'
+  +'<h4>一、基本信息</h4>'
+  +'<table style="width:100%;border-collapse:collapse;font-size:14px">'
+  +'<tr><td class="tbl-h" style="width:26%">姓名</td><td class="tbl-c">刘华杰</td><td class="tbl-h" style="width:26%">性别</td><td class="tbl-c">男</td></tr>'
+  +'<tr><td class="tbl-h">出生日期</td><td class="tbl-c">1976-04-04</td><td class="tbl-h">户籍地</td><td class="tbl-c">坨罗山县矿安乡</td></tr>'
+  +'<tr><td class="tbl-h">人员类别</td><td class="tbl-c">刑满释放人员</td><td class="tbl-h">原工作单位</td><td class="tbl-c">坨罗山煤矿（已关停）</td></tr>'
+  +'<tr><td class="tbl-h">住房情况</td><td class="tbl-c">无固定住所</td><td class="tbl-h">亲属情况</td><td class="tbl-c">无亲属</td></tr>'
+  +'<tr><td class="tbl-h">劳动能力</td><td class="tbl-c">无劳动能力</td><td class="tbl-h">安置方式</td><td class="tbl-c">纳入最低生活保障</td></tr>'
+  +'</table>'
+  +'<h4>二、安置意见</h4>'
+  +'<p class="ind">该人员于 2007 年 2 月 8 日刑满释放后返回我县，因无固定住所、无亲属、无劳动能力，经坨罗山镇民政办核实并报我局审核，同意将其纳入最低生活保障范围，按月发放低保金，并纳入冬季临时救助名单。</p>'
+  +'<h4>三、备注</h4>'
+  +'<div class="doc-note" style="font-size:14px">'
+  +'该人员拒绝接受救助，长期在龙祥市场附近捡拾废品为生。'
+  +'</div>'
+  +'<p style="font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.8">'
+  +'该人员多次被群众举报。'
+  +'</p>'
+  +'<p class="rt">坨罗山县民政局</p>'
+  +'<p class="rt">二〇〇七年六月十二日</p>'
+  +'<p class="stamp">坨罗山县民政局（印）</p>'
+  +'<p style="font-size:12.5px;color:var(--muted);margin-top:10px">经办人　王玉珍</p>'
+  +'</div>'
+ },
+ "hujie-gov":{
+  title:"坨罗山县人民政府关于煤矿关停后续安置工作的补充说明",
+  meta:"来源：坨罗山县人民政府　｜　发布时间：2004-04-06",
+  row:[["文书类型","补充说明"],["发布机关","坨罗山县人民政府"],["公开时间","2004-04-06"],["密级","主动公开"]],
+  body:
+   '<div class="doc">'
+  +'<h4>一、安置工作总体进展</h4>'
+  +'<p class="ind">自 2003 年坨罗山煤矿因重大安全事故永久关停以来，县委、县政府高度重视下岗职工安置工作，成立煤矿关停后续安置工作领导小组，逐户摸排、逐人建档，先后完成三批次安置资金发放与就业对接工作，安置工作总体平稳有序。</p>'
+  +'<p class="ind">3 月 30 日，县长于德水在县政府常务会议上强调，安置工作要做到一户一档、一人一策，绝不能让任何一个矿工家庭因为煤矿关停而失去生活保障。</p>'
+  +'<h4>二、未能纳入安置范围的人员情况</h4>'
+  +'<p class="ind">在摸排过程中，有少数人员因个人原因未纳入本次安置名单。其中，原煤矿职工<mark class="sens">刘华杰</mark>，因个人原因，未纳入本次安置名单。</p>'
+  +'<p class="ind">对上述人员，领导小组已责成坨罗山镇、矿安乡及有关部门持续跟踪关注，做到底数清、情况明，防止出现脱管漏管。</p>'
+  +'<h4>三、下一步工作</h4>'
+  +'<p class="ind">下一步，我县将继续做好安置政策宣传解释工作，完善安置资金审批与发放流程，确保符合条件的下岗职工应纳尽纳、应发尽发。</p>'
+  +'<p class="rt">坨罗山县人民政府</p>'
+  +'<p class="rt">煤矿关停后续安置工作领导小组组长、副县长　韩立成</p>'
+  +'<p class="rt">二〇〇四年四月六日</p>'
+  +'<p class="stamp">坨罗山县人民政府（印）</p>'
+  +'</div>'
+  +'<div class="doc-note" style="margin-top:14px">'
+  +'本说明中标注的姓名由系统自动识别，仅用于检索定位，不代表任何处理意见。<br>'
+  +'备注：该人员已不在安置范围内。'
+  +'</div>'
+ }
+};
+
+/* ── 司法类档案的浏览记录 ────────────────────────────────────
+   政府官网的司法类档案会留存查阅记录：谁看过、什么时候看的，一目了然。
+   用户指定：再审判决书那一条，看过的是「秦先生」和「一条小鱼」。
+   ★ 秦先生 = 白晚晴在观澜社区用的网名（见 guanlan-bbs 第 218 行）。
+   写作依据：用户口述。手册规则 5 —— 不解释这两个网名是谁。 */
+var VIEW_LOGS = {
+  "hujie-court":   [["秦先生","2026-04-05 23:31"]],
+  "hujie-retrial": [["秦先生","2026-04-05 23:47"], ["一条小鱼","2026-04-14 08:13"]]
+};
+function viewLogBlock(id){
+  var rows = VIEW_LOGS[id] || [];
+  return '<div class="doc-note" style="margin-top:14px">'
+    + '<b>浏览记录</b>（司法类档案专有）<br>'
+    + '本档案属司法类，查阅行为按有关规定留存记录。<br>'
+    + (rows.length
+        ? '<div style="margin-top:8px">已查看（' + rows.length + '）：</div>'
+          + rows.map(function(r){
+              return '<div style="margin-left:12px;font-size:13.5px">'
+                + searchEsc(r[0]) + '　<span class="mono" style="color:var(--muted)">'
+                + searchEsc(r[1]) + '</span></div>';
+            }).join("")
+        : '<div style="margin-top:8px">暂无查看记录。</div>')
+    + '<div style="margin-top:8px;font-size:12.5px;color:var(--muted)">'
+    + '未查看：本站其余账号均无查阅记录。</div>'
+    + '</div>';
+}
+
+function renderFile(id){
+  var f=FILES[id];
+  var tEl=$("fl-title"),mEl=$("fl-meta"),rEl=$("fl-row"),bEl=$("fl-body");
+  if(!tEl)return;
+  if(!f){
+    tEl.textContent="档案不存在或未公开";
+    if(mEl)mEl.textContent="";
+    if(rEl)rEl.innerHTML="";
+    if(bEl)bEl.innerHTML='<p class="doc-note">未检索到该档案。请返回检索结果重新选择。</p>';
+    return;
+  }
+  tEl.textContent=f.title;
+  if(mEl)mEl.textContent=f.meta;
+  if(rEl)rEl.innerHTML=f.row.map(function(x){
+    return '<span><b>'+x[0]+'：</b>'+x[1]+'</span>';
+  }).join("");
+  if(bEl)bEl.innerHTML=f.body + (f.judicial ? viewLogBlock(id) : "");
+}
+
+function renderSearch(q){
+  var box=$("search-res"),empty=$("search-empty"),qEl=$("search-q"),cEl=$("search-count");
+  if(qEl)qEl.textContent=q||"（未输入关键词）";
+  box.innerHTML="";
+  if(!q){ empty.style.display=""; if(cEl)cEl.textContent=""; return; }
+
+  /* ★ 搜"刘海军" → 只有那条便民广告（广告底下挂着评论区）。
+     要查这个人的过去，得回头搜"刘华杰" —— 再审判决书里才有他的改名记录。 */
+  /* ★ 搜「永远热泪盈眶」→ 滚磐哥的接演广告。点下去直接跳他自己的主页。 */
+  if(q.indexOf("永远热泪盈眶")>-1 || q.indexOf("热泪盈眶")>-1){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 2 条结果";
+    box.innerHTML=
+      '<li><span class="stype">广告</span><span class="st">'
+      +'<a data-yaogun href="yaogun.html">永远热泪盈眶　接承各类商演（驻唱・婚庆・开业・年会）</a>'
+      +'<span class="smeta">联系邮箱：yyrlyk20074567@163.com</span>'
+      +'<span class="sabs">街头唱了八年。现在在鹤岗小酒吧驻唱，一礼拜两场。路远报销车费，设备自备。</span>'
+      +'</span></li>'
+      +'<li><span class="stype">广告</span><span class="st">'
+      +'<a data-yaogun href="yaogun.html">永远热泪盈眶个人主页：一个在街上唱歌的人</a>'
+      +'<span class="smeta">来源：便民信息（发布人自行提供）　｜　发布时间：2026-04-11</span>'
+      +'<span class="sabs">歌词都是自己写的。不唱《学猫叫》。</span>'
+      +'</span></li>';
+    /* 这两条广告直接跳他自己的主页 */
+    [].forEach.call(box.querySelectorAll("a[data-yaogun]"), function(a){
+      a.addEventListener("click", function(e){
+        e.preventDefault();
+        location.href = "yaogun.html";
+      });
+    });
+    return;
+  }
+
+  /* ★ 搜「莲花水台」→ 2018 年那条存档广告 */
+  if(q.indexOf("莲花水台") > -1 || q.indexOf("莲花") > -1){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 1 条结果";
+    box.innerHTML =
+      '<li><span class="stype">广告</span><span class="st">'
+      + '<a id="lotus-link" href="javascript:;">莲花水台 · 顶级休闲洗浴中心　奢华体验，帝王享受</a>'
+      + '<span class="smeta">来源：坨罗山县信息港（已关停）　｜　存档时间：2018-11-07</span>'
+      + '<span class="sabs">本店集洗浴、按摩、餐饮于一体，是您商务洽谈、招待贵客的最佳选择……（原网页已无法访问，此为存档快照）</span>'
+      + '</span></li>';
+
+    var la = document.getElementById("lotus-link");
+    if(la) la.addEventListener("click", function(e){
+      e.preventDefault();
+      location.href = "lotus.html";
+    });
+    return;
+  }
+
+  /* ★ 韩家三兄弟：搜名字出身份公示 + 那篇头版头条 */
+  var HAN = {
+    "韩广林": { img:"素材/han/han-guanglin.jpg", name:"韩广林",
+      post:"县人民法院·审判长",
+      rows:[["姓名","韩广林"],["职务","副院长、审判委员会委员、审判长"],
+            ["分管","刑事审判"],["到岗","1998 年"]] },
+    "韩利民": { img:"素材/han/han-licheng.jpg", name:"韩利民",
+      post:"县公安局·局长",
+      rows:[["姓名","韩利民"],["职务","县公安局局长兼刑侦大队大队长"],
+            ["分管","刑侦、扫黑"],["到岗","2003 年"]] },
+    "韩立成": { img:"素材/han/han-limin.jpg", name:"韩立成",
+      post:"县人民政府·副县长",
+      rows:[["姓名","韩立成"],["职务","县人民政府副县长"],
+            ["分管","应急管理、矿区复产"],["到岗","2006年"]] }
+  };
+
+  var hanHit = null;
+  for(var hk in HAN){ if(q.indexOf(hk) > -1){ hanHit = HAN[hk]; break; } }
+
+  if(hanHit){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 2 条结果";
+
+    var rows = hanHit.rows.map(function(r){
+      return '<tr><td style="width:76px;color:#7a8390">'+r[0]+'</td><td>'+r[1]+'</td></tr>';
+    }).join("");
+
+    box.innerHTML =
+      '<li><span class="stype">公示</span><span class="st">'
+      + '<b style="font-size:15px">'+hanHit.name+' · '+hanHit.post+'</b>'
+      + '<span class="smeta">来源：坨罗山县人事任免公开信息　｜　发布时间：2026-03-02</span>'
+      + '<div style="margin-top:10px;display:flex;gap:16px;align-items:flex-start">'
+      +   '<img src="'+hanHit.img+'" alt="" style="width:110px;border:1px solid #dfe4ea;background:#f4f6f9">'
+      +   '<table style="font-size:13px;line-height:2;border-collapse:collapse">'+rows+'</table>'
+      + '</div>'
+      + '</span></li>'
+      + '<li><span class="stype">新闻</span><span class="st">'
+      + '<a id="han-news" href="javascript:;">寒门出贵子：矿工大哥韩立成，用带血的微薄工资供出两个大学生</a>'
+      + '<span class="smeta">来源：坨罗山县融媒体中心 · 往期回顾（2010 年 8 月 12 日）</span>'
+      + '<span class="sabs">头版头条。记者：武锦。</span>'
+      + '</span></li>';
+
+    var nA = document.getElementById("han-news");
+    if(nA) nA.addEventListener("click", function(e){ e.preventDefault(); openHanNews(); });
+    return;
+  }
+
+  if(q.indexOf("刘海军")>-1){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 1 条结果";
+    box.innerHTML=
+      '<li style="display:block;border-bottom:1px dashed var(--line);padding:4px 2px 10px;font-size:13px;color:var(--muted)">'
+      +'您检索的是“'+searchEsc(q)+'”。'
+      +'</li>'
+      +'<li><span class="stype">便民信息</span><span class="st">'
+      +'<a href="#/file?id=liuhaijun-ad">老刘废品厂　常年收购废纸壳、废铁、旧家电</a>'
+      +'<span class="smeta">来源：便民信息（发布人自行提供）　｜　发布时间：2026-03-18</span>'
+      +'<span class="sabs">摘要：本厂长年收购废纸壳、废书本报纸、废铁废铜废铝、旧塑料、旧家电。价格公道，装车结现。城区、龙祥、矿区一带可上门来收……</span>'
+      +'<span class="sabs" style="color:var(--muted)">相关链接：'
+      +'<a href="../../刘海军废品厂/index.html" target="_top">老刘废品厂・本人页面</a>'
+      +'</span>'
+      +'</span></li>';
+    return;
+  }
+
+  /* ★ 搜"刘华杰"（含"刘华杰 煤矿"等相关词）→ 5条跨部门档案（口径互相对不上） */
+  if(q.indexOf("刘华杰")>-1){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 "+HUJIE_RESULTS.length+" 条结果";
+    box.innerHTML=(q==="刘华杰"?"":'<li style="display:block;border-bottom:1px dashed var(--line);padding:4px 2px 10px;font-size:13px;color:var(--muted)">'
+      +'您检索的是“'+searchEsc(q)+'”，已按主体关键词“刘华杰”为您归集以下结果。</li>')
+      +'<li style="display:block;border-bottom:1px dashed var(--line);padding:4px 2px 10px;font-size:13px;color:var(--muted)">'
+      +'以下内容来自坨罗山县人民法院、坨罗山县公安局、坨罗山县民政局。本页结果由多部门数据自动归集，仅供参考。'
+      +'</li>'
+      + HUJIE_RESULTS.map(function(x){
+          return '<li><span class="stype">'+x.type+'</span><span class="st">'
+            +'<a href="#/file?id='+x.id+'">'+x.t+'</a>'
+            +'<span class="smeta">'+x.d+'　｜　时间：'+x.time+'</span>'
+            +'<span class="sabs">摘要：'+x.abs+'</span>'
+            +'</span></li>';
+        }).join("")
+      +'<li style="display:block;border-bottom:0;padding-top:16px">'
+      +  '<div style="font-size:13.5px;color:var(--muted);margin-bottom:8px">相关搜索：</div>'
+      +  '<div class="related">'
+      +    ['刘华杰 坨罗山','刘华杰 煤矿','刘华杰 强奸案','刘华杰 抢劫案','刘华杰 老疯子'].map(function(k){
+             return '<a href="#/search?q='+encodeURIComponent(k)+'">'+k+'</a>';
+           }).join("")
+      +  '</div>'
+      +  '<div class="doc-note" style="margin-top:6px">'
+      +    '<b>温馨提示：</b>如果您要找的是刑满释放人员刘华杰，以上结果已全部展示。<br>'
+      +    '如需更多信息，请咨询坨罗山县公安局。'
+      +  '</div>'
+      +'</li>';
+    return;
+  }
+
+  /* ★ 含"2025"且涉及毕业 → 固定三条结果 */
+  if(/2025/.test(q)&&/毕业/.test(q)){
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 "+SEARCH_2025.length+" 条结果";
+    box.innerHTML=SEARCH_2025.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"凌汛"（水文）→ 3条水利结果 */
+  if(q==="凌汛"){
+    empty.style.display="none";
+    var hResults=[
+      {type:"水利",t:"黎明湖水库凌汛期安全提示",h:"/zliminghu",d:"2026-04-10　来源：坨罗山县水利局"},
+      {type:"应急",t:"坨罗山县2026年凌汛应急预案",h:"/notice",d:"2026-03-15　来源：坨罗山县应急管理局"},
+      {type:"科普",t:"什么是凌汛？——县教育局水文知识科普",h:"/jiaoyu",d:"2026-04-01　来源：坨罗山县教育局"}
+    ];
+    if(cEl)cEl.textContent="共 "+hResults.length+" 条结果";
+    box.innerHTML=hResults.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"凌讯"（人名）→ 3条人物结果 */
+  if(q==="凌讯"){
+    empty.style.display="none";
+    var pResults=[
+      {type:"新闻",t:"坨罗山高中2025届优秀毕业生专访",h:"/news?id=8",d:"2025-08-20　来源：坨罗山县融媒体中心"},
+      {type:"新闻",t:"坨罗山高中2025年高考再创佳绩",h:"/news?id=7",d:"2025-06-26　来源：坨罗山县教育局"},
+      {type:"新闻",t:"黎明湖水库发现一具女性遗体，警方排除他杀",h:"/404",d:"2026-04-05　来源：坨罗山县公安局"}
+    ];
+    if(cEl)cEl.textContent="共 "+pResults.length+" 条结果";
+    box.innerHTML=pResults.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"白晚晴" → 2条教师相关结果 */
+  if(q==="白晚晴"){
+    empty.style.display="none";
+    var bResults=[
+      {type:"表彰",t:"关于表彰2023年度全县优秀教师的决定",h:"/news?id=10",d:"2023-09-10　来源：坨罗山县教育局"},
+      {type:"公告",t:"2026年春季学期教师岗位考核优秀人员公示",h:"/news?id=11",d:"2026-06-15　来源：坨罗山县教育局"}
+    ];
+    if(cEl)cEl.textContent="共 "+bResults.length+" 条结果";
+    box.innerHTML=bResults.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"周有条/周油条" → 警方通报：老人被骗，切勿封建迷信 */
+  if(q==="周有条"||q==="周油条"||q==="周老头"){
+    empty.style.display="none";
+    var zResults=[
+      {type:"警方通报",t:"七旬老人轻信\"大师\"消灾被骗数千元，警方提醒：切勿封建迷信",h:"/news?id=12",d:"2026-04-18　来源：坨罗山县公安局"}
+    ];
+    if(cEl)cEl.textContent="共 "+zResults.length+" 条结果";
+    box.innerHTML=zResults.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"孙振东/孙振海/福德堂" → 付费推广位 */
+  if(q==="孙振东"||q==="孙振海"||q==="福德堂"||q==="孙大师"){
+    empty.style.display="none";
+    var sResults=[
+      {type:"付费推广",t:"【付费推广】福德堂 · 孙振东先生",h:"/news?id=13",d:"2026-04-20　来源：本站广告招商"}
+    ];
+    if(cEl)cEl.textContent="共 "+sResults.length+" 条结果";
+    box.innerHTML=sResults.map(function(x){
+      return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a>'+
+             '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'+x.d+'</span></span></li>';
+    }).join("");
+    return;
+  }
+
+  /* ★ 搜"煤矿 / 矿区 / 老矿 / 罗江" → 头一条给旧站存档入口。
+     罗江煤矿那套企业网站是真实存在的另一个站（1999—2003），链过去。 */
+  if(q.indexOf("煤矿")>-1||q.indexOf("矿区")>-1||q.indexOf("老矿")>-1||q.indexOf("罗江")>-1){
+    var mk=q.toLowerCase();
+    var mkRest=SEARCH_INDEX.filter(function(x){return (x.t+" "+x.type).toLowerCase().indexOf(mk)>-1;});
+    empty.style.display="none";
+    if(cEl)cEl.textContent="共 "+(1+mkRest.length)+" 条结果";
+    box.innerHTML=
+      '<li><span class="stype">历史存档</span><span class="st">'
+      + '<a href="../../罗江煤矿网站/index.html" target="_blank" rel="noopener">罗江煤矿（原坨罗山煤矿）企业网站 · 历史存档</a>'
+      + '<span style="display:block;font-size:12.5px;color:var(--muted);margin-top:2px">'
+      + '原县属国有地方煤矿企业网站，1999 年建站，2003 年 3 月停止更新，现作历史资料存档保留。</span></span></li>'
+      + mkRest.map(function(x){
+          return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="'+(x.ext?x.ext:'#'+x.h)+'"'+(x.ext?' target="_blank"':'')+'>'+x.t+'</a></span></li>';
+        }).join("");
+    return;
+  }
+
+  var kw=q.toLowerCase();
+  var res=SEARCH_INDEX.filter(function(x){return (x.t+" "+x.type).toLowerCase().indexOf(kw)>-1;});
+  if(!res.length){ empty.style.display=""; if(cEl)cEl.textContent="共 0 条结果"; return; }
+  empty.style.display="none";
+  if(cEl)cEl.textContent="共 "+res.length+" 条结果";
+  box.innerHTML=res.map(function(x){
+    return '<li><span class="stype">'+x.type+'</span><span class="st"><a href="#'+x.h+'">'+x.t+'</a></span></li>';
+  }).join("");
+}
+
+/* ---------- 弹窗与工具条 ---------- */
+function openModal(id){$(id).classList.add("show");}
+function closeModal(id){$(id).classList.remove("show");}
+qsa(".modal-close").forEach(function(b){
+  b.addEventListener("click",function(){closeModal(b.getAttribute("data-close"));});
+});
+qsa(".modal-mask").forEach(function(m){
+  m.addEventListener("click",function(e){if(e.target===m)closeModal(m.id);});
+});
+
+$("link-access").addEventListener("click",function(e){e.preventDefault();openModal("modal-access");});
+$("link-english").addEventListener("click",function(e){e.preventDefault();openModal("modal-english");});
+$("link-login").addEventListener("click",function(e){e.preventDefault();openModal("modal-login");});
+$("link-reg").addEventListener("click",function(e){e.preventDefault();openModal("modal-reg");});
+$("login-submit").addEventListener("click",function(){closeModal("modal-login");showToast("演示模式：暂未接入统一身份认证系统");});
+$("reg-submit").addEventListener("click",function(){closeModal("modal-reg");showToast("演示模式：注册功能未接入真实系统");});
+$("disclaim-ok").addEventListener("click",function(){closeModal("modal-disclaim");showToast("感谢您的阅读，祝您解谜愉快");});
+
+/* 长者版 */
+$("link-elder").addEventListener("click",function(e){
+  e.preventDefault();
+  var on=document.body.classList.toggle("elder");
+  showToast(on?"已开启长者版（大字体）":"已关闭长者版");
+});
+$("acc-big").addEventListener("click",function(){closeModal("modal-access");if(!document.body.classList.contains("elder")){document.body.classList.add("elder");}showToast("已放大字体，如需关闭请再次点击“长者版”");});
+$("acc-hc").addEventListener("click",function(){closeModal("modal-access");document.body.classList.toggle("hc");showToast("已切换高对比度模式");});
+$("acc-reset").addEventListener("click",function(){closeModal("modal-access");document.body.classList.remove("elder","hc");showToast("已恢复默认显示");});
+
+/* 繁体（简→繁文本转换） */
+var S2T={县:"縣",国:"國",务:"務",网:"網",站:"站",无:"無",碍:"礙",浏:"瀏",览:"覽",长:"長",体:"體",录:"錄",册:"冊",热:"熱",词:"詞",矿:"礦",换:"換",颜:"顏",龙:"龍",场:"場",关:"關",进:"進",摊:"攤",经:"經",济:"濟",汇:"匯",报:"報",创:"創",绩:"績",数:"數",为:"為",园:"園",广:"廣",绍:"紹",预:"預",计:"計",页:"頁",况:"況",动:"動",闻:"聞",专:"專",题:"題",栏:"欄",轮:"輪",图:"圖",导:"導",讲:"講",话:"話",红:"紅",检:"檢",设:"設",施:"施",环:"環",境:"境",举:"舉",农:"農",头:"頭",条:"條",开:"開",后:"後",忆:"憶",顺:"順",利:"利",推:"推",佳:"佳",季:"季",单:"單",业:"業",聘:"聘",扫:"掃",恶:"惡",链:"鏈",接:"接",乡:"鄉",镇:"鎮",属:"屬",办:"辦",承:"承",息:"息",标:"標",识:"識",码:"碼",备:"備",案:"案",联:"聯",电:"電",邮:"郵",编:"編",简:"簡",积:"積",气:"氣",历:"歷",鲜:"鮮",韩:"韓",区:"區",划:"劃",资:"資",发:"發",岗:"崗",转:"轉",游:"遊",请:"請",财:"財",个:"個",门:"門",户:"戶",残:"殘",疾:"疾",补:"補",贴:"貼",线:"線",咨:"諮",询:"詢",征:"徵",诉:"訴",匿:"匿",优:"優",毕:"畢",展:"展",么:"麼",讯:"訊",复:"復",疗:"療",卫:"衛",职:"職",规:"規",总:"總",结:"結",态:"態",温:"溫",会:"會",议:"議",决:"決",策:"策",迁:"遷",亩:"畝",吨:"噸",沟:"溝",堤:"堤",坝:"壩",称:"稱",组:"組",织:"織",范:"範",实:"實",践:"踐",现:"現",代:"代",化:"化",备:"備",档:"檔",证:"證",书:"書",取:"取",家:"家",学:"學",习:"習",新:"新",布:"佈",项:"項",目:"目",工:"工",程:"程",度:"度",爱:"愛",师:"師",队:"隊",员:"員",严:"嚴",厉:"厲",负:"負",责:"責",权:"權",益:"益",护:"護",务:"務",里:"裏",丰:"豐",收:"收",乐:"樂",兴:"興",奋:"奮",阳:"陽",阴:"陰",雪:"雪",冰:"冰",明:"明",显:"顯",规:"規",划:"劃"};
+function convertText(node){
+  if(node.nodeType===3){
+    var s=node.nodeValue;var out="";
+    for(var i=0;i<s.length;i++){var c=s.charAt(i);out+=S2T[c]||c;}
+    if(out!==s)node.nodeValue=out;
+  }else if(node.nodeType===1&&["SCRIPT","STYLE"].indexOf(node.tagName)<0){
+    var kids=node.childNodes;for(var j=0;j<kids.length;j++)convertText(kids[j]);
+  }
+}
+$("link-trad").addEventListener("click",function(e){
+  e.preventDefault();
+  if(document.body.getAttribute("data-trad")==="1"){
+    document.body.removeAttribute("data-trad");
+    showToast("已恢复简体版");
+    setTimeout(function(){location.reload();},500);
+    return;
+  }
+  document.body.setAttribute("data-trad","1");
+  convertText(document.body);
+  showToast("已切换繁体版（演示）");
+});
+
+/* 站内搜索 */
+function doSearch(){
+  var q=$("search-input").value.trim();
+  if(!q){showToast("请输入搜索关键词");return;}
+  location.hash="#/search?q="+encodeURIComponent(q);
+}
+$("search-btn").addEventListener("click",doSearch);
+$("search-input").addEventListener("keydown",function(e){if(e.key==="Enter")doSearch();});
+
+/* 友链 / 页脚 / 占位按钮 */
+qsa(".friend-link").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();showToast("友情链接：演示环境未配置外部网站");});});
+// 注：「网站地图」原来指 # 并弹提示；现在已改成指向全县地图的真实链接（页脚 + 友情链接各一处），
+//     所以这里不再拦截 .link-site-map。
+qsa(".link-about").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();showToast("本网站为解谜游戏演示站点，内容纯属虚构");});});
+qsa(".link-disclaim").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();openModal("modal-disclaim");});});
+qsa(".js-toast").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();showToast(a.getAttribute("data-msg")||"功能建设中，敬请期待");});});
+$("write-letter").addEventListener("click",function(e){e.preventDefault();showToast("演示模式：写信功能建设中，您可先浏览已有信件");});
+
+/* 办件进度查询 */
+var banjianBtn=$("banjian-btn");
+if(banjianBtn){
+  banjianBtn.addEventListener("click",function(){
+    var v=($("banjian-input").value||"").trim();
+    if(!v){showToast("请输入办件编号");return;}
+    showToast("未查询到编号为「"+v+"」的办件，请核对后重试");
+  });
+  $("banjian-input").addEventListener("keydown",function(e){if(e.key==="Enter")banjianBtn.click();});
+}
+
+/* 洋辣子 */
+var MASCOT_LINES=["嘶——别戳我！","再戳我可要咬人了！","呜……我只是一只小虫子","别闹了","好痒，别挠！","……你发现我了吗？"];
+$("mascot").addEventListener("click",function(){
+  var m=$("mascot");
+  m.classList.remove("jump");void m.offsetWidth;m.classList.add("jump");
+  showToast(MASCOT_LINES[Math.floor(Math.random()*MASCOT_LINES.length)]);
+});
+
+/* ---------- 智能问答（坨小政） ---------- */
+/* 形象图：按后缀顺序探测，找到就用。想换图，把同名文件放进 素材/ 覆盖即可，不用改代码。 */
+var AI_AVATAR = {
+  normal: ["素材/assistant-normal.jpg","素材/assistant-normal.jpeg","素材/assistant-normal.png","素材/assistant-normal.svg"],
+  corrupt:["素材/assistant-corrupt.jpg","素材/assistant-corrupt.jpeg","素材/assistant-corrupt.png","素材/assistant-corrupt.svg"]
+};
+(function bindAiAvatar(){
+  var img=$("ai-avatar-img"); if(!img) return;
+  var list=AI_AVATAR.normal, i=0;
+  img.onerror=function(){ i++; if(i<list.length){ img.src=list[i]; } else { img.onerror=null; } };
+  img.src=list[0];
+})();
+
+/* 触发词：命中任意一个即崩坏。前两组是名字，第三组是 2025 届毕业生话题。 */
+var AI_TRIPWIRE = /凌汛|凌讯|聆讯|白晚晴|刘华杰|余淼|余秒|língxùn|lingxun|yúmiǎo|yumiao|báiwǎnqíng|baiwanqing|liúhuájié|liuhuajie|2025\s*年?\s*(优秀)?毕业生|二零二五\s*年?\s*(优秀)?毕业生|二〇二五\s*年?\s*(优秀)?毕业生/;
+
+/* 崩坏态那几句回话 */
+var AI_ERR_LINES = [
+  "……",
+  "你问的这个，名单上没有。",
+  "档案室的人说，那一年的纸被水泡过。",
+  "别问了。"
+];
+
+/* 平时能答的（关键词 → 答复） */
+var AI_KB = [
+  {k:/户籍|户口|迁入|迁户|落户|身份证/, a:"户口迁入需准备：1.迁入地合法稳定住所证明，或直系亲属关系证明；2.本人身份证、户口簿。材料齐全的，到迁入地派出所户籍窗口当场办结。咨询电话：0468-1234567。"},
+  {k:/高考|报名|考试|招生|志愿|考生/, a:"2027年普通高考报名时间为2026年11月1日至11月10日。具有坨罗山县户籍、高级中等教育学校毕业或具有同等学力者均可报名，须本人办理，登录省教育考试院官网填写信息、上传照片并缴费。咨询电话：0451-XXXXXXX（县招生办）。"},
+  {k:/下岗|安置|再就业|补贴|社保|矿工/, a:"下岗职工安置补贴申领流程：1.携带本人身份证、下岗证明到户籍所在地社区申请；2.社区初审后报县就业服务中心复核；3.公示7个工作日无异议后发放至个人社保卡。咨询电话：0468-7654321。相关安置政策可查看本网站“煤矿关停后续安置”专题。"},
+  {k:/残疾|残疾人|护理补贴/, a:"困难残疾人生活补贴与护理补贴申领，请携带残疾人证、身份证、户口簿到户籍所在地乡镇（街道）民政窗口办理。具体标准详见县民政局公告。咨询电话：0468-7654321。"},
+  {k:/水库|黎明湖|冰面|水位|水利|凌情/, a:"黎明湖水库除险加固与景观改造工程正在推进，配套人民公园广场预计半年内完成。冬季水库全面封冻，请勿在冰面行走、滑冰、垂钓。冰情与安全通告以县水务局发布为准。"},
+  {k:/煤矿|矿区|遗址|工业遗址|转型|旅游/, a:"坨罗山煤矿旧址改造工程于2026年9月启动，旧址将改造为工业遗址公园，保留矿井架、运煤轨道、矿工宿舍等遗迹。《坨罗山煤矿旧址工业遗址公园规划方案》正在公示，公示期至2026年10月15日，详见本网站“政务公开”栏目。"},
+  {k:/暖气|供暖|供热|温度/, a:"供暖问题请提供具体小区、楼栋与门牌号，我局将转办县供热办核实处理。您也可通过“政民互动·投诉举报”栏目提交，或拨打县供热办电话。"},
+  {k:/公交|客运|班车|车站|长途/, a:"长途客运班次查询请拨打114，或关注客运站公告。客运站咨询电话在客流高峰期较难接通，建议错峰拨打。"},
+  {k:/招聘|事业单位|招考|岗位|人社/, a:"坨罗山县2026年事业单位公开招聘工作人员42名，报名时间2026年10月20日9:00至11月5日17:00，采取网上报名。详见本网站“通知公告”栏目。咨询电话：0468-1234567（县人社局事业股）。"},
+  {k:/学校|教育|中学|小学|高中|入学/, a:"全县现有各级各类学校26所，在校学生2.4万余人。学校名录与联系电话请查看本网站“教育动态”栏目，或致电县教育局咨询。"},
+  {k:/水|停水|自来水/, a:"停水信息以县自来水公司通知为准。管网检修期间一般于当日恢复供水，您也可拨打县自来水公司服务电话查询。"},
+  {k:/天气|气温|下雪|冷/, a:"本助手不提供气象预报服务，请通过气象部门官方渠道查询。冬季道路结冰，请注意出行安全。"},
+  {k:/你是谁|你好|您好|在吗|介绍一下/, a:"您好，我是坨小政，坨罗山县人民政府门户网站的智能问答助手。我可以帮您查询办事流程、政策公告和本县公开信息。请问您想咨询什么？"},
+  {k:/谢谢|感谢|好的|收到/, a:"不客气。如还有其他问题，欢迎继续咨询。祝您生活愉快。"}
+];
+var AI_FALLBACK = "抱歉，本助手暂未收录该问题的答复。您可换用更具体的关键词，或将问题通过“政民互动·县长信箱”提交，由相关部门答复。咨询电话：0468-1234567。";
+
+/* 快捷问题只放安全话题。★ 触发词绝不能做成按钮，必须玩家自己打出来才崩。 */
+var AI_CHIPS = ["户籍迁移需要什么材料？","2027年高考什么时候报名？","下岗职工安置补贴怎么申领？","黎明湖水库改造什么时候完工？"];
+var aiBusy = false, aiCrashed = false;
+
+function aiEl(id){ return document.getElementById(id); }
+function aiTime(){
+  var d=new Date(), p=function(n){return (n<10?"0":"")+n;};
+  return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+" "+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds());
+}
+function aiScroll(){ var l=aiEl("ai-log"); if(l) l.scrollTop=l.scrollHeight; }
+function aiPush(who,text,cls){
+  var log=aiEl("ai-log"); if(!log) return null;
+  var d=document.createElement("div");
+  d.className="ai-msg "+cls;
+  var w=document.createElement("div"); w.className="who"; w.textContent=who;
+  var b=document.createElement("div"); b.className="bubble"; b.textContent=text;
+  d.appendChild(w); d.appendChild(b); log.appendChild(d); aiScroll();
+  return b;
+}
+/* 逐字出字，比一次性刷出来更像"在回答" */
+function aiType(who,text,cls,cb){
+  var log=aiEl("ai-log"); if(!log){ if(cb)cb(); return; }
+  var d=document.createElement("div"); d.className="ai-msg "+cls;
+  var w=document.createElement("div"); w.className="who"; w.textContent=who;
+  var b=document.createElement("div"); b.className="bubble";
+  var caret=document.createElement("span"); caret.className="ai-caret";
+  b.appendChild(caret); d.appendChild(w); d.appendChild(b); log.appendChild(d); aiScroll();
+  var i=0, step=Math.max(18, Math.round(1400/Math.max(3,text.length)));
+  var t=setInterval(function(){
+    if(i>=text.length){ clearInterval(t); if(caret.parentNode) b.removeChild(caret); aiScroll(); if(cb)cb(); return; }
+    i++; b.textContent=text.slice(0,i); b.appendChild(caret); aiScroll();
+  }, step);
+}
+function aiSetCorrupt(){
+  var w=aiEl("ai-wrap"); if(w) w.classList.add("corrupt");
+  var st=aiEl("ai-state"); if(st) st.textContent="ERR / 记录不可读";
+  var img=aiEl("ai-avatar-img");
+  if(img){ img.onerror=function(){ var l=AI_AVATAR.corrupt, i=0;
+    img.onerror=function(){ i++; if(i<l.length) img.src=l[i]; else img.onerror=null; };
+    img.src=l[0]; };
+    img.src=AI_AVATAR.corrupt[0];
+  }
+}
+/* 全站崩溃：先整页抽一下，再盖满错误页 */
+function aiCrash(query){
+  if(aiCrashed) return; aiCrashed=true;
+  document.body.classList.add("crashing");
+  setTimeout(function(){ document.body.classList.remove("crashing"); }, 130);
+  setTimeout(function(){
+    var c=aiEl("crash"); if(!c) return;
+    var q=aiEl("cr-query"); if(q) q.textContent=query;    var pid=aiEl("cr-pid"); if(pid) pid.textContent=String(Math.floor(Math.random()*9000)+1000);
+    var dmp=aiEl("cr-dump");
+    c.classList.add("on");
+    document.documentElement.style.overflow="hidden";
+    if(dmp){
+      var p=0, t=setInterval(function(){ p+=Math.floor(Math.random()*17)+6; if(p>=100){p=100;clearInterval(t);} dmp.textContent=p+"%"; },90);
+    }
+  }, 900);
+}
+function aiQuery(raw){
+  var q=(raw||"").trim(); if(!q||aiBusy||aiCrashed) return;
+  aiBusy=true;
+  aiPush("我",q,"me");
+  var input=aiEl("ai-text"); if(input) input.value="";
+
+  /* ★ 触发词命中：形象换掉 → 报错 → 整站崩 */
+  if(AI_TRIPWIRE.test(q)){
+    setTimeout(function(){
+      aiSetCorrupt();
+      /* 故障回话：清掉全角标点，只留乱码感的字符 */
+      var line=AI_ERR_LINES[Math.floor(Math.random()*AI_ERR_LINES.length)];
+      aiType("坨小政","ERR 0x0000A3F1\n"+line,"bot err",function(){
+        setTimeout(function(){
+          aiPush("系统","数据链路中断：返回码 0x00000000（无此记录）","bot sys");
+          aiCrash(q);
+        }, 800);
+      });
+    }, 500);
+    return;
+  }
+
+  /* 普通问答 */
+  setTimeout(function(){
+    var hit=null;
+    for(var i=0;i<AI_KB.length;i++){ if(AI_KB[i].k.test(q)){ hit=AI_KB[i]; break; } }
+    aiType("坨小政", hit ? hit.a : AI_FALLBACK, "bot", function(){ aiBusy=false; });
+  }, 420);
+}
+
+(function initAi(){
+  var log=aiEl("ai-log"); if(!log) return;
+  aiPush("坨小政","您好，我是智能问答助手坨小政。我可以帮您查询办事流程、政策公告和本县公开信息。请问您想咨询什么？","bot");
+  var chips=aiEl("ai-chips");
+  if(chips){
+    AI_CHIPS.forEach(function(c){
+      var b=document.createElement("button");
+      b.type="button"; b.textContent=c;
+      b.onclick=function(){ aiQuery(c); };
+      chips.appendChild(b);
+    });
+  }
+  var form=aiEl("ai-form");
+  if(form){
+    form.addEventListener("submit",function(e){
+      e.preventDefault();
+      aiQuery(aiEl("ai-text").value);
+    });
+  }
+  var btn=aiEl("cr-reload");
+  if(btn){
+    btn.addEventListener("click",function(){
+      location.hash="";
+      location.reload();
+    });
+  }
+  var ov=aiEl("crash");
+  if(ov){
+    /* 崩溃页不可关闭：只允许重新加载 */
+    ov.addEventListener("keydown",function(e){ e.stopPropagation(); },true);
+  }
+})();
+
+/* 初始路由 */
+if(!location.hash)location.replace("#/home");
+render();
+})();
+
+/* 韩家那篇头版头条 —— 单独一层 */
+function openHanNews(){
+  var ps = HAN_NEWS.split("||");
+  var html =
+    '<div style="max-width:820px;margin:0 auto;padding:22px 6px 60px">'
+  + '<div style="font-size:12.5px;color:#7a8390;letter-spacing:1px;margin-bottom:10px">'
+  +   '坨罗山县融媒体中心 · 往期回顾（2010 年 8 月 12 日）'
+  + '</div>'
+  + '<h1 style="font-size:23px;line-height:1.5;margin:0 0 14px;color:#1a2433">'
+  +   '【头版头条】寒门出贵子：矿工大哥韩立成，用带血的微薄工资供出两个大学生'
+  + '</h1>'
+  + '<div style="font-size:12.5px;color:#7a8390;padding-bottom:14px;border-bottom:1px solid #e3e7ee">'
+  +   '本报讯（记者 武锦）'
+  + '</div>'
+  + '<div style="font-size:16px;line-height:2.1;color:#2b3442;margin-top:18px">'
+  +   ps.map(function(p, i){
+        var s = '<p style="margin:0 0 16px">'+p+'</p>';
+        if(i === 8){
+          s += '<figure style="margin:22px 0 26px">'
+             + '<img src="素材/han/han-group.jpg" alt="" style="width:100%;display:block;border:1px solid #e3e7ee">'
+             + '<figcaption style="font-size:12.5px;color:#7a8390;margin-top:8px;text-align:center">'
+             + '韩立成与两个弟弟。摄于 2010 年 8 月，矿区政府家属院门口。'
+             + '</figcaption></figure>';
+        }
+        return s;
+      }).join("")
+  + '</div>'
+  + '<div style="margin-top:26px"><a href="javascript:history.back()"'
+  +   ' style="color:#0b5aa6;font-size:13.5px">« 返回</a></div>'
+  + '</div>';
+
+  var v = document.querySelector(".view.active");
+  if(v){ v.innerHTML = html; window.scrollTo(0,0); }
+}
+
+var HAN_NEWS = "在我县矿区，有这样一位感人至深的好大哥。他早年丧父，长兄如父，硬是靠靠在井下背煤、在食堂帮工的微薄工资，把两个弟弟送进了重点大学的校门。他，就是副县长韩立成同志。||<b>“只要弟弟能读书，我吃糠咽菜都行”</b>||时间倒回上世纪九十年代。韩立成的父亲因矿难早逝，母亲常年卧病在床。面对两个还在上初中的弟弟，年轻的韩立成放弃了考大学的机会，顶替父亲的名额下到了煤矿。为了省钱，他连食堂里一块钱一份的豆腐都舍不得买，硬生生把省下来的钱换成了一沓沓汇款单。||在矿上，韩立成是出了名的“拼命三郎”。下井挖煤、食堂帮厨，什么苦活累活他都干。他的工友老李回忆道：“立成那会儿瘦得跟猴一样，但干活从来不喊累。他常说，他多流一滴汗，弟弟在学校就能多吃一口肉。”||<b>“不仅是个好大哥，更是矿区的守护神”</b>||1998 年，矿区生产出现问题。韩立成同志凭借出色的表现，临危受命，担任矿长，身份的转变，让他肩上的担子更重了。||2003 年 10 月，矿区发生一起极其恶劣的特大案件，人心惶惶。韩立成同志连续奋战几个昼夜，面对狡猾的犯罪嫌疑人，他亲自下场，配合公安干警，提供线索，加强矿区巡逻，最终成功将嫌疑人刘某抓捕归案，迅速平息了社会恐慌。因为工作表现突出，他多次获得嘉奖，成为了矿区百姓交口称赞的“守护神”。||<b>“长兄如父，他撑起了这个家”</b>||如今，韩立成的两个弟弟每次提到大哥，总是眼含热泪：“没有大哥的牺牲，就没有我们的今天。他不仅供我们读书，更用他一身正气教会了我们怎么做人。”||面对记者的采访，韩立成副县长显得有些局促，他摆了摆手，用粗糙的手掌抹了抹眼角：“我没什么好写的，我只是做了一个大哥该做的，一个人民公仆该做的。只要县里的老百姓能安安稳稳过日子，我这辈子就值了。”||<b>记者手记：</b>||在这个寒冷的煤城，韩立成同志用他大半生的辛劳与无私奉献，诠释了什么是亲情，什么是责任。他如同这块黑土地上的一块煤炭，燃烧了自己，照亮了别人。这是我们坨罗山县的骄傲，是全县人民学习的楷模！";
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>

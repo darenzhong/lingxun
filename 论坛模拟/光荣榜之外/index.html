@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>光荣榜之外</title>
+<meta name="description" content="一盘被捡回来的录像带（网页解谜游戏演示站，内容纯属虚构）。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0c08'/%3E%3Ccircle cx='16' cy='16' r='6' fill='none' stroke='%23c8232a' stroke-width='3'/%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   光荣榜之外 · 入口
+   ------------------------------------------------------------
+   风格参照「Liminal Found Footage / 拾得录像」：
+     · 一盘 1990 年代家用摄像机录下的带子，4:3，手持，没剪过
+     · 空、熟悉但不对劲的室内；荧光灯；没有人
+     · 恐怖不来自怪物，来自「空」「重复」「规章」「机器在最不该坏的时候坏了」
+     · 媒介本身就是叙事者：对焦、曝光、磁带损伤、屏幕上的字
+   实现上刻意避开两块：
+     · 不做 CRT / 终端风（那是荧光屏和扫描线，这里是磁带和镜头）
+     · 不做「恐怖片」（没有怪物特写、没有血、没有惊吓音效）
+   所有颜色都在下面的 :root，换配色只动这一段。
+   ============================================================ */
+:root{
+  /* 主导色：机构绿那一族。全画面只有一个饱和色 —— 红色警报灯 */
+  --bg:#07080a;          /* 画幅外（两侧黑边） */
+  --wall:#8f9a6b;        /* 墙面 （school corridor #b9c49a 压暗一点） */
+  --wall-hi:#b9c49a;
+  --trim:#5c6647;        /* 墙裙 */
+  --floor:#8a7f5f;       /* 地面 （linoleum #a89a7d 压暗） */
+  --panel:#12160f;
+  --panel-2:#181d13;
+  --line:#2a3220;
+  --line-2:#3a4429;
+  --text:#c4c8ad;
+  --text-hi:#e8ecd6;
+  --muted:#7d8567;
+  --dim:#575f47;
+  --accent:#c8232a;      /* 唯一的饱和色 */
+  --accent-2:#8e171c;
+  --lamp:#fff6e2;        /* 灯板 */
+  --paper:#d9cfb0;       /* 通知单黄纸 */
+  --paper-2:#c8bd9a;
+  --ink:#2b2a22;         /* 通知单上的字 */
+  --osd:#dde4d2;         /* 屏幕字符 */
+  --wrap:1000px;
+  --font-cn:"Microsoft YaHei","微软雅黑","PingFang SC",system-ui,sans-serif;
+  --font-mono:"Consolas","DejaVu Sans Mono","Courier New",monospace;
+  --font-cond:"Arial Narrow","Microsoft YaHei",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg)}
+body{
+  font-family:var(--font-cn);font-size:14px;line-height:1.75;color:var(--text);
+  /* 上下各留一条安全带：OSD 的时间码在四角，别压到正文 */
+  padding:26px 0 30px;
+}
+a{color:var(--text);text-decoration:none}
+a:hover{color:var(--text-hi)}
+code,.mono{font-family:var(--font-mono)}
+img{max-width:100%}
+
+/* ============================================================
+   一、进入层：4:3 pillarbox，一盘录像带的开头
+   ------------------------------------------------------------
+   只有这一层是"电视画幅"。进了论坛就是普通网页了 ——
+   论坛要读，不能被压成一个屏幕。
+   ============================================================ */
+.entry{
+  position:fixed;inset:0;z-index:90;
+  /* 4:3 居中，两侧留黑（pillarbox） */
+  display:flex;align-items:center;justify-content:center;
+  background:#000;
+}
+.entry.hide{display:none !important}
+/* 画幅本体 */
+.entry .frame{
+  position:relative;width:min(100vw, calc((100vh - 0px) * 4 / 3));
+  aspect-ratio:4/3;max-height:100vh;overflow:hidden;
+  background:radial-gradient(130% 100% at 50% 42%, #1c2012 0%, #0b0d07 62%, #050603 100%);
+  animation:power 1.5s cubic-bezier(.2,.8,.2,1) both;
+}
+/* 开机：一条亮缝展开 */
+@keyframes power{
+  0%{clip-path:inset(49.7% 0 49.7% 0);filter:brightness(3.2)}
+  40%{clip-path:inset(44% 0 44% 0);filter:brightness(2.6)}
+  68%{clip-path:inset(0 0 0 0);filter:brightness(1.6)}
+  100%{clip-path:inset(0 0 0 0);filter:brightness(1)}
+}
+/* 走廊：地面往深处收，尽头落在雾里。
+   有了实拍底子之后，这层只当作"空间暗示"用，压得很淡。 */
+.entry .corr{position:absolute;inset:0;
+  background:
+    linear-gradient(90deg, #070804 0 11%, #454c33 11% 13.5%, #67704d 13.5% 41%, #67704d 59% 86.5%, #454c33 86.5% 89%, #070804 89% 100%),
+    linear-gradient(180deg, #353b28 0 25%, #6b7450 25% 70%, #5a5340 70% 100%);
+  opacity:.15;
+}
+/* ------------------------------------------------------------
+   背景录像：江边实拍（枯枝 / 「江面危险 禁止通行」牌子 / 石滩上的死鱼）
+   素材原本是 26 MB 的 GIF，转成 MP4 320 KB / WebM 123 KB。
+   ------------------------------------------------------------
+   两路放同一个视频：
+     · 后面一路放大 + 高斯模糊，填满两侧，不让画面被裁
+     · 前面一路完整显示（contain），四边留黑，像监视器里的回放
+   它本来就是深蓝调，再压一层暗绿收进本作的机构绿里。
+   ------------------------------------------------------------ */
+.entry .bgvid{position:absolute;inset:0;overflow:hidden;background:#04060a}
+.entry .bgvid video,.entry .bgvid img{position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);width:100%;height:100%;object-fit:cover}
+.entry .bgvid .blur{filter:blur(26px) saturate(.7) brightness(.5);transform:translate(-50%,-50%) scale(1.25)}
+.entry .bgvid .main{object-fit:contain;z-index:2;
+  filter:saturate(.86) contrast(.96) brightness(.92)}
+.entry .bgtint{position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(180deg, rgba(12,20,16,.52), rgba(8,14,11,.30) 45%, rgba(6,10,14,.60));
+  mix-blend-mode:multiply}
+/* 顶棚灯板：两排，往尽头缩小 */
+.entry .ceil{position:absolute;left:13.5%;right:13.5%;top:0;height:25%;overflow:hidden}
+.entry .ceil i{position:absolute;top:14%;width:11%;height:9%;
+  background:linear-gradient(180deg, rgba(255,246,226,.62), rgba(255,246,226,.30));
+  box-shadow:0 0 22px rgba(255,240,205,.35)}
+.entry .ceil i:nth-child(1){left:4%}
+.entry .ceil i:nth-child(2){left:26%}
+.entry .ceil i:nth-child(3){left:53%}
+.entry .ceil i:nth-child(4){left:80%}
+.entry .ceil i:nth-child(5){left:16%;top:52%;width:9%;height:7%;opacity:.72}
+.entry .ceil i:nth-child(6){left:44%;top:52%;width:9%;height:7%;opacity:.72}
+.entry .ceil i:nth-child(7){left:74%;top:52%;width:9%;height:7%;opacity:.72}
+/* 远处的雾：走廊尽头的亮部，不是白墙 */
+.entry .haze{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(38% 44% at 50% 52%, rgba(206,220,186,.13), transparent 72%),
+             radial-gradient(120% 120% at 50% 50%, transparent 46%, rgba(0,0,0,.62) 100%)}
+/* 手持微抖 + 灯管偶发熄灭（只作用于画幅内的画面） */
+.entry .frame{animation:power 1.5s cubic-bezier(.2,.8,.2,1) both, drift 6.5s steps(22) infinite, flick 8.5s steps(1) infinite}
+@keyframes drift{
+  0%{transform:translate(0,0) rotate(0deg)}
+  12%{transform:translate(-1px,1px) rotate(-.12deg)}
+  25%{transform:translate(1px,-1px) rotate(.10deg)}
+  37%{transform:translate(-1px,0) rotate(-.06deg)}
+  50%{transform:translate(1px,1px) rotate(.13deg)}
+  62%{transform:translate(0,-1px) rotate(-.10deg)}
+  75%{transform:translate(-1px,1px) rotate(.07deg)}
+  87%{transform:translate(1px,0) rotate(-.09deg)}
+  100%{transform:translate(0,0) rotate(0deg)}
+}
+@keyframes flick{
+  0%,100%{filter:brightness(1) saturate(1)}
+  41%{filter:brightness(1.05) saturate(.98)}
+  42%{filter:brightness(.24) saturate(.4)}
+  43%{filter:brightness(1.02) saturate(1)}
+  71%{filter:brightness(.3) saturate(.45)}
+  72%{filter:brightness(1) saturate(1)}
+}
+
+/* 那张通知单：规则作为画面里的文字。压在环境和色调之上 */
+.notice{
+  position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) rotate(-.5deg);
+  z-index:4;
+  width:min(430px,72%);background:var(--paper);color:var(--ink);
+  padding:18px 20px 16px;font-size:12.5px;line-height:1.75;
+  box-shadow:0 14px 34px rgba(0,0,0,.7), inset 0 0 34px rgba(140,125,90,.30);
+  border:1px solid var(--paper-2);
+}
+.notice::before{content:"";position:absolute;left:0;right:0;top:-1px;height:9px;
+  background:linear-gradient(180deg, rgba(120,105,70,.35), transparent)}
+.notice .hd{border-bottom:2px solid var(--ink);padding-bottom:5px;margin-bottom:8px}
+.notice .hd b{font-family:var(--font-cond);font-size:14px;letter-spacing:.3px;display:block}
+.notice .hd span{font-family:var(--font-mono);font-size:10px;opacity:.62;display:block;margin-top:2px}
+.notice ol{margin:0 0 9px 18px}
+.notice ol li{margin-bottom:4px}
+.notice ol li b{background:rgba(200,35,42,.14);padding:0 2px}
+.notice .ft{border-top:1px solid rgba(43,42,34,.35);padding-top:6px;margin-top:2px;
+  font-size:11px;display:flex;justify-content:space-between;gap:8px;opacity:.8}
+.notice .pin{position:absolute;top:-8px;left:50%;margin-left:-7px;width:14px;height:14px;
+  border-radius:50%;background:var(--accent);
+  box-shadow:0 0 14px rgba(200,35,42,1), 0 1px 2px rgba(0,0,0,.6)}
+
+.entry .go{position:absolute;left:50%;bottom:15.5%;transform:translateX(-50%);z-index:5;text-align:center}
+.entry .go button{
+  font-family:var(--font-mono);font-size:14px;letter-spacing:3px;
+  background:rgba(10,12,7,.72);color:var(--osd);border:1px solid rgba(221,228,210,.55);
+  padding:8px 24px;cursor:pointer;
+  text-shadow:1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000;
+}
+.entry .go button:hover{border-color:var(--accent);color:#fff;background:rgba(30,6,8,.82)}
+.entry .go .sk{display:block;margin-top:7px;font-size:10.5px;color:rgba(221,228,210,.42);
+  font-family:var(--font-mono);letter-spacing:1px}
+/* 进入：走带撕裂 */
+.enterfx{animation:enterfx .95s steps(9) both !important}
+@keyframes enterfx{
+  0%{filter:none;transform:none}
+  18%{filter:brightness(2.6) contrast(1.5);transform:translateY(-9px) scaleY(1.05)}
+  36%{filter:brightness(.25);transform:translateY(16px) scaleY(.96)}
+  54%{filter:brightness(2) contrast(1.3);transform:translateY(-5px)}
+  72%{filter:brightness(.4);transform:translateY(9px)}
+  100%{filter:none;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .entry .frame,.film .grain{animation:none !important}
+}
+
+/* ============================================================
+   二、OSD：摄像机自带的字幕机（REC / 电池 / 日期时间）
+   ------------------------------------------------------------
+   贴在整个屏幕上，但宽度按画幅算 —— 只在画幅里，不跑到黑边上。
+   ============================================================ */
+.osd{position:fixed;z-index:96;pointer-events:none;
+  left:50%;transform:translateX(-50%);top:0;height:100vh;
+  width:min(100vw, calc(100vh * 4 / 3));
+  font-family:var(--font-mono);color:var(--osd);
+  font-size:14px;letter-spacing:.5px;line-height:1.5;
+  text-shadow:1px 0 0 #000,-1px 0 0 #000,0 1px 0 #000,0 -1px 0 #000,1px 1px 0 #000,-1px -1px 0 #000;
+}
+.osd .tl{position:absolute;top:7px;left:16px;display:flex;align-items:center;gap:7px}
+.osd .tr{position:absolute;top:7px;right:16px;display:flex;align-items:center;gap:8px}
+.osd .bl{position:absolute;bottom:7px;left:16px}
+.osd .br{position:absolute;bottom:7px;right:16px;text-align:right}
+.rec{width:11px;height:11px;border-radius:50%;background:var(--accent);display:inline-block;
+  animation:blink 1.6s steps(1) infinite;box-shadow:0 0 8px rgba(200,35,42,.95)}
+@keyframes blink{0%,55%{opacity:1}56%,100%{opacity:.08}}
+.batt{display:inline-flex;align-items:center;gap:3px}
+.batt .shell{width:23px;height:11px;border:1px solid var(--osd);position:relative;display:inline-block}
+.batt .shell::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:4px;background:var(--osd)}
+.batt .fill{position:absolute;left:1px;top:1px;bottom:1px;background:var(--osd)}
+
+/* ============================================================
+   三、CEA-608 式字幕
+   ------------------------------------------------------------
+   字幕属于「画面」，所以放在画幅里面（画幅下缘往上一点），
+   不跟着整屏跑到黑边上去。行内一块纯黑底，白等宽字。
+   ============================================================ */
+.cap{position:absolute;left:0;right:0;bottom:5%;z-index:8;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;padding:0 5%}
+.cap .ln{display:inline-block;background:#000;color:#fff;
+  font-family:var(--font-mono);font-weight:700;font-size:16px;letter-spacing:.6px;
+  line-height:1.5;padding:1px 9px;margin:1px auto;max-width:100%;
+  text-align:left;white-space:pre-wrap;word-break:break-word;
+  text-shadow:none}
+.cap .ln em{font-style:normal;color:#b9b9b9}
+
+/* ============================================================
+   一之二、论坛页面上的「拍摄痕迹」：很淡的一层，不挡读字
+   ============================================================ */
+.film{position:fixed;inset:0;z-index:95;pointer-events:none;opacity:.5}
+/* 入口画幅里那层：铺满画幅，压在所有东西上面，但很淡 */
+.entry .film{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.85}
+.film .grain{position:absolute;inset:-20%;opacity:.05;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:tape 1s steps(7) infinite}
+@keyframes tape{
+  0%{transform:translate(0,0)}      14%{transform:translate(-3%,1%)}
+  28%{transform:translate(2%,-2%)}  42%{transform:translate(-1%,2%)}
+  56%{transform:translate(3%,1%)}   70%{transform:translate(-2%,-1%)}
+  84%{transform:translate(1%,3%)}   100%{transform:translate(0,0)}
+}
+
+/* ============================================================
+   五之一、内页的暗底
+   ------------------------------------------------------------
+   来源是那张参考图（参考图片\恐怖图片.png），但**去掉了脸**：
+   压亮部 + 去红 + 重模糊 + 归一化到很暗，只剩一块"不均匀的黑"。
+   放在帖子页底下，几乎看不出图案，只是让人觉得这块地方不太对。
+   生成脚本：凌汛素材\_tools\gen_ambient.py（原图不动）
+   ============================================================ */
+.ambient{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("assets/ambient-dark.jpg");
+  background-size:cover;
+  background-position:center 42%;
+  background-repeat:no-repeat;
+  opacity:.5;
+  /* 四角再压黑一圈，中心那块稍微透出来 */
+  -webkit-mask-image:radial-gradient(92% 78% at 50% 44%, #000 0%, rgba(0,0,0,.72) 62%, transparent 100%);
+  mask-image:radial-gradient(92% 78% at 50% 44%, #000 0%, rgba(0,0,0,.72) 62%, transparent 100%)}
+/* 帖子页 = "他们在说话"的地方：整页沉下去 */
+body.on-thread{background:#050605}
+body.on-thread .ambient{opacity:.95}
+/* 论坛本体要压在暗底之上 */
+.page{position:relative;z-index:1}
+
+/* ============================================================
+   五、论坛本体（入口还开着的时候先藏起来）
+   ============================================================ */
+.page{visibility:hidden}
+.page.ready{visibility:visible}
+
+/* ============================================================
+   六、台标 / 时间码条
+   ============================================================ */
+.hdr{border-bottom:1px solid var(--line);background:rgba(10,12,8,.94);position:sticky;top:0;z-index:40}
+.hdr .wrap{display:flex;align-items:center;gap:12px;min-height:50px;padding:7px 14px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.logo .mk{width:22px;height:22px;border:1px solid var(--accent);border-radius:50%;position:relative;flex:0 0 22px}
+.logo .mk::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 9px rgba(200,35,42,.9);animation:blink 1.6s steps(1) infinite}
+.logo b{color:var(--text-hi);font-size:15px;letter-spacing:3px;font-weight:600}
+.logo i{font-style:normal;font-size:9.5px;color:var(--dim);letter-spacing:1px;font-family:var(--font-mono);display:block}
+.hdr nav{margin-left:auto;display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+.hdr nav a{padding:5px 10px;font-size:12.5px;color:var(--muted);border:1px solid transparent}
+.hdr nav a:hover{color:var(--text-hi);border-color:var(--line-2)}
+.hdr nav a.on{color:var(--accent);border-color:var(--accent-2)}
+.hdr .me{font-size:11.5px;color:var(--dim);font-family:var(--font-mono);padding-left:10px;border-left:1px solid var(--line)}
+.hdr .me b{color:var(--text);font-weight:400}
+
+/* 走带信息条（原来的滚动告示，改成录像带标签口气） */
+.tick{border-bottom:1px solid var(--line);background:var(--bg-2, #0d1008);overflow:hidden}
+.tick .wrap{display:flex;align-items:center;gap:9px;min-height:30px}
+.tick .lb{flex:0 0 auto;font-size:10.5px;color:var(--accent);border:1px solid var(--accent-2);
+  padding:0 6px;font-family:var(--font-mono);letter-spacing:1px}
+.tick .mq{flex:1;min-width:0;overflow:hidden;position:relative;height:18px}
+.tick .mq span{position:absolute;white-space:nowrap;font-size:12px;color:var(--muted);
+  font-family:var(--font-mono);animation:mq 60s linear infinite;will-change:transform}
+@keyframes mq{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.tick .mq:hover span{animation-play-state:paused}
+
+main{max-width:var(--wrap);margin:0 auto;padding:16px 14px 34px}
+.sec{margin-bottom:18px}
+.sec-hd{display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--line-2);padding-bottom:7px;margin-bottom:10px}
+.sec-hd h2{font-size:14.5px;color:var(--text-hi);font-weight:600;letter-spacing:1px}
+.sec-hd h2::before{content:"▌";color:var(--accent);margin-right:6px;font-size:11px;vertical-align:2px}
+.sec-hd .more{margin-left:auto;font-size:12px;color:var(--dim)}
+.panel{border:1px solid var(--line);background:var(--panel);padding:14px 16px}
+.noticebox{border:1px solid var(--line);border-left:2px solid var(--warn);background:var(--panel-2);
+  padding:9px 13px;font-size:12.5px;color:var(--muted);line-height:1.9}
+.noticebox b{color:var(--warn);font-weight:400}
+.btn{display:inline-block;border:1px solid var(--line-2);background:var(--panel-2);color:var(--text);
+  padding:5px 13px;font-size:13px;cursor:pointer;font-family:inherit}
+.btn:hover{border-color:var(--accent);color:var(--text-hi)}
+.btn.pri{background:var(--accent-2);border-color:var(--accent);color:#f2e6e6}
+.btn.pri:hover{background:var(--accent)}
+.btn.danger{border-color:var(--accent-2);color:var(--accent)}
+input,textarea,select{font-family:inherit;font-size:13.5px;background:#0c0f09;color:var(--text);
+  border:1px solid var(--line-2);padding:7px 10px;outline:0;width:100%}
+input:focus,textarea:focus{border-color:var(--accent-2);background:#0f120b}
+textarea{resize:vertical;line-height:1.8}
+label.fld{display:block;margin-bottom:11px}
+label.fld i{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-bottom:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:12px;color:var(--dim);line-height:1.8}
+.err{font-size:12.5px;color:var(--accent);min-height:18px}
+
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.board{border:1px solid var(--line);background:var(--panel);padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.board:hover{border-color:var(--line-2);background:var(--panel-2)}
+.board .ic{flex:0 0 34px;width:34px;height:34px;border:1px solid var(--line-2);color:var(--muted);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:15px}
+.board h3{font-size:14px;color:var(--text-hi);font-weight:600;margin-bottom:2px}
+.board p{font-size:12px;color:var(--muted);line-height:1.7}
+.board .st{margin-left:auto;text-align:right;font-size:11.5px;color:var(--dim);font-family:var(--font-mono);flex:0 0 auto}
+
+.plist{border:1px solid var(--line);background:var(--panel)}
+.prow{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-bottom:1px solid var(--line)}
+.prow:last-child{border-bottom:0}
+.prow:hover{background:var(--panel-2)}
+.prow .av{flex:0 0 32px;width:32px;height:32px;border:1px solid var(--line-2);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--dim)}
+.prow .bd{flex:1;min-width:0}
+.prow .ti{font-size:14px;color:var(--text-hi);line-height:1.6}
+.prow .ti:hover{color:var(--accent)}
+.prow .mt{font-size:11.5px;color:var(--dim);margin-top:3px;display:flex;gap:10px;flex-wrap:wrap;font-family:var(--font-mono)}
+.tag{display:inline-block;font-size:10.5px;border:1px solid var(--line-2);color:var(--muted);
+  padding:0 5px;line-height:15px;font-family:var(--font-mono)}
+.tag.hot{border-color:var(--accent-2);color:var(--accent)}
+.tag.lock{border-color:var(--warn);color:var(--warn)}
+.tag.adm{border-color:var(--accent);color:var(--accent)}
+.prow .cnt{flex:0 0 auto;text-align:right;font-size:11.5px;color:var(--dim);font-family:var(--font-mono);min-width:56px}
+
+.thread{border:1px solid var(--line);background:var(--panel)}
+.post{padding:15px 17px;border-bottom:1px solid var(--line)}
+.post:last-child{border-bottom:0}
+.post.op{background:var(--panel-2)}
+/* 学长的置顶回复：左边一条暗红，别的不一样 */
+.post.mod-post{background:rgba(200,35,42,.045);box-shadow:inset 2px 0 0 var(--accent-2)}
+.post.mod-post .av{border-color:var(--accent-2);color:var(--accent)}
+.post .ph{display:flex;gap:10px;align-items:center;margin-bottom:9px;flex-wrap:wrap}
+.post .ph .av{width:30px;height:30px;border:1px solid var(--line-2);display:flex;align-items:center;
+  justify-content:center;font-family:var(--font-mono);font-size:12px;color:var(--dim);flex:0 0 30px}
+.post .ph .nm{font-size:13px;color:var(--text-hi)}
+.post .ph .nm.anon{color:var(--muted);font-family:var(--font-mono)}
+.post .ph .tm{margin-left:auto;font-size:11.5px;color:var(--dim);font-family:var(--font-mono)}
+.post .ct{font-size:14px;line-height:1.95;color:var(--text);white-space:pre-wrap;word-break:break-word}
+.post .pf{margin-top:9px;display:flex;gap:12px;font-size:11.5px;color:var(--dim);font-family:var(--font-mono)}
+.post .pf a:hover{color:var(--accent)}
+
+.formbox{border:1px solid var(--line);background:var(--panel);padding:15px 17px}
+.formbox h3{font-size:13.5px;color:var(--text-hi);margin-bottom:11px;font-weight:600}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:13px}
+table.tbl th,table.tbl td{border:1px solid var(--line);padding:7px 9px;text-align:left}
+table.tbl th{background:var(--bg-2,#0d1008);color:var(--muted);font-weight:400;font-size:12px}
+table.tbl tr:hover td{background:var(--panel-2)}
+
+footer{border-top:1px solid var(--line);background:var(--bg-2,#0d1008);font-size:12px;color:var(--dim);margin-top:10px}
+footer .wrap{max-width:var(--wrap);margin:0 auto;padding:18px 14px;line-height:2;text-align:center}
+footer a{color:var(--muted)}
+.empty{text-align:center;color:var(--dim);padding:36px 0;font-size:13px}
+
+/* 登录后才看得见的东西（锁） */
+.lockbox{border:1px dashed var(--line-2);background:var(--panel-2);
+  padding:24px 18px;text-align:center;color:var(--muted);font-size:13px;line-height:2}
+.lockbox b{color:var(--text);font-weight:600}
+.lockbox .lk{font-size:20px;color:var(--accent);letter-spacing:8px;display:block;margin-bottom:6px}
+.board.locked{opacity:.7}
+.board.locked .st{color:var(--accent)}
+
+/* 和管理员说话 */
+.chat{border:1px solid var(--line);background:var(--panel)}
+.chat-log{padding:14px 16px;max-height:54vh;overflow-y:auto;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:78%;padding:8px 12px;font-size:13.5px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+.msg .who{font-size:10.5px;font-family:var(--font-mono);margin-bottom:3px;opacity:.7}
+.msg.mod{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line-2);border-left:2px solid var(--accent-2);color:var(--text)}
+.msg.me{align-self:flex-end;background:rgba(200,35,42,.10);border:1px solid var(--accent-2);color:var(--text-hi)}
+.chat-typing{align-self:flex-start;color:var(--dim);font-size:12px;font-family:var(--font-mono);padding:0 4px}
+.chat-in{display:flex;gap:8px;border-top:1px solid var(--line);padding:10px 12px}
+.chat-in input{flex:1}
+
+/* ── 关站遮罩 ──────────────────────────────────────────────
+   学长答完「不认识余淼」之后，把这个站关掉。
+   只存在内存里：刷新页面就恢复 —— 不然玩家会被永久锁在外面，
+   后面几条线（周有条、余淼的档案）就全断了。 */
+#site-closed{position:fixed;inset:0;z-index:120;display:none;
+  align-items:center;justify-content:center;background:#0b0d0f;padding:24px;text-align:center}
+#site-closed.show{display:flex}
+#site-closed .bx{max-width:460px}
+#site-closed .mk{display:inline-block;border:1px solid var(--accent);color:var(--accent);
+  font-size:12px;letter-spacing:6px;padding:6px 16px;margin-bottom:24px}
+#site-closed h1{font-size:22px;font-weight:400;letter-spacing:8px;color:var(--text-hi);margin-bottom:18px}
+#site-closed p{font-size:14px;color:var(--muted);line-height:2.2}
+
+/* 页脚/顶部那条「磁带标签」分隔 */
+.tapebar{max-width:var(--wrap);margin:0 auto;border-top:1px dashed var(--line);
+  padding:8px 14px 0;font-family:var(--font-mono);font-size:11px;color:var(--dim)}
+
+@media(max-width:760px){
+  .boards,.grid2{grid-template-columns:1fr}
+  .hdr .wrap{min-height:auto;gap:7px}
+  .hdr nav{margin-left:0;width:100%}
+  .hdr .me{border-left:0;padding-left:0;width:100%}
+  .logo i{display:none}
+  .prow .cnt{display:none}
+  .cap .ln{font-size:14px}
+  .notice{width:86%;font-size:12px;padding:14px 15px 13px}
+  .entry .go{bottom:14%}
+}
+
+/* 语音 / 视频 气泡 */
+.vbub{display:inline-block;padding:7px 14px;border:1px solid #3a2a2a;background:#1a1414;
+  color:#c9b48a;font-family:var(--font-mono);font-size:13px;cursor:pointer;
+  border-radius:4px;margin-top:4px}
+.vbub.on{background:#2a1c1c;border-color:#6a3a3a}
+.vbub.vid{color:#8fa8c8;border-color:#243a52;background:#101820}
+
+/* 帖子里可复制的关键词 */
+.hl-key{color:#4a7fb5;border-bottom:1px dashed #4a7fb5;padding:0 1px;
+  user-select:text;-webkit-user-select:text;cursor:text;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     进入层：一盘 4:3 录像带的开头（铺满整屏，两侧留黑）
+     ============================================================ -->
+<div class="entry" id="entry">
+  <div class="frame" id="frame">
+    <div class="bgvid">
+      <!-- 后面一路：放大模糊，填满两侧 -->
+      <video class="blur" autoplay muted loop playsinline preload="auto" aria-hidden="true"
+             poster="assets/entry-poster.jpg">
+        <source src="assets/entry-loop.webm" type="video/webm">
+        <source src="assets/entry-loop.mp4" type="video/mp4">
+      </video>
+      <!-- 前面一路：完整画面 -->
+      <video class="main" id="bgv" autoplay muted loop playsinline preload="auto"
+             poster="assets/entry-poster.jpg">
+        <source src="assets/entry-loop.webm" type="video/webm">
+        <source src="assets/entry-loop.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- 环境层：走廊暗示 + 顶棚灯板 + 尽头的雾（都压得很淡） -->
+    <div class="corr"></div>
+    <div class="ceil"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="haze"></div>
+
+    <!-- 色调层：把深蓝的江面收进本作的机构绿里 -->
+    <div class="bgtint"></div>
+
+    <!-- 规则作为画面里的文字（这一层永远在最上面） -->
+    <div class="notice" id="notice">
+      <span class="pin"></span>
+      <div class="hd">
+        <b>坨罗山高级中学　光荣榜之外说明（副本）</b>
+        <span>编号 TL-1999-0417　　版本 C　　第 2 页 / 共 2 页</span>
+      </div>
+      <ol>
+        <li>本站点诚邀用户注册，联系管理员仅对正式用户开放。</li>
+        <li>管理员每日巡查版面一次，<b>巡查时须全程截屏留档</b>，记录交回后台存档。</li>
+        <li>如发现帖子内容与版块定位不符，<b>不必上报</b>站长，按版规直接处理，继续巡查。</li>
+        <li>如收到自称认识你的站内私信，<b>不要回复</b>，先在后台日志里核对该账号是否真实存在。</li>
+        <li>巡查记录用完后放回原处存档。<b>不要打开与巡查无关的后台日志。</b></li>
+      </ol>
+      <div class="ft">
+        <span>TOULUOSHAN SENIOR HIGH SCHOOL</span>
+        <span>页脚：请勿外传</span>
+      </div>
+    </div>
+
+    <div class="go" id="go" style="display:none">
+      <button id="go-btn">进　入</button>
+      <span class="sk">按 Enter 或空格　·　此页面为演示，内容纯属虚构</span>
+    </div>
+
+    <!-- CEA-608 字幕：落在画幅里面 -->
+    <div class="cap" id="cap"></div>
+
+    <!-- 录像的痕迹（只在画幅内） -->
+    <div class="film" id="entryFilm">
+      <div class="grain"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 摄像机 OSD：整屏覆盖，但只画在画幅范围内 -->
+<div class="osd">
+  <div class="tl"><span class="rec"></span><span>REC</span></div>
+  <div class="tr">
+    <span class="batt"><span class="shell"><span class="fill" id="batt-fill" style="width:70%"></span></span></span>
+    <span>SP</span>
+  </div>
+  <div class="bl" id="osd-date">17 APR 1999</div>
+  <div class="br" id="osd-time">--:--:--</div>
+</div>
+
+<!-- 拍摄痕迹只留一层很淡的颗粒；内页还有一层"不均匀的黑" -->
+<div class="film" id="filmPage"><div class="grain"></div></div>
+<div class="ambient" id="ambient"></div>
+
+<div class="page">
+  <header class="hdr">
+      <div class="wrap">
+        <div class="logo">
+          <span class="mk"></span>
+          <div>
+            <b id="site-name">光荣榜之外</b>
+            <i id="site-sub">TL-1999-0417 · TAPE 03</i>
+          </div>
+        </div>
+        <nav id="nav"></nav>
+        <span class="me" id="me-box"></span>
+      </div>
+    </header>
+
+    <div class="tick">
+      <div class="wrap">
+        <span class="lb">走带</span>
+        <div class="mq"><span id="mq-text"></span></div>
+      </div>
+    </div>
+
+    <main id="main"></main>
+
+    <div class="tapebar">
+      <span id="tape-info">TAPE 03　·　SP　·　1999-04-17　·　录像来源不明</span>
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <div id="ft-note"></div>
+        <div style="margin-top:6px">
+          <a href="../guanlan-bbs/index.html">观澜社区</a>　|　
+          <a href="../../政府界面模拟/网页/坨罗山县人民政府官网.html">坨罗山县人民政府官网</a>　|　
+          <a href="../../高级中学官网/坨罗山高级中学官网.html">坨罗山高级中学</a>
+        </div>
+        <div style="margin-top:8px;color:#454b38">
+          本站不公开索引　·　内容纯属虚构　·　（网页解谜游戏演示站点）
+        </div>
+      </div>
+    </footer>
+</div>
+
+<script>
+/* ================================================================
+   光荣榜之外 · 入口脚本
+   ----------------------------------------------------------------
+   全部内容都在这个 script 里。改字/加帖/加板块只改数据区。
+   数据存在内存里，刷新即恢复 —— 演示站，没接后端。
+   ================================================================ */
+
+/* ---------------- 站点配置 ---------------- */
+var CFG = {
+  /* ------------------------------------------------------------------
+     站名：《光荣榜之外》
+     ------------------------------------------------------------------
+     依据《凌汛》ARG项目 · AI工作手册 第 241 行「下一步」。
+     语气按手册规则 2：**隐秘、克制、钉子一样**。
+     按手册规则 6：恐怖感来自"不对劲"，不来自"吓人"。
+     所以这里不写鬼、不写血腥、不写尖叫、不写追杀。
+     ------------------------------------------------------------------ */
+  name: "光荣榜之外",
+  sub: "冰层之下，什么都有。 · 当前在线 1 人",
+  marquee: "本站不公开索引　·　不要在任何公开平台留这里的地址　·　"
+         + "发帖不用真名，但别以为这样就没人认得出来　·　"
+         + "记不清的事就写记不清，别补　·　有些帖子是被删掉的，不是没发过",
+  footNote: "主办：个人　·　备案：无　·　本站与坨罗山县任何单位无关",
+  tapeInfo: "TAPE 03　·　SP　·　1999-04-17　·　录像来源不明",
+  allowRegister: true,
+  needApproval: false,
+  minPass: 6,
+  /* 录像里显示的日期时间起点。带子走了多久，时间码就从这里往后走 */
+  tapeStart: { y:1999, mo:4, d:17, h:23, mi:47, s:12 }
+};
+
+/* 进入层的字幕脚本：[秒, 行1, 行2…]
+   这里不放剧情，只放"站子是谁建的、为什么建"的一点影子。
+   手册规则 5：不要解释。让玩家自己拼。 */
+var INTRO = [
+  [0.6, "[画面已接入]"],
+  [2.2, "[本站建于 2026 年 5 月]"],
+  [5.0, "[站长：学长]", "[学长] 腿没好。坐着也能打字。"],
+  [8.4, "[学长] 这里不发名单。名单在别处。"],
+  [11.6, "[学长] 想说什么就说。想不起来的地方，空着。"],
+  [14.8, "[LIGHTS FLICKER]"],
+  [16.0, "[学长] 别问我 2025 届的事。我只能说，光荣榜上少了一个人。"],
+  [19.6, "[TAPE NOISE]"]
+];
+
+/* ---------------- 登录态 ---------------- */
+var SESS = { uid: null };
+
+/* ---------------- 数据 ----------------
+   ⚠️ 这里的帖子内容**已经全部清空**。
+   按工作手册规则 1「先问，再写」，正文由用户提供后再填。
+   下面保留结构，方便直接往里放。
+
+   人名统一（手册规则 2）：
+     凌讯、白晚晴、余淼、刘华杰、张慧、东吉姥姥、学长、周有条、孙振东
+   代词统一：
+     白晚晴是男的 → 用「他」；凌讯是女的 → 用「她」；余淼是女的 → 用「她」
+   ------------------------------------------------------------------ */
+
+/* 账号。手册第 61 行：管理员是「学长」——跳楼未遂摔断腿的往届学生。
+   role: admin=站长，mod=版主，user=普通 */
+var USERS = [
+  { uid:1, name:"学长", pass:"paobingpai", role:"admin", reg:"2026-05-01", seq:0, private:0,
+    intro:"本站就我一个人管。回得慢，别催。", ip:"—" },
+  /* 凌讯：私密账号。现实中她是实名的，在本站用网名「冬眠的小小虫」发言。
+     本人把全部发言设为自隐藏，任何人（包括站长）打不开。
+     pass 为空 —— 这个号没有可登录的密码。 */
+  { uid:99, name:"冬眠的小小虫", realname:"凌讯", pass:null, role:"user", reg:"2024-06-20 21:13", seq:null, private:1,
+    intro:"", ip:"—", lastOnline:"2026-05-17" },
+
+  /* 陈晨。他在帖子里不敢写名字，但注册时填的是真名。
+     所以拿真名直接能查出他的网名。 */
+  { uid:17, name:"晚自习的灯", realname:"陈晨", pass:null, role:"user",
+    reg:"2025-09-21 19:42", seq:null, private:0,
+    intro:"", ip:"—", lastOnline:"2026-09-24 22:10" }
+
+];
+
+/* 注册账号的留档持久化：只存普通注册用户（不存管理员、不存私密账号）。
+   刷新后 loadUsers() 读回，保证昵称/密码/注册时间/注册序号不丢。 */
+/* 每个玩家的账号只活在这一页里，不落盘。
+   刷新 / 换人 / 换设备，都是同样的初始状态 —— 谁都不会拿到别人的存档。 */
+function loadUsers(){
+  /* 故意留空：不做任何读取 */
+}
+function saveUsers(){
+  /* 故意留空：不写 localStorage */
+}
+
+/* 版块。用户定的：**只留两个**（原「黎明湖」「东吉姥姥」已去掉）。
+   栏目一装"人说过的话"，栏目二装官方删掉、学长自己备份下来的档案。 */
+var BOARDS = [
+  { k:"pain",   n:"校园伤痛", ic:"伤", d:"这里说的都是真的。信不信随你。", hot:1, hidden:0 },
+  { k:"deleted",n:"被删帖存档", ic:"档", d:"官方删过的，学长自己备份了一份。", hot:0, hidden:1 }
+];
+
+/* 帖子。
+   来源：用户提供的《光荣榜之外》论坛 · 帖子存档。
+   语气按手册规则 6：不写鬼、不写血腥、不写尖叫、不写追杀 —— 只写"不对劲"。
+   有些楼中楼作者不明，是刻意的（本站匿名发帖，只用本站编号）。 */
+var POSTS = [
+  { id:1, board:"pain", title:"又有人跳楼了，学校又压下去了", anon:false, uid:11, stamp:"U-1188", name:"三楼的老鼠", time:"2026-03-18",
+    views:0, pinned:0, locked:0, hot:1, hotReply:1,
+    body:"高一，女生。从宿舍楼跳的。没死。摔在草坪上。\n\n学校说是“意外坠落”。家长来了，签了字，走了。\n\n第二天，宿舍楼草坪换了新草皮。\n\n好像什么都没发生过。",
+    replies:[
+      { id:101, anon:true, stamp:"A-1180", name:"", time:"2026-03-18", body:"今年第几个了？", deleted:0 },
+      { id:102, anon:true, stamp:"A-2264", name:"", time:"2026-03-18", body:"第三个。", deleted:0 },
+      { id:103, anon:true, stamp:"A-3390", name:"", time:"2026-03-18", body:"学校压得真快。", deleted:0 },
+      { id:104, anon:true, stamp:"A-1180", name:"", time:"2026-03-18", body:"压得快，说明有问题。", deleted:0 },
+      { id:105, anon:true, stamp:"A-5507", name:"", time:"2026-03-19", body:"什么问题？", deleted:0 },
+      { id:106, anon:true, stamp:"A-3390", name:"", time:"2026-03-19", body:"不知道。但你去搜“坨罗山高中跳楼”，什么都搜不到。", deleted:0 },
+      { id:107, anon:true, stamp:"A-6612", name:"", time:"2026-03-19", body:"搜到了。一条本地新闻，标题是《坨罗山高中一学生意外坠落》。", deleted:0 },
+      { id:108, anon:true, stamp:"A-3390", name:"", time:"2026-03-19", body:"点进去看了吗？", deleted:0 },
+      { id:109, anon:true, stamp:"A-6612", name:"", time:"2026-03-19", body:"看了。正文只有一句话：该生系个人原因，学校已妥善处理。", deleted:0 },
+      { id:110, anon:true, stamp:"A-3390", name:"", time:"2026-03-19", body:"妥善处理。", deleted:0 },
+      { id:111, anon:true, stamp:"A-6612", name:"", time:"2026-03-19", body:"嗯。妥善处理。", deleted:0 },
+      { id:112, anon:false, uid:1, name:"学长", time:"2026-03-20", body:"这个帖子我备份了。\n留着。", deleted:0, pinned:1 }
+    ] },
+
+  { id:2, board:"pain", title:"有女孩跳楼，她妈在楼下喊的是“你死了也要保佑你弟弟”", anon:false, uid:12, stamp:"U-1204", name:"听墙根的", time:"2024-11-03",
+    views:0, pinned:0, locked:0, hot:0,
+    body:"我亲眼看见的。女生从教学楼五楼跳下来。没死。摔断了腿。\n\n她妈赶到的时候，她还有意识。她妈蹲在她旁边，喊的不是“你怎么样”，是“你下去后一定要保佑你弟弟”。\n\n后来那个女生休学了。再也没回来。\n\n她妈后来生了个儿子。",
+    replies:[
+      { id:201, anon:true, stamp:"A-1180", name:"", time:"2024-11-03", body:"这是真事。我也听说了。", deleted:0 },
+      { id:202, anon:true, stamp:"A-3390", name:"", time:"2024-11-03", body:"那个女生后来去哪了？", deleted:0 },
+      { id:203, anon:true, stamp:"A-1180", name:"", time:"2024-11-03", body:"不知道。听说搬走了。", deleted:0 },
+      { id:204, anon:true, stamp:"A-5507", name:"", time:"2024-11-04", body:"她妈怎么这样？", deleted:0 },
+      { id:205, anon:true, stamp:"A-3390", name:"", time:"2024-11-04", body:"这地方就这样。女孩不值钱。", deleted:0 },
+      { id:206, anon:true, stamp:"A-5507", name:"", time:"2024-11-04", body:"所以她才跳的。", deleted:0 },
+      { id:207, anon:true, stamp:"A-3390", name:"", time:"2024-11-04", body:"不是。她跳是因为别的事。", deleted:0 },
+      { id:208, anon:true, stamp:"A-5507", name:"", time:"2024-11-04", body:"什么事？", deleted:0 },
+      { id:209, anon:true, stamp:"A-3390", name:"", time:"2024-11-04", body:"不知道。但她跳之前，在走廊里站了很久。", deleted:0 },
+      { id:210, anon:true, stamp:"A-2264", name:"", time:"2024-11-05", body:"多久？", deleted:0 },
+      { id:211, anon:true, stamp:"A-3390", name:"", time:"2024-11-05", body:"一节课。", deleted:0 },
+      { id:212, anon:true, stamp:"A-2264", name:"", time:"2024-11-05", body:"没人管她？", deleted:0 },
+      { id:213, anon:true, stamp:"A-3390", name:"", time:"2024-11-05", body:"没有。都以为她只是罚站。", deleted:0 },
+      { id:214, anon:false, uid:1, name:"学长", time:"2026-03-20", body:"校方删了三次。", deleted:0, pinned:1 }
+    ] },
+
+  { id:3, board:"pain", title:"摔断腿的那个学长，搭了这个论坛", anon:false, uid:13, stamp:"U-1266", name:"跑冰排的人", time:"2025-01-15",
+    views:0, pinned:0, locked:0, hot:1,
+    body:"你们知道这个论坛是谁搭的吗？\n\n是那个跳楼未遂、摔断腿的学长。\n\n他休学之后，在家没事干，就搭了这个论坛。\n\n他说：“我摔断腿那天，没人拉我。所以我搭了这个地方，谁掉下来，都能接住。”\n\n他从来不露面。但他的ID叫“学长”。\n\n你们要是看见他，别叫他瘸子。",
+    replies:[
+      { id:301, anon:true, stamp:"A-5507", name:"", time:"2025-01-15", body:"学长是谁？", deleted:0 },
+      { id:302, anon:true, stamp:"A-1180", name:"", time:"2025-01-15", body:"你不知道？就是管理员。", deleted:0 },
+      { id:303, anon:true, stamp:"A-5507", name:"", time:"2025-01-15", body:"他为什么不露面？", deleted:0 },
+      { id:304, anon:true, stamp:"A-1180", name:"", time:"2025-01-15", body:"他说他腿不方便。但我们都知道，他是不想让人看见他现在的样子。", deleted:0 },
+      { id:305, anon:true, stamp:"A-3390", name:"", time:"2025-01-16", body:"他现在怎么样？", deleted:0 },
+      { id:306, anon:true, stamp:"A-1180", name:"", time:"2025-01-16", body:"在家。靠低保。偶尔修电脑。", deleted:0 },
+      { id:307, anon:true, stamp:"A-3390", name:"", time:"2025-01-16", body:"他怎么修电脑？", deleted:0 },
+      { id:308, anon:true, stamp:"A-1180", name:"", time:"2025-01-16", body:"他腿不行，手还行。", deleted:0 },
+      { id:309, anon:true, stamp:"A-3390", name:"", time:"2025-01-16", body:"他为什么搭这个论坛？", deleted:0 },
+      { id:310, anon:true, stamp:"A-1180", name:"", time:"2025-01-16", body:"因为没人搭。", deleted:0 },
+      { id:311, anon:true, stamp:"A-3390", name:"", time:"2025-01-16", body:"就这么简单？", deleted:0 },
+      { id:312, anon:true, stamp:"A-1180", name:"", time:"2025-01-16", body:"就这么简单。", deleted:0 }
+    ] },
+
+  { id:4, board:"pain", title:"我在教学楼里听见有人在背课文", anon:false, uid:14, stamp:"U-1311", name:"十一点半", time:"2026-02-14",
+    views:0, pinned:0, locked:0, hot:0,
+    body:"晚自习下课之后，我落了东西在教室，回去拿。走廊里灯已经关了，只有安全出口的绿光。\n\n我听见有人背课文。声音不大，但很清楚。是《过秦论》。\n\n我以为是哪个老师加班，走近了看，教室是空的。灯没开。窗户关着。\n\n声音是从语文组办公室传出来的。门锁着。\n\n我站了一会儿，声音停了。\n\n然后我听见有人笑了一声。",
+    replies:[
+      { id:401, anon:true, stamp:"A-5507", name:"", time:"2026-02-14", body:"你听错了吧。", deleted:0 },
+      { id:402, anon:true, stamp:"A-8820", name:"", time:"2026-02-14", body:"我没听错。就是《过秦论》。", deleted:0 },
+      { id:403, anon:true, stamp:"A-3390", name:"", time:"2026-02-14", body:"哪个教室？", deleted:0 },
+      { id:404, anon:true, stamp:"A-8820", name:"", time:"2026-02-14", body:"三楼最里面那间。语文组旁边。", deleted:0 },
+      { id:405, anon:true, stamp:"A-3390", name:"", time:"2026-02-14", body:"那间教室现在不用了。", deleted:0 },
+      { id:406, anon:true, stamp:"A-8820", name:"", time:"2026-02-14", body:"我知道。所以才吓人。", deleted:0 },
+      { id:407, anon:true, stamp:"A-5507", name:"", time:"2026-02-15", body:"可能是水管声。", deleted:0 }
+    ] },
+
+  { id:5, board:"deleted", title:"龙祥市场拆迁那年，到底发生了什么？", anon:false, uid:15, stamp:"U-1402", name:"摆摊的儿子", time:"2025-08-12",
+    views:0, pinned:0, locked:0, hot:0, needLogin:1,
+    body:"龙祥市场拆的时候，我还在上初中。我记得那天下着雨，市场门口围了好多人。有人不肯搬，后来被带走了。\n\n再后来，市场就没了。\n\n我爸妈以前在那儿摆摊。市场没了之后，他们就在家待着。我爸现在一点当地的新闻都不看，就是买菜做饭。",
+    replies:[
+      { id:501, anon:true, stamp:"A-3390", name:"", time:"2025-08-12", body:"你爸妈没跟你说？赵永利当初可是派手底下人打砸抢烧的，不搬迁就断水断电。", deleted:0 },
+      { id:502, anon:true, stamp:"A-4471", name:"", time:"2025-08-12", body:"没有。他们不说。这不是暴力强拆吗？", deleted:0 },
+      { id:503, anon:true, stamp:"A-3390", name:"", time:"2025-08-12", body:"那你说呢？你不知道这个赵永利他家开的那个澡堂子”莲花水台“墙上挂的照片吗？一水的全是领导，肯定老有关系了", deleted:0 },
+      { id:504, anon:true, stamp:"A-4471", name:"", time:"2025-08-12", body:"他当初不也就是个矿上的吗，咋混的这么大。", deleted:0 },
+      { id:505, anon:true, stamp:"A-3390", name:"", time:"2025-08-12", body:"站好队，跟着走起来了，当年那些跟着走没闹事的工人，现在哪个混的差啊？", deleted:0 }
+    ] },
+
+  { id:6, board:"deleted", title:"煤矿关停那年，我爸下岗了", anon:false, uid:16, stamp:"U-1455", name:"矿区的孩子", time:"2025-09-05",
+    views:0, pinned:0, locked:0, hot:0, needLogin:1,
+    body:"我爸在煤矿干了二十年。关停那天，他回来，坐在沙发上，一句话没说。\n\n第二天，他去龙祥市场摆摊。卖袜子。卖手套。卖冻鱼。\n\n后来市场拆了。他就不出门了。\n\n现在他每天坐在阳台上晒太阳。茶凉了也不喝。\n\n我有时候想，他是不是在等什么。\n\n等什么呢？等煤矿重新开？等市场重新建？等人回来？\n\n我不知道。",
+    replies:[
+      { id:601, anon:true, stamp:"A-1180", name:"", time:"2025-09-05", body:"我爸也是，当初他们部门第一个要安置费的，结果半夜就被打了一闷棍，现在有时候腰还不得劲呢。", deleted:0 },
+      { id:602, anon:true, stamp:"A-2264", name:"", time:"2025-09-05", body:"我奶奶当年就和我爸说不能掺和这些事情，我爸孝顺，就一直没去上班，后来也没追究，还落了个职工退休。", deleted:0 },
+      { id:603, anon:true, stamp:"A-5507", name:"", time:"2025-09-05", body:"我妈当年在食堂，听说后来厂子不行的时候，全都偷，厨子偷食材，工人偷器材，司机偷原料的。", deleted:0 },
+      { id:604, anon:true, stamp:"A-3390", name:"", time:"2025-09-06", body:"当时发不出工资，谁家不是这样。", deleted:0 },
+      { id:605, anon:true, stamp:"A-8820", name:"", time:"2025-09-06", body:"所以现在这经济不好，年轻人都走了。", deleted:0 },
+      { id:606, anon:true, stamp:"A-3390", name:"", time:"2025-09-06", body:"那是啊，都让那些官商勾结的臭老鼠给贪了，老百姓哪有活路啊。", deleted:0 },
+      { id:607, anon:true, stamp:"A-8820", name:"", time:"2025-09-06", body:"嗯。。", deleted:0 },
+      { id:608, anon:false, uid:1, name:"学长", time:"2026-03-20", body:"这个帖子我备份。\n留着。", deleted:0, pinned:1 }
+    ] },
+
+  { id:7, board:"deleted", title:"下岗安置名单，为什么有人被划掉了？", anon:false, uid:18, stamp:"U-1801", name:"查名单的", time:"2025-11-20",
+    views:0, pinned:0, locked:0, hot:0, needLogin:1,
+    body:"我爷爷以前在煤矿上班。关停之后，县里发过一个安置名单。我爷爷在名单上。\n\n但后来正式公布的时候，他的名字没了。\n\n他去问，人家说“你不在范围内”。\n\n他说“我干了三十年”。\n\n人家说“你去找原单位”。\n\n原单位早就没了。\n\n他回来之后，把那张旧名单裱起来，挂在墙上。\n\n他说：“这是我这辈子最后一件正经事。”",
+    replies:[
+      { id:701, anon:true, stamp:"A-1180", name:"", time:"2025-11-20", body:"我姥爷也是。", deleted:0 },
+      { id:702, anon:true, stamp:"A-2264", name:"", time:"2025-11-20", body:"我大爷也是。", deleted:0 },
+      { id:703, anon:true, stamp:"A-5507", name:"", time:"2025-11-20", body:"名单上的人，后来去哪儿了？", deleted:0 },
+      { id:704, anon:true, stamp:"A-3390", name:"", time:"2025-11-20", body:"有的去龙祥市场摆摊。有的在家待着。有的走了。", deleted:0 },
+      { id:705, anon:true, stamp:"A-5507", name:"", time:"2025-11-20", body:"走了的，还回来吗？", deleted:0 },
+      { id:706, anon:true, stamp:"A-3390", name:"", time:"2025-11-20", body:"不回来。", deleted:0 },
+      { id:707, anon:true, stamp:"A-5507", name:"", time:"2025-11-21", body:"那留下来的呢？", deleted:0 },
+      { id:708, anon:true, stamp:"A-3390", name:"", time:"2025-11-21", body:"留下来的，还在等。", deleted:0 },
+      { id:709, anon:true, stamp:"A-5507", name:"", time:"2025-11-21", body:"等什么？", deleted:0 },
+      { id:710, anon:true, stamp:"A-3390", name:"", time:"2025-11-21", body:"等一个说法。", deleted:0 },
+      { id:711, anon:false, uid:1, name:"学长", time:"2026-03-20", body:"这个帖子我备份过。\n留着。", deleted:0, pinned:1 }
+    ] },
+
+  /* 凌讯唯一一条发帖。secret:1 = 作者本人自隐藏，任何登录态都打不开。
+     正文不写 —— 因为谁也不该看见。她在本站的网名是「冬眠的小小虫」。 */
+  { id:8, board:"pain", title:"（如果我爱****该帖已由作者本人隐藏）", anon:false, uid:99, name:"冬眠的小小虫", stamp:"",
+    time:"2025-11-02", views:0, pinned:0, locked:0, hot:0, secret:1,
+    body:"", replies:[
+      { id:801, anon:true, stamp:"A-3390", name:"", time:"2025-11-02", body:"你太缺爱了吧。", deleted:0 },
+      { id:802, anon:true, stamp:"A-5507", name:"", time:"2025-11-02", body:"这种东西也发得出来，服了。", deleted:0 },
+      { id:803, anon:true, stamp:"A-4471", name:"", time:"2025-11-02", body:"缺爱就缺爱，别往网上写啊。", deleted:0 },
+      { id:804, anon:true, stamp:"A-8820", name:"", time:"2025-11-03", body:"楼上是**吗？", deleted:0 },
+      { id:805, anon:true, stamp:"A-0413", name:"", time:"2025-11-03", body:"你说话这股劲儿，怎么这么像**。", deleted:0 },
+      { id:806, anon:true, stamp:"A-7730", name:"", time:"2025-11-03", body:"凌讯？？？？", deleted:0 },
+      { id:807, anon:true, stamp:"A-2264", name:"", time:"2025-11-03", body:"肯定是她。别人不会这么写。", deleted:0 },
+      { id:808, anon:true, stamp:"A-6612", name:"", time:"2025-11-04", body:"不都……她还在吗", deleted:0 },
+      { id:809, anon:true, stamp:"A-3390", name:"", time:"2025-11-04", body:"你们别瞎猜。", deleted:0 },
+      { id:810, anon:true, stamp:"A-5507", name:"", time:"2025-11-04", body:"缺爱。缺得很明显。", deleted:0 },
+      { id:811, anon:true, stamp:"A-0413", name:"", time:"2025-11-05", body:"说真的，你要是缺爱，去找个人说话，别在这儿写。", deleted:0 },
+      { id:812, anon:true, stamp:"A-8820", name:"", time:"2025-11-05", body:"我认识这号人。她删号了。", deleted:0 }
+    ] }
+
+];
+
+/* ---------------- 工具 ---------------- */
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function $(s){return document.querySelector(s)}
+function uid(){return SESS.uid}
+function meUser(){for(var i=0;i<USERS.length;i++)if(USERS[i].uid===SESS.uid)return USERS[i];return null}
+function isAdmin(){var u=meUser();return !!(u&&u.role==="admin")}
+function isMod(){var u=meUser();return !!(u&&(u.role==="admin"||u.role==="mod"))}
+/* ★ 陈晨那一帖。用 push 添加，不去改上面那个数组，
+   避开逗号、括号那些容易出错的地方。 */
+/* ★ 陈晨的第二帖。隐藏的，要真名才能开。 */
+POSTS.push({
+  id:10, board:"pain", anon:false, uid:17, name:"晚自习的灯", stamp:"U-1739",
+  title:"（隐藏帖）", time:"2025-09-25",
+  views:0, pinned:0, locked:0, hot:0, hideInList:1,
+  pwd:"陈晨",                 /* ★ 密码 = 他的真名 */
+  htmlBody: [
+    "我被一个女同学利用了。",
+    "不怪她。怪我自己。",
+    "我太不争气了。人家说两句好话，我就上头。",
+    "我控制不住自己那点东西。那意味着什么？意味着这件事我自己也有一半责任。",
+    "现在我对女生有点害怕。不是说所有人。但我看见就紧。",
+    "我是高二的。我还得在这个学校待两年。",
+    "我对自己也没什么信心了。",
+    "最糟的是，我害了一个好老师。",
+    "他待我很好。他什么都不知道。",
+    "我不敢告诉他。因为一旦告诉他，他就知道我干了什么。",
+    "",
+    "【我成了她的<span class=\'hl-key\'>帮凶</span>】"
+  ],
+  replies:[
+    { id:1001, anon:true, stamp:"A-3390", name:"", time:"2025-09-25", body:"（此帖已加密）", deleted:0 }
+  ]
+});
+
+POSTS.push({
+  id:9, board:"pain", title:"在学校被霸凌了，我真的不知道该怎么办",
+  anon:false, uid:17, name:"晚自习的灯", stamp:"U-1739", time:"2026-09-21",
+  views:0, pinned:0, locked:0, hot:1,
+  body:"我不是什么特别的人。成绩中上，不惹事，也没得罪过谁。\n\n"
+     + "有一个人一直在欺负我。我不能写她的名字，因为她手里有我的东西。\n\n"
+     + "我不能说是什么。反正就是能让我在学校没法正常上学的东西。\n\n"
+     + "最麻烦的是，我一开始以为她是个很好的人。\n\n"
+     + "现在我开始有点怕女生了。不是说所有人，但我真的不知道该怎么分。"
+     + "现在的女孩子真的很会骗人，让你以为能和她交往，让你以为她在对你好。\n\n"
+     + "我不知道能不能跟谁说。我家里人不会管这种事。\n\n"
+     + "有没有人能告诉我该怎么办。",
+  replies:[
+    { id:901, anon:true, stamp:"A-3390", name:"", time:"2026-09-21", body:"龟男一个。你自己想想，人家为什么只欺负你不欺负别人。", deleted:0 },
+    { id:902, anon:true, stamp:"A-4471", name:"", time:"2026-09-21", body:"女的都这样。习惯就好了。", deleted:0 },
+    { id:903, anon:true, stamp:"A-5507", name:"", time:"2026-09-21", body:"你这不是被霸凌，你这是没本事。", deleted:0 },
+    { id:904, anon:true, stamp:"A-8820", name:"", time:"2026-09-21", body:"听我一句，别搞那些没用的。多练练薄肌，染个黄毛，比什么都管用。", deleted:0 },
+    { id:905, anon:true, stamp:"A-2264", name:"", time:"2026-09-22", body:"小镇做题家吧。你这种的就是小镇做题家。", deleted:0 },
+    { id:906, anon:true, stamp:"A-6612", name:"", time:"2026-09-22", body:"小镇做题家 +1。题做得好不代表人会做。", deleted:0 },
+    { id:907, anon:true, stamp:"A-7730", name:"", time:"2026-09-22", body:"你说人家有你的东西。你自己不给，人家能拿得到？", deleted:0 },
+    { id:908, anon:true, stamp:"A-0413", name:"", time:"2026-09-22", body:"别甩锅女孩了。你先把你自己那点事整明白。", deleted:0 },
+    { id:909, anon:true, stamp:"A-4471", name:"", time:"2026-09-23", body:"晚自习的灯。你是高二的吧。", deleted:0 },
+    { id:910, anon:false, uid:17, name:"晚自习的灯", stamp:"U-1739", time:"2026-09-23", body:"……我没想到你们会知道。\n\n我不是想用这个号骗谁。\n\n算了。", deleted:0 },
+    { id:911, anon:true, stamp:"A-3390", name:"", time:"2026-09-24", body:"（此回复已被作者本人隐藏）", deleted:0 }
+  ]
+});
+
+function boardOf(k){for(var i=0;i<BOARDS.length;i++)if(BOARDS[i].k===k)return BOARDS[i];return null}
+function postsOf(k){return POSTS.filter(function(p){return p.board===k && !p.hideInList})}
+/* 登录门禁：未登录只能看公开内容；被删帖存档整栏 + needLogin 帖都要登录 */
+function loggedIn(){return !!SESS.uid}
+function boardLocked(b){return !loggedIn() && !!(b && b.hidden)}
+function postLocked(p){
+  if(!p) return false;
+  if(loggedIn()) return false;
+  if(p.needLogin) return true;
+  var b=boardOf(p.board);
+  return !!(b && b.hidden);
+}
+function visiblePosts(){return POSTS.filter(function(p){return !postLocked(p) && !p.hideInList})}
+function hiddenCount(){return POSTS.filter(function(p){return postLocked(p)}).length}
+function lockedBox(msg){
+  return '<div class="sec" style="max-width:520px;margin:0 auto"><div class="lockbox">'
+    +'<span class="lk">▪▪▪▪</span><b>'+msg+'</b><br>'
+    +'需要登录后才能查看。<br>'
+    +'<a class="btn" style="margin-top:12px" href="#/login">去登录</a> '
+    +'<a class="btn" href="#/boards">回板块</a></div></div>';
+}
+function nowStr(){var d=new Date(),z=function(n){return (n<10?"0":"")+n};
+  return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate())+" "+z(d.getHours())+":"+z(d.getMinutes())}
+
+/* 匿名编号：每个浏览器一个。这就是站里那句「匿名不等于无痕」 */
+/* 匿名编号：每次打开都重新抽一个，不记在浏览器里。
+   站里那句「匿名不等于无痕」照样成立 —— 只是痕迹不留在你自己的机器上。 */
+var STAMP = "A-" + (1000 + Math.floor(Math.random() * 9000));
+
+function nextPostId(){var m=1;POSTS.forEach(function(p){if(p.id>=m)m=p.id+1});return m}
+function nextReplyId(){var m=1;POSTS.forEach(function(p){(p.replies||[]).forEach(function(r){if(r.id>=m)m=r.id+1})});return m}
+
+/* ================================================================
+   一、录像带那套：OSD 走时、电池、字幕、开机、进入
+   ================================================================ */
+var T = CFG.tapeStart;
+var tapeSec = 0;
+
+function pad(n){return (n<10?"0":"")+n}
+var MON = ["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"];
+
+function tickTape(){
+  tapeSec++;
+  var d = new Date(T.y, T.mo-1, T.d, T.h, T.mi, T.s);
+  d.setSeconds(d.getSeconds() + tapeSec);
+  $("#osd-date").textContent = pad(d.getDate())+" "+MON[d.getMonth()]+" "+d.getFullYear();
+  $("#osd-time").textContent = pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());
+  /* 电池慢慢往下掉，每 45 秒掉一格，见底就停在那 */
+  var pct = Math.max(6, 70 - Math.floor(tapeSec/45)*4);
+  $("#batt-fill").style.width = pct + "%";
+}
+tickTape();
+setInterval(tickTape, 1000);
+
+/* —— 字幕：CEA-608 那种，每行一块纯黑底 —— */
+var capTimers = [];
+function showCap(lines){
+  capTimers.forEach(clearTimeout); capTimers = [];
+  var box = $("#cap");
+  box.innerHTML = (lines||[]).map(function(l){
+    /* [方括号] 是 SDH 描述，用灰色；其余白色 */
+    var t = esc(l);
+    t = t.replace(/^(\[[^\]]+\])/, '<em>$1</em>');
+    t = t.replace(/\[值班员\]/g, '<em>[值班员]</em>');
+    t = t.replace(/\[PA\]/g, '<em>[PA]</em>');
+    return '<div class="ln">' + t + '</div>';
+  }).join("");
+}
+function clearCap(){ capTimers.forEach(clearTimeout); capTimers = []; $("#cap").innerHTML = ""; }
+function playIntro(){
+  INTRO.forEach(function(row){
+    capTimers.push(setTimeout(function(){ showCap(row.slice(1)); }, row[0]*1000));
+  });
+}
+
+/* —— 开机：一条亮缝展开 → 播字幕 → 隔一拍放「进入」按钮 —— */
+var entryDone = false;
+function bootTape(){
+  var entry = $("#entry");
+  entry.classList.remove("hide");
+  playIntro();
+  /* 别一上来就催人点，等它自己讲两句 */
+  setTimeout(function(){ if(!entryDone) $("#go").style.display = "block"; }, 3200);
+}
+
+function enterSite(){
+  if(entryDone) return;
+  entryDone = true;
+  var entry = $("#entry"), frame = $("#frame");
+  clearCap();
+  /* 走带撕裂一下，再揭开 */
+  frame.classList.add("enterfx");
+  setTimeout(function(){
+    entry.classList.add("hide");
+    /* 论坛现在才露出来；顺便把滚动放开 */
+    document.querySelector(".page").classList.add("ready");
+    document.getElementById("filmPage").style.display = "";
+    document.getElementById("ambient").style.display = "";
+    document.body.style.overflow = "";
+    window.scrollTo(0,0);
+  }, 700);
+  /* 进去之后补一句字幕，像带子还在录 */
+  setTimeout(function(){ showCap(["[带子继续录着]"]); }, 1400);
+  setTimeout(function(){ clearCap(); }, 4000);
+}
+
+/* Enter / 空格 都能进 */
+document.addEventListener("keydown", function(e){
+  if(entryDone) return;
+  if(e.key === "Enter" || e.key === " "){ e.preventDefault(); enterSite(); }
+});
+
+/* ================================================================
+   二、论坛
+   ================================================================ */
+function renderNav(){
+  var raw = (location.hash||"").replace(/^#\/?/,"");
+  var seg = raw.split("?")[0].split("/"), cur = seg[0] || "home", sub = seg[1] || "";
+  var items = [{k:"home",n:"首页"},{k:"boards",n:"板块"}];
+  BOARDS.forEach(function(b){items.push({k:"b/"+b.k,n:b.n})});
+  if(loggedIn()) items.push({k:"chat",n:"找管理员"});
+  if(loggedIn()) items.push({k:"who",n:"查账号"});
+  if(isAdmin()) items.push({k:"admin",n:"管理"});
+  $("#nav").innerHTML = items.map(function(i){
+    var on = (i.k===cur) || (cur==="b" && i.k==="b/"+sub);
+    return '<a href="#/'+i.k+'"'+(on?' class="on"':'')+'>'+esc(i.n)+'</a>';
+  }).join("");
+
+  var u = meUser();
+  if(u){
+    $("#me-box").innerHTML = '当前身份：<b>'+esc(u.name)+'</b>'
+      + (u.role!=="user" ? ' <span class="tag adm">'+({admin:"管理员",mod:"版主"}[u.role])+'</span>' : '')
+      + (u.seq? '　<span style="color:var(--dim)">第'+u.seq+'位注册 · '+esc(u.reg)+'</span>' : '')
+      + '　<a href="#/logout">退出</a>';
+  }else{
+    $("#me-box").innerHTML = '未登录　·　匿名编号 <b>'+esc(STAMP)+'</b>　'
+      + '<a href="#/login">登录</a>' + (CFG.allowRegister ? '　<a href="#/reg">注册</a>' : '');
+  }
+}
+
+function plistHtml(arr){
+  if(!arr.length) return '<div class="empty">这里还没有帖子。</div>';
+  return '<div class="plist">'+arr.map(function(p){
+    var b=boardOf(p.board), n=(p.replies||[]).length;
+    return '<div class="prow">'
+      +'<span class="av">'+esc(b?b.ic:"?")+'</span>'
+      +'<div class="bd"><a class="ti" href="#/p/'+p.id+'">'
+      +(p.pinned?'<span class="tag lock">置顶</span> ':"")+(p.locked?'<span class="tag">已锁</span> ':"")+(p.secret?'<span class="tag lock">私密</span> ':"")
+      +esc(p.title)+'</a>'
+      +'<div class="mt"><span>'+(b?esc(b.n):"")+'</span><span>'+esc(p.anon?("匿名 "+p.stamp):p.name)
+      +'</span><span>'+esc(p.time)+'</span></div></div>'
+      +'<span class="cnt">'+n+' 回复'+(p.views?'<br>'+p.views+' 查看':'')+'</span></div>';
+  }).join("")+'</div>';
+}
+
+function viewHome(){
+  var pool = visiblePosts();
+  var hot = pool.slice().sort(function(a,b){return (b.views||0)-(a.views||0)}).slice(0,5);
+  var recent = pool.slice().sort(function(a,b){return a.time<b.time?1:-1}).slice(0,8);
+  var empty = !POSTS.length;
+  var gated = !loggedIn() && hiddenCount()>0;
+  return '<div class="noticebox" style="margin-bottom:16px">'
+    +'<b>站长的话：</b>这里不发名单，名单在别处。'
+    +'<br>不登录也能看公开的帖子。被删帖存档里的东西，<b>登录之后才看得见</b>；想说话、想找管理员，也得先登录。'
+    +(gated?'<br><span style="color:var(--accent)">（还有 '+hiddenCount()+' 个帖子锁着，登录后可见）</span>':'')
+    +'<br>记不清的事就写记不清，不用补圆。</div>'
+    +(empty
+       ? '<div class="empty">板块已经建好了，帖子还没搬过来。<br>'
+         +'<span class="hint">（内容由站长整理后放上来）</span></div>'
+       : '')
+    +'<div class="sec"><div class="sec-hd"><h2>最近在说</h2>'
+    +'<span class="more"><a href="#/boards">全部板块 »</a></span></div>'+plistHtml(recent)+'</div>'
+    +'<div class="sec"><div class="sec-hd"><h2>看得最多</h2></div>'+plistHtml(hot)+'</div>';
+}
+
+function viewBoards(){
+  return '<div class="sec"><div class="sec-hd"><h2>板块</h2></div><div class="boards">'
+    + BOARDS.map(function(b){
+        var locked=boardLocked(b);
+        var ps=postsOf(b.k), n=0; ps.forEach(function(p){n+=(p.replies||[]).length});
+        return '<a class="board'+(locked?' locked':'')+'" href="'+(locked?'#/login':'#/b/'+b.k)+'"><span class="ic">'+esc(b.ic)+'</span>'
+          +'<div style="min-width:0"><h3>'+esc(b.n)+(locked?' <span class="tag lock">登录后可见</span>':(b.hot?' <span class="tag hot">热</span>':''))+'</h3>'
+          +'<p>'+(locked?"这里存的是被官方删掉的帖子。学长只给登录的人看。":esc(b.d))+'</p></div>'
+          +'<span class="st">'+(locked?'锁<br>登录后<br>可见':(ps.length+' 帖<br>'+n+' 回复'))+'</span></a>';
+      }).join("")
+    +'</div></div>';
+}
+
+function viewBoard(k){
+  var b=boardOf(k);
+  if(!b) return '<div class="empty">没有这个板块。</div>';
+  if(boardLocked(b)) return lockedBox("这个板块锁着。里面是被官方删掉的帖子，学长只给登录的人看。");
+  var ps=postsOf(k).sort(function(x,y){
+    if(x.pinned!==y.pinned) return y.pinned-x.pinned;
+    return x.time<y.time?1:-1;
+  });
+  var postForm = loggedIn()
+    ? '<div class="formbox">'
+      +'<label class="fld"><i>标题</i><input id="np-title" maxlength="60" placeholder="说清楚点，但别太清楚"></label>'
+      +'<label class="fld"><i>正文</i><textarea id="np-body" rows="6" placeholder="想说什么就说什么。"></textarea></label>'
+      +'<label style="font-size:12.5px;color:var(--muted);display:block;margin-bottom:10px">'
+      +'<input type="checkbox" id="np-anon" style="width:auto;margin-right:6px"'+(uid()?"":" checked disabled")+'>'
+      +'以匿名身份发言（内部编号 '+esc(STAMP)+'）'+(uid()?"":'<span style="color:var(--dim)"> —— 未登录只能匿名</span>')+'</label>'
+      +'<div class="err" id="np-err"></div>'
+      +'<button class="btn pri" id="np-go">发布</button> '
+      +'<span class="hint">发布即表示你同意站规。所有发言都会记录时间与内部编号。</span>'
+      +'</div>'
+    : '<div class="noticebox">未登录只能看。<b>要说话，先<a href="#/login" style="color:var(--accent)">登录</a>。</b></div>';
+  return '<div class="sec"><div class="sec-hd"><h2>'+esc(b.n)+'</h2>'
+    +'<span class="more"><a href="#/boards">« 板块列表</a></span></div>'
+    +'<div class="noticebox" style="margin-bottom:12px">'+esc(b.d)+'</div>'
+    + plistHtml(ps) +'</div>'
+    +'<div class="sec"><div class="sec-hd"><h2>发新帖</h2></div>'
+    + postForm +'</div>';
+}
+
+function modTools(kind,id,pid){
+  if(!isMod()) return "";
+  var s='<div class="pf">';
+  if(kind==="p"){
+    var p=null;POSTS.forEach(function(x){if(x.id===id)p=x});
+    s+='<a href="#" data-act="pin" data-id="'+id+'">'+(p&&p.pinned?"取消置顶":"置顶")+'</a>';
+    s+='<a href="#" data-act="lock" data-id="'+id+'">'+(p&&p.locked?"解锁":"锁定")+'</a>';
+    s+='<a href="#" data-act="delp" data-id="'+id+'">删除主题</a>';
+  }else{
+    s+='<a href="#" data-act="delr" data-id="'+id+'" data-pid="'+pid+'">删除该回复</a>';
+  }
+  return s+'</div>';
+}
+
+var PWD_OK = {};
+
+function tryPwd(id){
+  var p = null; POSTS.forEach(function(x){ if(x.id === id) p = x; });
+  var el = document.getElementById("pwd-in");
+  var err = document.getElementById("pwd-err");
+  var v = (el && el.value || "").trim();
+  if(!p) return;
+  if(v === p.pwd){
+    PWD_OK[id] = true;
+    render();
+    return;
+  }
+  if(err){ err.textContent = "不对。"; }
+  if(el) el.select();
+}
+
+function viewPost(id){
+  var p=null; POSTS.forEach(function(x){if(x.id===id)p=x});
+  if(!p) return '<div class="empty">帖子不存在，或已被删除。</div>';
+  if(p.secret){
+    /* 主楼打不开，但下面的评论区还在 */
+    var lk = '<div class="sec" style="max-width:520px;margin:0 auto"><div class="lockbox">'
+      +'<span class="lk">▪▪▪▪</span><b>该帖已由作者本人隐藏，谁也打不开。</b><br>'
+      +'这不是站务删的，也不是登录能解开的。<br>'
+      +'<a class="btn" style="margin-top:12px" href="#/b/pain">回板块</a></div></div>';
+
+    var rs2 = (p.replies || []).slice();
+    var cm = rs2.map(function(r, i){
+      var hidden = !!r.hidden;
+      var text = hidden
+        ? '<span style="color:#4a4a52;letter-spacing:2px">（该回复已被隐藏）</span>'
+        : esc(r.body);
+      return '<div class="post"><div class="ph">'
+        + '<span class="av">' + (i + 1) + '</span>'
+        + '<span class="nm anon">' + esc('匿名用户 ' + r.stamp) + '</span>'
+        + '<span class="tag">匿名</span>'
+        + '<span class="tm">' + esc(r.time) + '</span></div>'
+        + '<div class="ct">' + text + '</div></div>';
+    }).join("");
+
+    return '<div class="sec" style="max-width:520px;margin:0 auto">'
+      + lk
+      + '<div class="sec-hd" style="margin-top:26px"><h2>回复（' + rs2.length + '）</h2></div>'
+      + '<div class="thread">' + cm + '</div>'
+      + '<div class="hint" style="margin-top:10px">本主题已隐藏，不再接受回复。</div>'
+      + '</div>';
+  }
+  /* ★ 带密码的帖子：密码就是他的真名 */
+  if(p.pwd && !PWD_OK[p.id]){
+    return '<div class="sec" style="max-width:520px;margin:0 auto">'
+      + '<div class="sec-hd"><h2>隐藏帖</h2><span class="more"><a href="#/b/'+p.board+'">« 返回板块</a></span></div>'
+      + '<div class="lockbox">'
+      +   '<span class="lk">▪▪▪▪</span>'
+      +   '<b>这帖加了密。</b><br>'
+      +   '提示：我的真名。<br>'
+      +   '<div class="formbox" style="margin-top:14px">'
+      +     '<label class="fld"><i>密码</i><input id="pwd-in" maxlength="16" autocomplete="off"></label>'
+      +     '<div class="err" id="pwd-err"></div>'
+      +     '<button class="btn pri" onclick="tryPwd('+p.id+')">开</button>'
+      +   '</div>'
+      + '</div></div>';
+  }
+  if(postLocked(p)) return lockedBox("这个帖子锁着。登录之后才能看。");
+  var b=boardOf(p.board);
+  /* 学长的置顶回复要排在最前面，还要标出来（手册：学长不露面，但他的标记在） */
+  var rs=(p.replies||[]).filter(function(r){return !r.deleted})
+                         .sort(function(x,y){ return (y.pinned?1:0)-(x.pinned?1:0); });
+  var del=(p.replies||[]).length - rs.length;
+  var head='<div class="post op"><div class="ph">'
+    +'<span class="av">'+esc(b?b.ic:"?")+'</span>'
+    +'<span class="nm'+(p.anon?" anon":"")+'">'+esc(p.anon?("匿名用户 "+p.stamp):p.name)+'</span>'
+    +(p.anon?'<span class="tag">匿名</span>':'')
+    +(p.pinned?'<span class="tag lock">置顶</span>':'')
+    +(p.locked?'<span class="tag">已锁定</span>':'')
+    +'<span class="tm">'+esc(p.time)+'</span></div>'
+    +'<div class="ct">'+(p.htmlBody ? p.htmlBody.map(function(x){return '<p style="margin:0 0 12px">'+x+'</p>';}).join("") : esc(p.body))+'</div>'+modTools("p",p.id)+'</div>';
+  var body=rs.map(function(r,i){
+    var isMod = r.pinned || (r.name === "学长");
+    return '<div class="post'+(isMod?" mod-post":"")+'"><div class="ph"><span class="av">'+(isMod?"站":(i+1))+'</span>'
+      +'<span class="nm'+(r.anon?" anon":"")+'">'+esc(r.anon?("匿名用户 "+r.stamp):r.name)+'</span>'
+      +(r.anon?'<span class="tag">匿名</span>':'')
+      +(r.pinned?'<span class="tag adm">置顶回复</span>':'')
+      +(isMod?'<span class="tag">管理员</span>':'')
+      +'<span class="tm">'+esc(r.time)+'</span></div>'
+      +'<div class="ct">'+esc(r.body)+'</div>'+modTools("r",r.id,p.id)+'</div>';
+  }).join("");
+  if(del>0) body+='<div class="post"><div class="ct" style="color:var(--dim);font-size:13px">（本主题有 '+del+' 条回复已被管理员删除）</div></div>';
+  var form = p.locked
+    ? '<div class="noticebox" style="margin-top:16px">本主题已锁定，无法回复。</div>'
+    : (!loggedIn()
+      ? '<div class="sec" style="margin-top:16px"><div class="noticebox">未登录只能看。<b>回复先<a href="#/login" style="color:var(--accent)">登录</a>。</b></div></div>'
+      : '<div class="sec" style="margin-top:16px"><div class="sec-hd"><h2>回复</h2></div>'
+      +'<div class="formbox">'
+      +'<label class="fld"><i>内容</i><textarea id="rp-body" rows="4" placeholder="回点什么。"></textarea></label>'
+      +'<label style="font-size:12.5px;color:var(--muted);display:block;margin-bottom:10px">'
+      +'<input type="checkbox" id="rp-anon" style="width:auto;margin-right:6px"'+(uid()?"":" checked disabled")+'>'
+      +'以匿名身份发言（内部编号 '+esc(STAMP)+'）'+(uid()?"":' —— 未登录只能匿名')+'</label>'
+      +'<div class="err" id="rp-err"></div>'
+      +'<button class="btn pri" id="rp-go">回复</button></div></div>');
+  return '<div class="sec"><div class="sec-hd"><h2>'+esc(p.title)+'</h2>'
+    +'<span class="more"><a href="#/b/'+p.board+'">« 返回'+(b?esc(b.n):"板块")+'</a></span></div>'
+    +'<div class="thread">'+head+body+'</div>'+form+'</div>';
+}
+
+/* ---------------- 和管理员说话 ----------------
+   只有登录的人能进。没有后端，学长的回复是本地脚本 ——
+   他的语气按手册规则 2/6：克制、钉子一样，只备份不解释。 */
+var CHAT = [];
+var CHAT_OPEN = false;
+var PENDING_CLOSE = false;   /* 学长答完这一句之后就把站关了 */
+var SITE_CLOSED = false;     /* 只在内存里，刷新即恢复 */
+/* chatStage：0=正常闲聊；1=玩家刚被问过“你知道冬眠的小小虫是谁吗”，等他接“凌讯” */
+var chatStage = 0;
+
+/* 关站。只在内存里 —— 刷新页面恢复，不然玩家会被永久锁在外面。 */
+function closeSite(){
+  SITE_CLOSED = true;
+  var el = document.getElementById("site-closed");
+  if(el) el.classList.add("show");
+}
+
+function matchReply(t){
+  t = String(t||"").toLowerCase();
+  function has(){for(var i=0;i<arguments.length;i++){if(t.indexOf(String(arguments[i]).toLowerCase())>=0)return true}return false}
+
+  /* 剧情分支：先问网名 → 玩家答“凌讯” → 揭人死+引导发邮件 */
+  if(chatStage===1){
+    if(has("凌讯","凌汛")){
+      chatStage=0;
+      return "没错。可是你为什么要聊一个已经死了的人？\n关于她的事，政府官网上查不到。\n把邮件发到 www2803579828@163.com，主题里必须带上“凌讯”两个字。\n我把当时存下来的截图发给你。";
+    }
+    chatStage=0; /* 聊岔了，这条线就收掉 */
+  }
+  if(has("冬眠的小小虫")){
+    chatStage=1;
+    return "你知道冬眠的小小虫是谁吗？";
+  }
+
+  if(has("凌讯","凌汛","跑冰排"))
+    return "你说的是一种水文现象吧？东北话也叫跑冰排。";
+  if(has("2025届","名单","优秀毕业生"))
+    return "我说过，别问我 2025 届的事。\n光荣榜上少了一个人。剩下的，你自己找。";
+  if(has("白晚晴","语文组","老师"))
+    return "他的事情我不了解，他很神秘，而且他的离开也很诡异，但是课讲的确实好，学校常年把他的公开课挂在官网上。";
+  if(has("刘华杰","老疯子","老矿工","强奸"))
+    return "判决书上都有。\n判决书没有的，更不该有。";
+  if(has("周有条","周油条","第一发现人","晨练老人","报警老人"))
+    return "周老头。\n七十多了。每天早上下楼买根油条，边吃边遛弯。\n我腿不行，没怎么在公园碰见过他。\n\n你可以去查他。\n4月5号那天早上的事，他知道的比新闻上写的多。\n\n我知道的就这些。\n建站的时候，我连自己都没给自己开权限看凌讯的私密内容。\n她锁上的东西，我打不开。";
+  if(has("福德堂","孙振东","孙大师","已停止服务","锁定网站","无法进入"))
+    return "哦，那个算命网站啊。\n它不是6月底就关了吗？你现在进去肯定是一片灰。\n\n你可以试一下改电脑的本地时间——改成2026年6月之前，再打开就能进。\n但是记住，逛完之后一定要改回来。\n不然你的电脑时间乱掉，很多东西就不对了。";
+  if(has("余淼")){
+    PENDING_CLOSE = true;   /* 答完这句就把站关了 */
+    return "余淼？\n不认识。\n本站没有这个人。\n别问了。";
+  }
+  if(has("黎明湖","水库","冰排"))
+    return "冰没化的时候别去。\n化了，也别去。";
+  if(has("你是谁","学长","管理员","这个论坛"))
+    return "我就是个修电脑的。\n你说完了？";
+  if(has("你好","在吗","帮助","在不在"))
+    return "在。说。";
+  return "我只备份，不解释。\n你说的这个，我没见过。";
+}
+
+/* ★ 从白老师那边跳过来（#/chat?from=letter）：不用登录，且学长主动开口 */
+var FROM_LETTER  = /from=letter/.test(location.hash || "");
+var LETTER_PLAYED = false;
+
+function playLetter(){
+  var seq = [
+    { who:"mod", text:"有个姓白的联系我了。\n是不是你说的那个白。" },
+    { who:"mod", kind:"video", src:"assets/xuezhang-help.mp4" },
+    { who:"mod", text:"还有一个隐藏的网址。\n你要不要。\n[[→ 声音存档 ←|../../白老师的录音/index.html]]" },
+    { who:"mod", text:"我相信你是个好人。\n你会妥善处理的。" },
+    { who:"mod", text:"我第六感很强的。\n我相信你。" },
+    { who:"mod", kind:"voice", src:"assets/xuezhang-voice.mp3", dur:"0:19" },
+    { who:"mod", text:"自行处理这些内容吧。\n想发给谁，是你的自由。" }
+  ];
+  var i = 0;
+  (function next(){
+    if(i >= seq.length) return;
+    CHAT.push(seq[i++]);
+    render();
+    var l = document.getElementById("chat-log");
+    if(l) l.scrollTop = l.scrollHeight;
+    setTimeout(next, 3500 + Math.random() * 2500);   /* 他回得慢，几秒一条 */
+  })();
+}
+
+function viewChat(){
+  if(!loggedIn() && !FROM_LETTER){
+    return '<div class="sec" style="max-width:480px;margin:0 auto"><div class="sec-hd"><h2>找管理员</h2></div>'
+      +'<div class="lockbox"><span class="lk">▪▪▪▪</span>'
+      +'<b>和管理员说话，得先登录。</b><br>'
+      +'这里没有客服。只有学长一个人。<br>'
+      +'<a class="btn" style="margin-top:12px" href="#/login">去登录</a></div></div>';
+  }
+  if(!CHAT_OPEN){
+    CHAT_OPEN = true;
+    CHAT = [{who:"mod", text:"来了。\n我是学长。回得慢，你一句一句发。\n这里说的话不留底，刷新就没。"}];
+  }
+  /* ★ 等玩家真的进来了（点过那道「进入」），学长才开口 */
+  if(FROM_LETTER && !LETTER_PLAYED){
+    LETTER_PLAYED = true;
+    (function waitIn(){
+      if(!entryDone){ setTimeout(waitIn, 400); return; }
+      setTimeout(playLetter, 1200);
+    })();
+  }
+  function linkify(s){
+    return s.replace(/\[\[(.+?)\|(.+?)\]\]/g, '<a href="$2" target="_blank" style="color:#a82020;text-decoration:underline">$1</a>');
+  }
+  var log = CHAT.map(function(m){
+    var head = '<div class="who">'+(m.who==="mod"?"学长 · 管理员":"你")+'</div>';
+    if(m.kind === "voice"){
+      return '<div class="msg '+(m.who==="mod"?"mod":"me")+'">' + head
+        + '<div style="margin-top:4px"><audio controls preload="metadata" src="'+m.src+'" '
+        + 'style="width:260px;max-width:100%;height:40px"></audio></div></div>';
+    }
+    if(m.kind === "video"){
+      return '<div class="msg '+(m.who==="mod"?"mod":"me")+'">' + head
+        + '<div style="margin-top:4px"><video controls preload="metadata" src="'+m.src+'" '
+        + 'style="width:320px;max-width:100%;border:1px solid #2a2a2a;border-radius:4px;display:block"></video></div></div>';
+    }
+    var txt = m.who==="mod" ? linkify(esc(m.text)) : esc(m.text);
+    return '<div class="msg '+(m.who==="mod"?"mod":"me")+'">' + head + txt + '</div>';
+  }).join("");
+  return '<div class="sec" style="max-width:680px;margin:0 auto"><div class="sec-hd"><h2>找管理员</h2>'
+    +'<span class="more"><a href="#/home">« 回首页</a></span></div>'
+    +'<div class="chat"><div class="chat-log" id="chat-log">'+log+'<div class="chat-typing" id="chat-typing" style="display:none">学长正在输入…</div></div>'
+    +'<div class="chat-in"><input id="chat-in" maxlength="200" placeholder="对学长说点什么…" autocomplete="off">'
+    +'<button class="btn pri" id="chat-go">发送</button></div></div>'
+    +'<div class="hint" style="margin-top:8px">他回得慢。他只备份，不解释。</div></div>';
+}
+
+/* ---------------- 查账号 ---------------- */
+function viewWho(){
+  if(!loggedIn()){
+    return '<div class="sec" style="max-width:480px;margin:0 auto"><div class="sec-hd"><h2>查账号</h2></div>'
+      +'<div class="lockbox"><span class="lk">▪▪▪▪</span><b>查账号，得先登录。</b><br>'
+      +'<a class="btn" style="margin-top:12px" href="#/login">去登录</a></div></div>';
+  }
+  var qm=(location.hash||"").split("?")[1]||"";
+  var q=decodeURIComponent((qm.replace(/(?:^|&)q=/,"")||"").split("&")[0]||"").trim();
+  var resultHtml="";
+  if(q){
+    var u=null; USERS.forEach(function(x){if(x.name===q||x.realname===q)u=x});
+    if(!u){
+      resultHtml='<div class="noticebox">没有这个账号。<br>'
+        +'<span class="hint">匿名发言带的是本站编号（A-xxxx），不是账号。查编号请到管理台。</span></div>';
+    }else if(u.private){
+      var n=POSTS.filter(function(p){return p.uid===u.uid}).length;
+      resultHtml='<div class="panel" style="padding:16px 18px">'
+        +'<h3 style="font-size:15px;color:var(--text-hi);margin-bottom:10px">'+esc(u.name)+' <span class="tag lock">私密账号</span></h3>'
+        +'<table class="tbl" style="font-size:13px">'
+        +'<tr><td style="width:96px">网名</td><td>'+esc(u.name)+'</td></tr>'
+        +(u.realname?'<tr><td>实名</td><td>**</td></tr>':'')
+        +'<tr><td>账号状态</td><td>本人已锁定主页，仅显示以下基本信息</td></tr>'
+        +'<tr><td>注册时间</td><td class="mono">'+esc(u.reg||"")+'</td></tr>'
+        +'<tr><td>最后上线</td><td class="mono">'+esc(u.lastOnline||"—")+'</td></tr>'
+        +'<tr><td>发帖</td><td>'+n+' 帖　<b style="color:var(--accent)">已由本人全部隐藏，无法查看</b></td></tr>'
+        +'</table>'
+        +'<div class="hint" style="margin-top:10px">此后未再上线。</div></div>';
+    }else{
+      var pn=POSTS.filter(function(p){return !p.anon && p.uid===u.uid}).length;
+      resultHtml='<div class="panel" style="padding:16px 18px">'
+        +'<h3 style="font-size:15px;color:var(--text-hi);margin-bottom:10px">'+esc(u.name)+'</h3>'
+        +'<table class="tbl" style="font-size:13px">'
+        +'<tr><td style="width:96px">身份</td><td>'+({admin:"管理员",mod:"版主",user:"普通会员"}[u.role]||"普通会员")+'</td></tr>'
+        +(u.seq?'<tr><td>注册序号</td><td class="mono">第 '+u.seq+' 位注册成员</td></tr>':'')
+        +'<tr><td>注册时间</td><td class="mono">'+esc(u.reg||"")+'</td></tr>'
+        +'<tr><td>一句介绍</td><td>'+(esc(u.intro||"")||"—平时不在线，请用手机联系 电话：144662589135—")+'</td></tr>'
+        +'<tr><td>发帖</td><td>'+pn+' 帖</td></tr>'
+        +'<tr><td>帖子</td><td>'
+        + POSTS.filter(function(p){return !p.anon && p.uid===u.uid}).map(function(p){
+            return '<a href="#/p/'+p.id+'" style="color:#c9b48a;text-decoration:underline;display:block;padding:2px 0">'
+              + esc(p.title) + '</a>';
+          }).join("")
+        +'</td></tr>'
+        +'</table></div>';
+    }
+  }
+  return '<div class="sec" style="max-width:560px;margin:0 auto"><div class="sec-hd"><h2>查账号</h2>'
+    +'<span class="more"><a href="#/home">« 回首页</a></span></div>'
+    +'<div class="formbox"><label class="fld"><i>输入昵称</i><input id="who-q" maxlength="16" value="'+esc(q)+'" placeholder="比如：作者"></label>'
+    +'<button class="btn pri" id="who-go">查询</button> '
+    +'<span class="hint">只查昵称，不查匿名编号。</span></div>'
+    +(resultHtml?'<div class="sec" style="margin-top:14px">'+resultHtml+'</div>':'')
+    +'<div class="noticebox" style="margin-top:14px">本站账号不多。站长不接受查询。</div></div>';
+}
+
+function viewLogin(){
+  return '<div class="sec" style="max-width:420px;margin:0 auto"><div class="sec-hd"><h2>登录</h2></div>'
+    +'<div class="formbox">'
+    +'<label class="fld"><i>用户名</i><input id="lg-name" maxlength="16"></label>'
+    +'<label class="fld"><i>密码</i><input id="lg-pass" type="password" maxlength="32"></label>'
+    +'<div class="err" id="lg-err"></div>'
+    +'<button class="btn pri" id="lg-go">登录</button> '
+    +(CFG.allowRegister?'<a class="btn" href="#/reg">没有账号？注册</a>':'<span class="hint">本站已关闭注册。</span>')
+    +'</div>'
+    +'<div class="noticebox" style="margin-top:14px">演示账号：<code>学长 / paobingpai</code>（本站管理员）'
+    +'<br><span class="hint">不是你的号就别登。这里不欢迎好奇的人。</span></div></div>';
+}
+
+function viewReg(){
+  if(!CFG.allowRegister) return '<div class="empty">本站已关闭注册。</div>';
+  return '<div class="sec" style="max-width:420px;margin:0 auto"><div class="sec-hd"><h2>注册</h2></div>'
+    +'<div class="formbox">'
+    +'<label class="fld"><i>用户名（2–16 字）</i><input id="rg-name" maxlength="16"></label>'
+    +'<label class="fld"><i>密码（至少 '+CFG.minPass+' 位）</i><input id="rg-pass" type="password" maxlength="32"></label>'
+    +'<label class="fld"><i>再输一遍</i><input id="rg-pass2" type="password" maxlength="32"></label>'
+    +'<label class="fld"><i>一句介绍（可不填）</i><input id="rg-intro" maxlength="40"></label>'
+    +'<div class="err" id="rg-err"></div>'
+    +'<button class="btn pri" id="rg-go">注册</button> <a class="btn" href="#/login">已有账号</a></div>'
+    +'<div class="noticebox" style="margin-top:14px">注册信息只保存在本地，本站不联网。'
+    +'<b>请勿使用你真在用的密码。</b></div></div>';
+}
+
+function viewAdmin(){
+  if(!isAdmin()) return '<div class="empty">无权访问。本页仅管理员可见。</div>';
+  var rows=USERS.map(function(u){
+    return '<tr><td class="mono">'+u.uid+'</td><td>'+esc(u.name)+'</td>'
+      +'<td class="mono">'+(u.seq?("第"+u.seq+"位"):"—")+'</td>'
+      +'<td>'+({admin:"管理员",mod:"版主",user:"普通"}[u.role])+'</td>'
+      +'<td class="mono">'+esc(u.ip||"")+'</td><td class="mono">'+esc(u.reg||"")+'</td>'
+      +'<td>'+esc(u.intro||"")+'</td></tr>';
+  }).join("");
+  var plog=POSTS.map(function(p){
+    return '<tr><td class="mono">'+p.id+'</td><td>'+esc(p.title)+'</td>'
+      +'<td>'+esc(boardOf(p.board)?boardOf(p.board).n:p.board)+'</td>'
+      +'<td class="mono">'+esc(p.anon?("匿名 "+p.stamp):p.name)+'</td>'
+      +'<td class="mono">'+esc(p.time)+'</td>'
+      +'<td>'+(p.pinned?"置顶 ":"")+(p.locked?"锁定":"")+'</td></tr>';
+  }).join("");
+  return '<div class="sec"><div class="sec-hd"><h2>管理台</h2></div>'
+    +'<div class="noticebox">这里能看到的东西比前台多。<b>别外传。</b></div></div>'
+    +'<div class="sec"><div class="sec-hd"><h2>注册用户</h2><span class="more">共 '+USERS.length+' 人</span></div>'
+    +'<div class="panel" style="padding:0;overflow-x:auto"><table class="tbl">'
+    +'<tr><th>UID</th><th>用户名</th><th>注册序号</th><th>身份</th><th>注册 IP</th><th>注册时间</th><th>介绍</th></tr>'+rows+'</table></div></div>'
+    +'<div class="sec"><div class="sec-hd"><h2>全部主题</h2><span class="more">共 '+POSTS.length+' 帖</span></div>'
+    +'<div class="panel" style="padding:0;overflow-x:auto"><table class="tbl">'
+    +'<tr><th>ID</th><th>标题</th><th>板块</th><th>作者</th><th>时间</th><th>状态</th></tr>'+plog+'</table></div></div>'
+    +'<div class="sec"><div class="sec-hd"><h2>敏感词入库</h2></div>'
+    +'<div class="noticebox">系统自动记录的关键词（本页仅管理员可见）：'
+    +'<br><span class="mono" style="color:var(--muted)">凌讯　·　凌汛　·　余淼　·　黎明湖　·　龙祥市场　·　老疯子　·　铁盒子　·　2025　·　巡查</span>'
+    +'<br><span class="hint">出现这些词的主题会被标记，但不会自动删除。</span></div></div>';
+}
+
+function render(){
+  var raw=(location.hash||"").replace(/^#\/?/,"");
+  var seg=raw.split("?")[0].split("/"), view=seg[0]||"home", arg=seg[1]||"";
+  var html;
+  if(view==="home") html=viewHome();
+  else if(view==="boards") html=viewBoards();
+  else if(view==="b") html=viewBoard(arg);
+  else if(view==="p") html=viewPost(parseInt(arg,10));
+  else if(view==="login") html=viewLogin();
+  else if(view==="reg") html=viewReg();
+  else if(view==="chat") html=viewChat();
+  else if(view==="who") html=viewWho();
+  else if(view==="admin") html=viewAdmin();
+  else if(view==="logout"){ SESS.uid=null; ; location.replace("#/home"); return; }
+  else html='<div class="empty">页面不存在。<a href="#/home">回首页</a></div>';
+  $("#main").innerHTML=html;
+  /* 帖子页（也就是"他们在说话"的地方）额外压暗一层 */
+  document.body.classList.toggle("on-thread", view==="p");
+  renderNav();
+  bind(view,arg);
+  if(entryDone) window.scrollTo(0,0);
+}
+
+function bind(view,arg){
+  if($("#lg-go")) $("#lg-go").onclick=function(){
+    var n=($("#lg-name").value||"").trim(), p=$("#lg-pass").value||"";
+    var u=null; USERS.forEach(function(x){if(x.name===n)u=x});
+    if(!u){ $("#lg-err").textContent="没有这个用户名。"; return; }
+    if(u.pass!==p){ $("#lg-err").textContent="密码不对。"; return; }
+    SESS.uid=u.uid;
+    
+    location.replace("#/home");
+  };
+  if($("#rg-go")) $("#rg-go").onclick=function(){
+    var n=($("#rg-name").value||"").trim(), p=$("#rg-pass").value||"", p2=$("#rg-pass2").value||"";
+    var it=($("#rg-intro").value||"").trim(), e=$("#rg-err");
+    if(n.length<2||n.length>16){e.textContent="用户名要 2–16 个字。";return}
+    var dup=false; USERS.forEach(function(x){if(x.name===n)dup=true});
+    if(dup){e.textContent="这个用户名有人用了。";return}
+    if(p.length<CFG.minPass){e.textContent="密码至少 "+CFG.minPass+" 位。";return}
+    if(p!==p2){e.textContent="两次密码不一致。";return}
+    var id=1; USERS.forEach(function(x){if(x.uid>=id)id=x.uid+1});
+    var seq=0; USERS.forEach(function(x){if(x.role==="user"&&!x.private)seq++});
+    USERS.push({uid:id,name:n,pass:p,role:"user",reg:nowStr(),intro:it,ip:"本地",seq:seq+1,private:0});
+    saveUsers();
+    SESS.uid=id;
+    
+    location.replace("#/home");
+  };
+  if($("#np-go")) $("#np-go").onclick=function(){
+    var t=($("#np-title").value||"").trim(), b=($("#np-body").value||"").trim(), e=$("#np-err");
+    if(!t){e.textContent="写个标题。";return}
+    if(!b){e.textContent="正文不能空着。";return}
+    var anon=$("#np-anon").checked||!uid(), u=meUser();
+    POSTS.unshift({ id:nextPostId(), board:arg, title:t, anon:anon,
+      stamp:STAMP, name:anon?"":(u?u.name:""), time:nowStr(),
+      views:0, pinned:0, locked:0, hot:0, body:b, replies:[] });
+    render();
+  };
+  if($("#rp-go")) $("#rp-go").onclick=function(){
+    var b=($("#rp-body").value||"").trim(), e=$("#rp-err");
+    if(!b){e.textContent="写点什么。";return}
+    var p=null; POSTS.forEach(function(x){if(x.id===parseInt(arg,10))p=x});
+    if(!p) return;
+    var anon=$("#rp-anon").checked||!uid(), u=meUser();
+    p.replies.push({ id:nextReplyId(), anon:anon, stamp:STAMP, name:anon?"":(u?u.name:""),
+      time:nowStr(), body:b, deleted:0 });
+    render();
+  };
+  if($("#chat-go")){
+    var scrollChat=function(){var l=$("#chat-log");if(l)l.scrollTop=l.scrollHeight};
+    var sendChat=function(){
+      var inp=$("#chat-in"); if(!inp) return;
+      var v=(inp.value||"").trim(); if(!v) return;
+      CHAT.push({who:"me", text:v}); inp.value="";
+      render(); scrollChat();
+      var ty=$("#chat-typing"); if(ty) ty.style.display="block";
+      scrollChat();
+      setTimeout(function(){
+        CHAT.push({who:"mod", text:matchReply(v)});
+        render(); scrollChat();
+        /* 余淼那条：让他把话说完，停一下再关站 */
+        if(PENDING_CLOSE){
+          PENDING_CLOSE = false;
+          setTimeout(closeSite, 1600);
+        }
+      }, 1100 + Math.random()*900);
+    };
+    $("#chat-go").onclick=sendChat;
+    $("#chat-in").addEventListener("keydown", function(e){ if(e.key==="Enter"){ e.preventDefault(); sendChat(); } });
+    scrollChat();
+  }
+  if($("#who-go")) $("#who-go").onclick=function(){
+    var v=($("#who-q").value||"").trim(); if(!v) return;
+    location.hash="#/who?q="+encodeURIComponent(v);
+  };
+  if($("#who-q")) $("#who-q").addEventListener("keydown", function(e){
+    if(e.key==="Enter"){ e.preventDefault(); var b=$("#who-go"); if(b) b.click(); }
+  });
+  document.querySelectorAll("[data-act]").forEach(function(a){
+    a.onclick=function(ev){
+      ev.preventDefault();
+      var act=a.getAttribute("data-act"), id=parseInt(a.getAttribute("data-id"),10), pid=parseInt(a.getAttribute("data-pid"),10);
+      if(act==="pin"){ POSTS.forEach(function(p){if(p.id===id)p.pinned=p.pinned?0:1}); render(); }
+      else if(act==="lock"){ POSTS.forEach(function(p){if(p.id===id)p.locked=p.locked?0:1}); render(); }
+      else if(act==="delp"){ if(!confirm("确定删除这个主题？"))return; POSTS=POSTS.filter(function(p){return p.id!==id}); location.hash="#/boards"; render(); }
+      else if(act==="delr"){ POSTS.forEach(function(p){if(p.id===pid)(p.replies||[]).forEach(function(r){if(r.id===id)r.deleted=1})}); render(); }
+    };
+  });
+}
+
+/* ================================================================
+   三、启动
+   ================================================================ */
+$("#site-name").textContent=CFG.name;
+$("#site-sub").textContent=CFG.sub;
+$("#mq-text").textContent=CFG.marquee;
+$("#ft-note").textContent=CFG.footNote;
+$("#tape-info").textContent=CFG.tapeInfo;
+document.title=CFG.name;
+$("#go-btn").onclick=enterSite;
+/* 入口盖着的时候不让滚，也不让底下的论坛透出来 */
+document.body.style.overflow = "hidden";
+document.getElementById("filmPage").style.display = "none";
+document.getElementById("ambient").style.display = "none";
+/* 启动：先读回上次注册的账号，再恢复登录态（刷新不掉线） */
+loadUsers();
+try{
+  var _u=NaN;   /* 每次打开都是未登录 */
+  if(!isNaN(_u)){ var _f=null; USERS.forEach(function(x){if(x.uid===_u)_f=x}); if(_f) SESS.uid=_f.uid; }
+}catch(e){}
+window.addEventListener("hashchange",render);
+if(!location.hash) location.replace("#/home");
+render();
+bootTape();
+</script>
+<div id="site-closed">
+  <div class="bx">
+    <div class="mk">站 点 已 关 闭</div>
+    <h1>光荣榜之外</h1>
+    <p>本论坛已停止服务。</p>
+    <p>请稍后再试。</p>
+  </div>
+</div>
+
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>

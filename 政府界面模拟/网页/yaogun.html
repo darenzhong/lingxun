@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>永远热泪盈眶</title>
+<style>
+:root{
+  --bg:#0c0c0d; --panel:#151517; --line:#2a2a2e;
+  --text:#d9d9dc; --dim:#84848c; --hi:#f2f2f4; --red:#b8352c;
+  --cn:"PingFang SC","Microsoft YaHei",sans-serif;
+  --mono:"Consolas","Courier New",monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--cn);font-size:15px;
+  -webkit-text-size-adjust:100%;line-height:1.8}
+
+.wrap{max-width:760px;margin:0 auto;padding:0 0 60px}
+
+/* ── 大图 + 名字压在上面 ── */
+.hero{position:relative;background:#000}
+.hero img{display:block;width:100%;height:auto;opacity:.82}
+.hero .mask{position:absolute;left:0;right:0;bottom:0;padding:40px 22px 22px;
+  background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.hero h1{margin:0;font-size:30px;letter-spacing:3px;color:#fff;font-weight:700;
+  text-shadow:0 2px 14px rgba(0,0,0,.9)}
+.hero .sub{margin-top:6px;font-family:var(--mono);font-size:12px;color:#b9b9c0;letter-spacing:2px}
+
+/* ── 正文 ── */
+.sec{padding:26px 22px 0}
+.sec h2{
+  margin:0 0 14px;font-size:12px;letter-spacing:3px;color:var(--dim);
+  font-weight:400;border-bottom:1px solid var(--line);padding-bottom:10px;
+}
+.sec p{margin:0 0 12px}
+.sec p:last-child{margin-bottom:0}
+
+/* ── 价目 ── */
+.price{border:1px solid var(--line);background:var(--panel)}
+.price .row{display:flex;justify-content:space-between;gap:14px;
+  padding:13px 16px;border-bottom:1px solid var(--line);font-size:14.5px}
+.price .row:last-child{border-bottom:0}
+.price .row b{color:var(--hi);font-weight:600}
+.price .row span{color:var(--red);font-family:var(--mono);white-space:nowrap}
+
+/* ── 联系 ── */
+.mail{
+  display:block;margin-top:6px;padding:18px 16px;text-align:center;
+  border:1px dashed #4a3a2a;background:#191410;
+}
+.mail .lb{display:block;font-size:11px;color:var(--dim);letter-spacing:3px;margin-bottom:8px}
+.mail a{color:#e8c98f;font-family:var(--mono);font-size:15px;letter-spacing:.5px;
+  text-decoration:none;word-break:break-all}
+.mail a:hover{text-decoration:underline}
+
+.note{margin-top:14px;font-size:12.5px;color:var(--dim);line-height:1.9}
+
+.foot{margin-top:44px;padding:22px;border-top:1px solid var(--line);
+  text-align:center;font-size:12px;color:#5c5c63;font-family:var(--mono);letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hero">
+    <img src="assets/yaogun.jpg" alt="">
+    <div class="mask">
+      <h1>永远热泪盈眶</h1>
+      <div class="sub">街头 · 驻唱 · 商演</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>关于</h2>
+    <p>在街上唱歌的。抱个吉他，一天几十。</p>
+    <p>唱了八年。中间有三年，唱两句嗓子就疼，去医院查，声带上没长东西。后来好了。</p>
+    <p>现在在鹤岗那边几个小酒吧驻唱，一礼拜两场。今年夏天要上一个江边的音乐节，正经台子，有灯光那种。</p>
+  </div>
+
+  <div class="sec">
+    <h2>接什么</h2>
+    <div class="price">
+      <div class="row"><b>婚庆 · 暖场</b><span>300 起</span></div>
+      <div class="row"><b>开业 · 门口</b><span>300 起</span></div>
+      <div class="row"><b>酒吧驻唱（一晚）</b><span>200 起</span></div>
+      <div class="row"><b>年会 · 商演</b><span>面议</span></div>
+      <div class="row"><b>街头点歌</b><span>随喜</span></div>
+    </div>
+    <p class="note">路远的报销车费。设备自备。不唱《学猫叫》。</p>
+  </div>
+
+  <div class="sec">
+    <h2>联系</h2>
+    <div class="mail">
+      <span class="lb">接商演 · 有事聊聊</span>
+      <a href="../../聊天模板/index.html">点这里联系我</a>
+    </div>
+    <p class="note">
+      邮件里写清楚：主题备注“工作”谢谢。<br>
+      我手机常年静音，别打电话。
+    </p>
+  </div>
+
+  <div class="foot">
+    本站建于 2007 年，一直没换过皮。<br>
+    没人看，我也不管。
+  </div>
+
+</div>
+
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>

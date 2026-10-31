@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>莲花水台 · 顶级休闲洗浴中心</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#e8e2d0;
+  color:#3a352b;
+  font-family:"SimSun","Songti SC","Microsoft YaHei",serif;
+  font-size:15px;line-height:1.9;min-height:100vh;
+}
+
+/* 泛黄纸 + 扫描噪声 */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background:
+    radial-gradient(120% 100% at 50% 0%, rgba(255,248,220,.55), transparent 60%),
+    radial-gradient(100% 100% at 50% 100%, rgba(120,95,50,.18), transparent 65%),
+    repeating-linear-gradient(0deg, rgba(120,100,60,.05) 0 1px, transparent 1px 3px);
+  mix-blend-mode:multiply;
+}
+/* 灰色水印 */
+.wm{
+  position:fixed;z-index:2;pointer-events:none;
+  color:rgba(90,85,70,.16);font-size:34px;letter-spacing:12px;
+  transform:rotate(-18deg);white-space:nowrap;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+.wm.a{top:16%;left:4%}
+.wm.b{top:48%;left:24%;font-size:26px;letter-spacing:8px}
+.wm.c{top:76%;left:8%;font-size:20px;letter-spacing:6px}
+
+/* 存档条 */
+.archive{
+  position:relative;z-index:3;background:#c9c2ab;border-bottom:1px solid #b3aa8f;
+  padding:9px 16px;font-size:12px;color:#5c5545;letter-spacing:1px;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+.archive b{color:#8a6d33;font-weight:600}
+
+/* 页面主体（旧网页的样子） */
+.page{position:relative;z-index:3;max-width:900px;margin:0 auto;padding:26px 16px 70px}
+
+h1{
+  font-size:26px;text-align:center;color:#7a2b1f;letter-spacing:3px;
+  font-family:"SimHei","Microsoft YaHei",sans-serif;margin-bottom:6px;
+}
+.sub{text-align:center;font-size:13px;color:#6b6250;letter-spacing:4px;margin-bottom:18px}
+
+.adbar{background:#f2ead2;border:1px solid #cbbf9d;padding:14px 18px;margin-bottom:22px}
+.adbar b{color:#b0210f}
+.adbar .red{color:#c0271a;font-weight:700;font-size:16px}
+
+.grid{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.grid .pic{flex:1 1 380px;min-width:280px}
+.grid .pic img{width:100%;display:block;border:3px solid #f5f0e2;box-shadow:0 2px 8px rgba(80,70,50,.35)}
+.grid .info{flex:1 1 300px;min-width:250px;font-size:14px;color:#4a4436}
+.grid .info p{margin:0 0 10px}
+.grid .info .kv{color:#6b6250}
+.grid .info .kv b{color:#3a352b;font-weight:400}
+
+.notice{
+  margin-top:24px;border-top:1px dashed #b3aa8f;padding-top:16px;
+  font-size:13.5px;color:#8a2f22;letter-spacing:.5px;
+}
+.foot{
+  margin-top:36px;text-align:center;font-size:12px;color:#7a725e;line-height:2;
+  border-top:1px solid #c8c0a8;padding-top:14px;letter-spacing:1px;
+}
+
+/* ===== 弹窗 ===== */
+#mask{
+  position:fixed;inset:0;z-index:20;background:rgba(30,26,18,.55);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+}
+#mask.hide{display:none}
+#pop{
+  width:100%;max-width:520px;background:#f7f2e2;border:2px solid #8a6d33;
+  box-shadow:0 18px 50px rgba(40,30,15,.5);position:relative;
+  font-family:"Microsoft YaHei",sans-serif;
+}
+#pop .bar{
+  background:linear-gradient(#c8a25e,#a8843f);color:#fff;font-size:13.5px;
+  padding:8px 12px;letter-spacing:1px;display:flex;align-items:center;gap:10px;
+  position:relative;
+}
+#pop .bar span{font-size:12px;opacity:.8}
+#pop .body{padding:20px 22px 22px}
+#pop h2{
+  font-size:19px;color:#8a2a12;text-align:center;letter-spacing:2px;margin-bottom:14px;
+  font-family:"SimHei","Microsoft YaHei",sans-serif;
+}
+#pop p{font-size:14px;line-height:2;color:#3f3a2e;margin-bottom:12px}
+#pop .red{color:#c0271a;font-weight:700;font-size:16px;text-align:center;letter-spacing:1px}
+#pop .closed{
+  margin-top:14px;padding-top:12px;border-top:1px dashed #c2b795;
+  font-size:13px;color:#8a6d33;letter-spacing:.5px;
+}
+#pop button{
+  margin-left:auto;background:none;border:0;color:#fff;
+  font-size:16px;cursor:pointer;line-height:1;padding:0 4px;
+}
+</style>
+</head>
+<body>
+
+<div class="archive">
+  该网页已被存档 · 快照时间：<b>2018-11-07 14:32</b> · 来源：坨罗山县信息港（已关停）
+</div>
+
+<div class="wm a">该网页已被存档</div>
+<div class="wm b">2018 年</div>
+<div class="wm c">该网页已被存档</div>
+
+<div class="page">
+
+  <h1>莲花水台 · 顶级休闲洗浴中心</h1>
+  <div class="sub">莲 花 水 台</div>
+
+  <div class="adbar">
+    <p>奢华体验，帝王享受！本店集洗浴、按摩、餐饮于一体，是您商务洽谈、招待贵客的最佳选择！</p>
+    <p class="red">县里各界名流鼎力推荐！</p>
+  </div>
+
+  <div class="grid">
+    <div class="pic">
+      <img src="素材/han/lotus.jpg" alt="">
+      <div style="font-size:12.5px;color:#6b6250;margin-top:8px;letter-spacing:1px">
+        左：韩利民　右：赵永利
+      </div>
+    </div>
+    <div class="info">
+      <p class="kv">营业时间：<b>10:00 — 次日 02:00</b></p>
+      <p class="kv">地址：<b>坨罗山县 群英街 老电影院对面</b></p>
+      <p class="kv">电话：<b>0468-8<span style="letter-spacing:1px">8</span>6600</b></p>
+      <p class="kv">包间：<b>28 间</b>　洗浴：<b>男女分区</b></p>
+      <p class="kv">停车：<b>门口可停 12 台</b></p>
+      <p style="margin-top:14px;color:#6b6250;font-size:13px">
+        本店承接商务宴请、团队包场。<br>
+        具体价格请致电咨询。
+      </p>
+    </div>
+  </div>
+
+  <div class="notice">
+    注：本店因配合市政规划，已于 2022 年永久停业。
+  </div>
+
+  <div class="foot">
+    本站由 坨罗山县信息港 提供空间<br>
+    页面生成于 2018 年 11 月 · 本快照仅作存档
+  </div>
+
+</div>
+
+<!-- 弹窗 -->
+<div id="mask">
+  <div id="pop">
+    <div class="bar">
+      <b>【莲花水台 · 顶级休闲洗浴中心】</b>
+      <span style="margin-left:auto">2018</span>
+      <button id="x">×</button>
+    </div>
+    <div class="body">
+      <h2>莲 花 水 台</h2>
+      <p>奢华体验，帝王享受！本店集洗浴、按摩、餐饮于一体，是您商务洽谈、招待贵客的最佳选择！</p>
+      <p class="red">县里各界名流鼎力推荐！</p>
+      <p class="closed">注：本店因配合市政规划，已于 2022 年永久停业。</p>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById("x").onclick = function(){
+  document.getElementById("mask").classList.add("hide");
+};
+document.getElementById("mask").addEventListener("click", function(e){
+  if(e.target.id === "mask") this.classList.add("hide");
+});
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>

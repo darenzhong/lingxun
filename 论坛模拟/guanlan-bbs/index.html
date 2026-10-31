@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>观澜社区 — 什么都能聊，什么都别当真</title>
+<style>
+/* ============================================================
+   配色。想换主题色只改这里
+   ============================================================ */
+:root{
+  --blue:#1e5aa8;
+  --blue-deep:#14407c;
+  --blue-soft:#e8f1fb;
+  --line:#c9dcef;
+  --bg:#f2f5fa;
+  --text:#222;
+  --muted:#8a97a8;
+  --link:#1a5fb4;
+  --board-w:180px;
+  --side-w:220px;
+  --wrap:1280px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"SimSun","宋体","Songti SC",serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+img{max-width:100%}
+
+.topbar{background:var(--blue);color:#fff}
+.topbar-in{max-width:var(--wrap);margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
+.logo{font-size:22px;font-weight:bold;letter-spacing:2px;flex-shrink:0}
+.logo small{display:block;font-size:10px;font-weight:normal;opacity:.8;letter-spacing:1px}
+.banner-slogan{flex:1;font-size:13px;opacity:.92;min-width:0}
+.topbar-right a{color:#fff;margin-left:14px;font-size:13px;white-space:nowrap}
+
+.nav{background:var(--blue-deep)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 20px;display:flex;flex-wrap:wrap}
+.nav a{color:#eaf2fc;padding:9px 18px;display:block;font-size:14px;cursor:pointer}
+.nav a:hover{background:rgba(255,255,255,.12);text-decoration:none}
+.nav a.cur{background:#fff;color:var(--blue);font-weight:bold}
+
+.wrap{max-width:var(--wrap);margin:16px auto;display:grid;grid-template-columns:var(--board-w) 1fr var(--side-w);gap:18px;padding:0 20px;align-items:start}
+
+.left .box{background:#fff;border:1px solid var(--line);margin-bottom:12px}
+.left .box h4{background:var(--blue-soft);color:var(--blue-deep);padding:8px 12px;font-size:13px;border-bottom:1px solid var(--line)}
+.boards{list-style:none}
+.boards li a{display:flex;justify-content:space-between;gap:8px;padding:8px 12px;color:var(--text);border-bottom:1px dashed #e6edf6;font-size:13px;cursor:pointer}
+.boards li a:hover{background:var(--blue-soft);text-decoration:none;color:var(--blue-deep)}
+.boards li a.cur{background:var(--blue-soft);color:var(--blue-deep);font-weight:bold}
+.boards li a .cnt{color:var(--muted);font-size:12px;white-space:nowrap}
+.boards li a .cnt b{color:#d9534f;font-weight:normal}
+
+.card{background:#fff;border:1px solid var(--line);margin-bottom:14px}
+.card>h3{background:var(--blue-soft);padding:8px 14px;font-size:14px;color:var(--blue-deep);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.card>h3 .more{font-size:12px;font-weight:normal;color:var(--muted)}
+
+.table-scroll{overflow-x:auto}
+table.plist{width:100%;border-collapse:collapse;min-width:560px}
+.plist th{background:#f6f9fd;color:#5a6b80;font-weight:normal;font-size:12px;padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+.plist td{padding:9px 10px;border-bottom:1px solid #edf2f8;font-size:13px;vertical-align:top}
+.plist tr:hover td{background:#fafcff}
+.plist .t{font-size:14px}
+.plist .t .pin{color:#d9534f;margin-right:6px;font-weight:bold}
+.plist .author{color:#3a7bd5;white-space:nowrap}
+.plist .num{text-align:center;color:var(--muted)}
+.plist .last{color:var(--muted);font-size:12px;white-space:nowrap}
+
+.rank{list-style:none;counter-reset:r}
+.rank li{display:flex;align-items:center;gap:8px;padding:6px 12px;border-bottom:1px dashed #eef3f9;font-size:13px}
+.rank li::before{counter-increment:r;content:counter(r);width:20px;height:20px;line-height:20px;text-align:center;background:var(--blue-soft);color:var(--blue-deep);border-radius:3px;font-size:12px;flex-shrink:0}
+.rank li:nth-child(-n+3)::before{background:var(--blue);color:#fff}
+
+.ad-slot{margin:0 0 14px;text-align:center}
+.ad-slot .ph{border:1px dashed var(--line);background:#fff;padding:14px;font-size:12px;color:var(--muted)}
+
+.post-box{padding:20px 22px}
+.post-box h1{font-size:21px;color:var(--blue-deep);margin-bottom:6px;line-height:1.4}
+.post-meta{color:var(--muted);font-size:12px;border-bottom:1px solid #edf2f8;padding-bottom:10px;margin-bottom:14px;display:flex;flex-wrap:wrap;gap:4px 0}
+.post-meta span{margin-right:14px}
+.post-body p{margin-bottom:12px;text-indent:2em}
+.post-body .tip{background:var(--blue-soft);border-left:3px solid var(--blue);padding:8px 12px;margin:10px 0;text-indent:0;font-size:13px}
+.reply{border-top:1px dashed #e3ebf5;padding:10px 0}
+.reply .rh{font-size:12px;color:var(--muted);margin-bottom:4px}
+.reply .rh b{color:#3a7bd5}
+.reply .floor{color:#b0bccc;margin-right:6px}
+
+.mask{position:fixed;inset:0;background:rgba(10,25,50,.8);display:none;align-items:center;justify-content:center;z-index:99;cursor:zoom-out;padding:20px}
+.mask.show{display:flex}
+.err{background:#fff;width:380px;max-width:90vw;border:3px solid var(--blue);border-radius:6px;padding:30px;text-align:center}
+.err .code{font-size:48px;color:var(--blue);font-weight:bold}
+.err p{color:#666;margin:10px 0 18px}
+.err button{background:var(--blue);color:#fff;border:none;padding:7px 22px;cursor:pointer;border-radius:3px}
+#img-mask img{max-width:80vw;max-height:80vh;border:6px solid #fff;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+#img-cap{position:fixed;bottom:20px;left:0;right:0;text-align:center;color:#cfd8e6;font-size:13px;padding:0 20px}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+
+/* 停留 30 秒触发的一次闪屏：反色+轻微抖动，像信号抽风 */
+body.flashing{animation:dwflash .55s steps(2,end)}
+@keyframes dwflash{
+  0%{filter:none;transform:none}
+  25%{filter:invert(1) hue-rotate(80deg);transform:translate(3px,0)}
+  50%{filter:none;transform:none}
+  75%{filter:saturate(3) hue-rotate(-30deg);transform:translate(-3px,0)}
+  100%{filter:none;transform:none}
+}
+
+/* ---------- 平板 ---------- */
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:14px;padding:0 14px}
+  .right{order:3}
+  .left{order:2}
+  .nav-in{padding:0 8px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+  .nav a{white-space:nowrap;padding:9px 13px;font-size:13px}
+  .topbar-in{flex-wrap:wrap;gap:8px;padding:10px 14px}
+  .banner-slogan{order:3;flex-basis:100%}
+  /* 左版块变成一排横滑小标签 */
+  .boards{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .boards li{flex-shrink:0}
+  .boards li a{border-bottom:none;border-right:1px dashed #e6edf6;padding:8px 12px}
+}
+/* ---------- 手机 ---------- */
+@media(max-width:560px){
+  body{font-size:14px}
+  .logo{font-size:18px}
+  .topbar-right a{margin-left:10px;font-size:12px}
+  .post-box{padding:14px}
+  .post-box h1{font-size:18px}
+  .plist .author{display:none}
+  .plist th:nth-child(2),.plist td:nth-child(2){display:none}
+  .err{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="logo" id="logo">观澜社区<small>www.guanlan-bbs.cn</small></div>
+    <div class="banner-slogan" id="banner">【综合论坛】—— 什么都能聊，什么都别当真</div>
+    <div class="topbar-right">
+      <a href="#" id="btn-login">登录</a>
+      <a href="#" id="btn-reg">注册</a>
+    </div>
+  </div>
+</header>
+<nav class="nav"><div class="nav-in" id="nav"></div></nav>
+
+<div class="wrap">
+  <aside class="left">
+    <div class="box">
+      <h4>版块导航</h4>
+      <ul class="boards" id="board-list"></ul>
+    </div>
+  </aside>
+
+  <main id="main"></main>
+
+  <aside class="right">
+    <div class="card"><h3>版块排行</h3><ul class="rank" id="rank"></ul></div>
+    <div class="ad-slot">
+      <div class="ph">▣ 公告<br>论坛近期维护，无法登录和注册，部分老帖暂时无法访问。如果你找不到某个帖子，请联系管理员。</div>
+    </div>
+  </aside>
+</div>
+
+<footer id="footer"></footer>
+
+<!-- 404 -->
+<div class="mask" id="mask">
+  <div class="err">
+    <div class="code">404</div>
+    <p>页面走丢了<br>您访问的页面不存在或已被删除</p>
+    <button id="mask-close">返回</button>
+  </div>
+</div>
+
+<!-- 截图弹窗 -->
+<div class="mask" id="img-mask">
+  <img id="img-mask-src" alt="截图">
+  <div id="img-cap">截图（点击任意处关闭）</div>
+</div>
+
+<script>
+/* ================================================================
+   ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+   ★  整站内容都在这。改字直接改引号；帖子照着 { } 复制；   ★
+   ★  回复里若要放图，就写  { who:"名字", text:"文字", img:true }★
+   ★  img:true 会显示成"截图在这里"，点开看 SITE.screenshot   ★
+   ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ */
+
+const SITE = {
+  siteName: "观澜社区",
+  domain: "www.guanlan-bbs.cn",
+  banner: "【综合论坛】—— 什么都能聊，什么都别当真",
+  footer: "© 2026 本网站不涉及新闻类信息的发布 观澜社区 · 什么都别当真",
+
+  /* 截图：第10楼"截图在这里"点开就是这张图。想换图就换 assets 文件夹里同名文件，或改下面路径 */
+  screenshot: "assets/tuoluoshan-shot.jpg",
+  screenshotCap: "坨罗山县政府官网首页",
+
+  nav: ["首页","闲聊灌水","灵异怪谈","网页技术","求助问答","站务管理"],
+
+  boards: [
+    { name:"闲聊灌水", today:47 },
+    { name:"灵异怪谈", today:12 },
+    { name:"网页技术", today:3  },
+    { name:"求助问答", today:8  },
+    { name:"站务管理", today:0  }
+  ],
+
+  posts: [
+    /* ============ 主帖：坨罗山县政府官网 ============ */
+    {
+      pin:true, board:"闲聊灌水",
+      title:"有没有人觉得坨罗山县政府官网最近有点怪？",
+      author:"秦先生", replies:44, last:"2026-10-11 14:37",
+      body:[
+        "我前两天查资料，点进坨罗山县人民政府官网，正常得不能再正常。县情介绍、政务公开、本地新闻、教育动态，全都正常。",
+        "但首页右下角，有个东西一直在闪。一开始我以为是广告，后来发现是一只毛毛虫。绿色的，小小的，趴在页面角落。",
+        "我截图放大看，越看越不对。那不像是毛毛虫？",
+        "官网链接我放这儿了，你们自己看：<a href=\"./../../政府界面模拟/网页/坨罗山县人民政府官网.html\" target=\"_blank\" rel=\"noopener\">http://www.tuoluoshan.gov.cn/</a>"
+      ],
+      replyList:[
+        {who:"不知道叫啥", text:"这不就是毛毛虫吗？"},
+        {who:"东百往事", text:"这是东北的一种刺毛虫，蛰人特别疼。我小时候被蛰过，一辈子忘不了。"},
+        {who:"网页考古", text:"楼主你电脑中病毒了吧。"},
+        {who:"秦先生", text:"我没中病毒。我换了三个浏览器，手机也看了，都有。"},
+        {who:"随便看看", text:"我刚刚去看了，没有啊。"},
+        {who:"被蛰过", text:"我去了，有。真的在闪。"},
+        {who:"不知道叫啥", text:"等等，它好像会动。"},
+        {who:"网页考古", text:"截图呢？"},
+        {who:"秦先生", text:"截图在这里。", img:true},
+        {who:"灵异怪谈常客", text:"这帖子应该发灵异版。"},
+        {who:"网页考古", text:"别啥都往灵异上扯。政府官网做成这样很正常，半吊子外包，代码没清干净，留了个图标bug。"},
+        {who:"随便看看", text:"楼上说得对，世界就是个巨大草台班子。我们镇政府官网首页挂过三年“建设中”。"},
+        {who:"被蛰过", text:"但那个虫子真的会动啊。"},
+        {who:"网页考古", text:"动图而已。GIF。外包公司夹带私货。"},
+        {who:"灵异怪谈常客", text:"你们点进去看看再说。"},
+        {who:"不知道叫啥", text:"我点了，就正常官网啊。"},
+        {who:"被蛰过", text:"我点了几下，好像有点不对劲。"},
+        {who:"随便看看", text:"哪儿不对劲？"},
+        {who:"被蛰过", text:"我说不上来。你们自己点。"},
+        {who:"河南扁豆侠", text:"楼主呢？"},
+        {who:"秦先生", text:"我在。我点了一会儿，觉得没意思，关了。你们谁感兴趣谁研究吧，我就是发个帖问问。"},
+        {who:"河南扁豆侠", text:"你点的时候没发现什么？"},
+        {who:"秦先生", text:"没注意。我就点了几篇本地新闻，都挺正常的。你们自己看吧，链接在上面。"},
+        {who:"河南扁豆侠", text:"行，我去看看。"},
+        {who:"网页考古", text:"我劝你们别浪费时间。这就是个破官网。"},
+        {who:"灵异怪谈常客", text:"那你别点啊。"},
+        {who:"网页考古", text:"我点了，没意思，走了。"},
+        {who:"被蛰过", text:"我还在点。"},
+        {who:"不知道叫啥", text:"你点出什么了？"},
+        {who:"被蛰过", text:"不好说。我再看看。"},
+        {who:"河南扁豆侠", text:"我也在看。"},
+        {who:"随便看看", text:"你们俩别灌水了。"},
+        {who:"被蛰过", text:"我真说不清楚。"},
+        {who:"河南扁豆侠", text:"我点谶祟龘靐爨"},
+        {who:"被蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰蛰过", text:"你也点了？"},
+        {who:"河南扁豆侠", text:"嗯。"},
+        {who:"不知道叫啥", text:"到底怎么了？"},
+        {who:"被蛰过", text:"你看首页最底下那行小字。"},
+        {who:"不知道叫啥", text:"……什么都没写啊。"},
+        {who:"被蛰过", text:"对。以前写的是主办单位。"},
+        {who:"河南扁豆侠", text:"没什么。就是有点怪。"},
+        {who:"随便看看", text:"你们这样说话最烦人。"},
+        {who:"灵异怪谈常客", text:"我点了，没觉得怪。你们是不是想多了。"},
+        {who:"被蛰过", text:"可能吧。"},
+        {who:"河南扁豆侠", text:"可能吧。"},
+        {who:"网页考古", text:"散了散了，啥也没有。"}
+      ]
+    },
+
+    /* ============ 灵异帖们 ============ */
+    {
+      pin:false, board:"灵异怪谈",
+      title:"半夜接到自己号码打来的电话",
+      author:"睡不着", replies:19, last:"2026-10-11 11:02",
+      body:[
+        "前天半夜两点多，手机响了。我一看，是我自己的号码。我接了，那边没人说话，只有风声。",
+        "挂了之后，我看通话记录，没有这条记录。我以为是运营商bug，没管。第二天半夜，又响了。还是我自己的号码。还是风声。",
+        "第三天，我接了，对着话筒喊了一声：“谁？”风声停了。然后我听见一个声音，很轻，说：“你接错了。”",
+        "我挂了。之后没再响过。"
+      ],
+      replyList:[
+        {who:"运营商常客", text:"运营商bug。"},
+        {who:"夜猫子", text:"我也遇到过，打回去是空号。"},
+        {who:"网友", text:"楼主你住哪儿？"},
+        {who:"睡不着", text:"我住上海崇明区边上。"},
+        {who:"东百往事", text:"晚上风大，可能是串线了。"},
+        {who:"随便看看", text:"别自己吓自己。"},
+        {who:"网友", text:"你喊完之后那边说什么？"},
+        {who:"睡不着", text:"“你接错了。”"},
+        {who:"网友", text:"什么意思？"},
+        {who:"睡不着", text:"不知道。"},
+        {who:"夜猫子", text:"我后来连续三天都接到，第四天没了。"},
+        {who:"网友", text:"你换号码吧。"},
+        {who:"睡不着", text:"我换了。但新号码第一个电话，还是我自己的号码打来的。"},
+        {who:"网友", text:"楼主你别说了。"},
+        {who:"睡不着", text:"我后来去营业厅查，营业厅说我的号码从来没拨出过记录。"},
+        {who:"网友", text:"那你接的是什么？"},
+        {who:"睡不着", text:"不知道。"},
+        {who:"收藏党", text:"这帖子我收藏了，楼主你还好吗？"},
+        {who:"睡不着", text:"还好。就是晚上不敢接电话了。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"我们当地医院的电梯，半夜会自己停在负一楼",
+      author:"值夜班", replies:18, last:"2026-10-10 23:51",
+      body:[
+        "我在市医院值夜班。我们医院电梯白天正常，半夜会自己停在负一楼。负一楼是太平间。",
+        "我一开始以为是电梯故障，报修了。维修师傅说没问题。后来我半夜巡楼，看见电梯停在负一楼，门开着，里面没人。",
+        "我按了关门，电梯上来了。门开了，里面还是没人。但我闻到了一股味道。说不出来，像冬天的河。"
+      ],
+      replyList:[
+        {who:"网友", text:"负一楼是太平间，电梯停那儿正常。"},
+        {who:"网友", text:"但门开着没人就不正常。"},
+        {who:"网友", text:"你闻到什么味道？"},
+        {who:"值夜班", text:"像那种味道。"},
+        {who:"网友", text:"你哪个市？"},
+        {who:"值夜班", text:"任丘市。"},
+        {who:"网友", text:"哪个医院？"},
+        {who:"值夜班", text:"市医院。"},
+        {who:"网友", text:"你们市医院负一楼，是不是以前出过事？"},
+        {who:"值夜班", text:"不知道。我来得晚。"},
+        {who:"网友", text:"你问问老护士。"},
+        {who:"值夜班", text:"问了。老护士说，别问。"},
+        {who:"网友", text:"那你还值夜班吗？"},
+        {who:"值夜班", text:"值。但我不坐电梯了。"},
+        {who:"网友", text:"你走楼梯？"},
+        {who:"值夜班", text:"嗯。"},
+        {who:"网友", text:"楼梯经过负一楼吗？"},
+        {who:"值夜班", text:"不经过。楼梯到一楼就封了……我怕电梯自己上来。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"老房子翻修，墙里砸出来一个铁盒子",
+      author:"装修工", replies:26, last:"2026-10-10 21:14",
+      body:[
+        "上个月接了个活儿，老房子翻修。砸墙的时候，从墙里掉出来一个铁盒子，锈得不成样子。打开一看，里面是一叠照片和一封信。",
+        "照片上是个女的，不认识。信上写的是外文，我看不懂。我把盒子交给房主了。房主看了一眼，说：“扔了吧。”",
+        "我问他这是谁，他说：“不认识。”但他说这话的时候，手在抖。"
+      ],
+      replyList:[
+        {who:"网友", text:"朝鲜文？你那边以前是朝鲜族自治区域吧。"},
+        {who:"网友", text:"哪个县？"},
+        {who:"装修工", text:"北安那边。"},
+        {who:"本地人", text:"北安以前确实有朝鲜族。"},
+        {who:"网友", text:"信呢？你留着吗？"},
+        {who:"装修工", text:"交给房主了。"},
+        {who:"网友", text:"房主说什么？"},
+        {who:"装修工", text:"他说扔了。"},
+        {who:"网友", text:"那你发这帖子干嘛？"},
+        {who:"装修工", text:"我觉得不对劲。房主说他不认识照片上的人，但他把照片留下了。我亲眼看见他把照片塞进自己兜里。"},
+        {who:"网友", text:"你后来问过吗？"},
+        {who:"装修工", text:"没有。活儿干完就走了。"},
+        {who:"网友", text:"那房子现在谁住？"},
+        {who:"装修工", text:"没人住。房主说准备卖了。"},
+        {who:"网友", text:"你还能找到那个房主吗？"},
+        {who:"装修工", text:"能。但我不知道还敢不敢问。"},
+        {who:"网友", text:"照片上的人长什么样？"},
+        {who:"装修工", text:"记不清了。就记得她穿长袖，夏天也穿长袖。"},
+        {who:"网友", text:"你怎么知道是夏天？"},
+        {who:"装修工", text:"照片背景里有苞米地，苞米长得很高，肯定是夏天。"},
+        {who:"网友", text:"东北夏天穿长袖？"},
+        {who:"装修工", text:"所以我说记不清了。"},
+        {who:"网友", text:"这帖子有点意思。"},
+        {who:"网友", text:"楼主你还能找到那个铁盒子吗？"},
+        {who:"装修工", text:"房主说扔了。"},
+        {who:"网友", text:"你信吗？"},
+        {who:"装修工", text:"不信。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"小时候在芦苇荡迷路，听见有人叫我名字",
+      author:"迷路过", replies:20, last:"2026-10-10 18:40",
+      body:[
+        "我小时候跟着大人去地里，自己跑远了，迷路了。天快黑了，我听见有人叫我名字。我顺着声音走，越走越远。",
+        "后来是我爸找到我的，他说他喊了我半天，我都没反应。我问他，那叫我名字的是谁。他说，他没叫我。他一直在喊“有人吗”。",
+        "我说，那谁叫我名字？他说，别问了。"
+      ],
+      replyList:[
+        {who:"网友", text:"容易迷路，正常。"},
+        {who:"东百往事", text:"芦苇荡一望无际，进去就转向。"},
+        {who:"网友", text:"我小时候也迷过，听见风声像有人说话。"},
+        {who:"网友", text:"楼主你听见的是谁的声音？"},
+        {who:"迷路过", text:"不知道。不像我认识的人。"},
+        {who:"网友", text:"那后来呢？"},
+        {who:"迷路过", text:"后来我爸打了我一顿，不让我再乱跑。"},
+        {who:"网友", text:"你爸为什么不让你问？"},
+        {who:"迷路过", text:"不知道。"},
+        {who:"网友", text:"你爸现在还在吗？"},
+        {who:"迷路过", text:"在。"},
+        {who:"网友", text:"你问过他吗？"},
+        {who:"迷路过", text:"问过。他说他忘了。"},
+        {who:"网友", text:"你信吗？"},
+        {who:"迷路过", text:"不信。"},
+        {who:"网友", text:"那你爸有没有说过，他小时候也迷过路？"},
+        {who:"迷路过", text:"没有。"},
+        {who:"网友", text:"你问问。"},
+        {who:"迷路过", text:"不敢。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"我们这儿开河跑冰排的时候，别站在岸边上数冰块",
+      author:"跑冰排的", replies:15, last:"2026-10-10 20:07",
+      body:[
+        "我们县在东北，河一年结五个月冰。开春河一开，冰排一层压一层往下走，轰轰的，跟打雷一样，那叫跑冰排。",
+        "我爷爷那辈说，跑冰排的时候不能站在岸边上数冰块。你数到第几块，就有人替你数到第几块。",
+        "我小时候数过。数到第十一块的时候，冰排底下过去一个东西，白的，不长，像个人趴着。我回家发烧三天。我奶问我去哪儿了，我说我去看开河了。她一巴掌打过来，说，以后不许去。",
+        "我问她为什么，她说，你爸小时候也数过。"
+      ],
+      replyList:[
+        {who:"东百往事", text:"我们那边也这么说，跑冰排的时候要离远点，冰排能把人拍水里。"},
+        {who:"网友", text:"这是物理现象吧，冰排撞岸本来就危险。"},
+        {who:"跑冰排的", text:"危险我知道。我说的是数的那个事。"},
+        {who:"网友", text:"你数到十一块之后呢？"},
+        {who:"跑冰排的", text:"没有了。就那一下。"},
+        {who:"被蛰过", text:"你们县是不是有水库？"},
+        {who:"跑冰排的", text:"有。"},
+        {who:"被蛰过", text:"……"},
+        {who:"网友", text:"楼上你怎么了。"},
+        {who:"被蛰过", text:"没什么。我想起一个名字。"},
+        {who:"网友", text:"什么名字？"},
+        {who:"被蛰过", text:"算了，我记错了。"},
+        {who:"灵异怪谈常客", text:"这帖子可以。"},
+        {who:"跑冰排的", text:"我后来问过我爸，他说他不记得数过。但他每年开河那几天，都不出门。"},
+        {who:"网页考古", text:"玄学帖子，散了吧。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"2003年那件事，有没有人还记得",
+      author:"老矿区", replies:14, last:"2026-10-09 23:12",
+      body:[
+        "那年煤矿出事，井封了，人下岗。安置费说是分批发，第一批就没发下来。",
+        "后来抓了个姓刘的，说是我们这儿最大的黑社会，杀人、强奸、还把钱挪走了，听说县里也有人跟着进去了。报纸上登过，那时候我们都在看。",
+        "现在二十多年了，钱陆陆续续补回来了。可是有个事我一直没想明白——当年第一批安置费的名单，是谁报上去的。",
+        "名单上有些名字，我们矿上没人认识。"
+      ],
+      replyList:[
+        {who:"本地人", text:"那年我还小，就记得矿上天天有人聚在门口。"},
+        {who:"网友", text:"你说的是刘某某那个案子吧，我记得通报过。"},
+        {who:"老矿区", text:"对，就是他。"},
+        {who:"网友", text:"名单你现在还能看到吗？"},
+        {who:"老矿区", text:"看不到。说是档案。"},
+        {who:"网友", text:"那你怎么知道有陌生的名字？"},
+        {who:"老矿区", text:"我爹当年在矿上管过登记。他跟我说的。他去年走了。"},
+        {who:"网友", text:"他有没有留下什么东西？"},
+        {who:"老矿区", text:"留了个本子。字都糊了。"},
+        {who:"网友", text:"你发上来看看。"},
+        {who:"老矿区", text:"不了。我拍了照，看着不对劲。"},
+        {who:"网友", text:"哪儿不对劲？"},
+        {who:"老矿区", text:"我说不上来。就那种感觉。"},
+        {who:"网页考古", text:"二十年前的事，别往灵异上扯。"},
+        {who:"老矿区", text:"我没往灵异上扯。我就是想问问，有没有人还记得。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"我姥爷说他们村后山有个洞，进去的人出来都少一根手指",
+      author:"山沟里的", replies:16, last:"2026-10-09 22:05",
+      body:[
+        "我姥爷年轻时候在那边放过牛。他说那个洞冬天冒热气，夏天冒冷气。村里有人进去过，出来之后手指头少一根。问怎么少的，说不记得。后来没人敢进了。",
+        "我问我姥爷进去过没，他说他没进去。但我看他左手小指少了一截。他说是年轻时铡草铡的。"
+      ],
+      replyList:[
+        {who:"网友", text:"你姥爷骗你的。"},
+        {who:"历史党", text:"东北这种山洞多了，多半是以前打仗留下的。"},
+        {who:"网友", text:"少一根手指可能是冻掉的。"},
+        {who:"网友", text:"我信。我姥姥家那边也有个洞，传说进去的人会听见有人叫自己名字。"},
+        {who:"网友", text:"楼主你姥爷现在还活着吗？"},
+        {who:"山沟里的", text:"活着，九十多了，脑子清楚得很。"},
+        {who:"网友", text:"那让他带你们进去看看。"},
+        {who:"山沟里的", text:"他不去。他说进去的人出不来。"},
+        {who:"网友", text:"你姥爷左手小指，你问过你姥姥吗？"},
+        {who:"山沟里的", text:"姥姥早没了。"},
+        {who:"网友", text:"那你问你妈。"},
+        {who:"山沟里的", text:"我妈说我姥爷年轻时在矿上干活，被机器切掉的。"},
+        {who:"网友", text:"那到底是铡草还是机器？"},
+        {who:"山沟里的", text:"不知道。他从来不提。"},
+        {who:"网友", text:"这帖子看得我后背发凉。"},
+        {who:"网友", text:"散了吧，就是个老人不爱提往事。"}
+      ]
+    },
+    {
+      pin:false, board:"灵异怪谈",
+      title:"我奶奶说，人死了不能喊名字",
+      author:"不敢喊", replies:17, last:"2026-10-09 20:33",
+      body:[
+        "我奶奶说，人死了不能喊名字。喊了，他会以为你在叫他，就会回来。",
+        "我小时候不信。我爷爷去世那年，我半夜喊了一声“爷爷”。第二天，我床头多了一双鞋。是我爷爷的鞋。",
+        "我奶奶把鞋烧了。她说：“别再喊了。”"
+      ],
+      replyList:[
+        {who:"网友", text:"你奶奶吓你的。"},
+        {who:"网友", text:"我奶奶也说过类似的话。"},
+        {who:"东百往事", text:"老人都这么说。"},
+        {who:"网友", text:"那双鞋后来还在吗？"},
+        {who:"不敢喊", text:"烧了。"},
+        {who:"网友", text:"你确定是你爷爷的鞋？"},
+        {who:"不敢喊", text:"确定。鞋底有我爷爷的名字。"},
+        {who:"网友", text:"谁写的？"},
+        {who:"不敢喊", text:"不知道。"},
+        {who:"网友", text:"你爷爷下葬的时候穿的是什么鞋？"},
+        {who:"不敢喊", text:"新鞋。"},
+        {who:"网友", text:"那旧鞋呢？"},
+        {who:"不敢喊", text:"转转回收了。"},
+        {who:"网友", text:"你问过你奶奶吗？"},
+        {who:"不敢喊", text:"问过。她说，别问了。"},
+        {who:"网友", text:"又是别问了。你后来还喊过吗？"},
+        {who:"不敢喊", text:"没有。谁都不喊了。"}
+      ]
+    },
+
+    /* ============ 网页技术（科普帖） ============ */
+    {
+      pin:false, board:"网页技术",
+      title:"新手入门：怎么清空浏览器缓存？一步一步教你",
+      author:"网页考古", replies:6, last:"2026-10-11 09:12",
+      body:[
+        "很多时候网页抽风、图片显示不对、登录不上，不是网站坏了，是你浏览器里存的旧缓存太脏了。清一下就好。",
+        "以 Chrome 为例：右上角三个点 → 设置 → 隐私和安全 → 清除浏览数据 → 时间范围选“最近一周” → 勾上“缓存的图片和文件” → 点清除数据。",
+        "其他浏览器大同小异，找“隐私 / 清除缓存”这几个字就行。清完刷新网页，世界清静了。"
+      ],
+      replyList:[
+        {who:"萌新小白", text:"请问会把我保存的密码清掉吗？"},
+        {who:"网页考古", text:"不会，只要别勾“密码和其他登录数据”那一项。"},
+        {who:"路人甲", text:"火狐也是这个意思吗？"},
+        {who:"网页考古", text:"一样，Ctrl+Shift+Del 三个键一起按，大部分浏览器都能直接调出清理窗口。"}
+      ]
+    },
+    {
+      pin:false, board:"网页技术",
+      title:"网站打不开先别急着骂人，按这五步试一遍",
+      author:"网页考古", replies:9, last:"2026-10-10 17:40",
+      body:[
+        "第一步：按 F5 刷新，或者 Ctrl+F5 强制刷新。",
+        "第二步：看看是不是就你一个人打不开——换个手机流量试试，能开就是你家 WiFi 的问题。",
+        "第三步：换个浏览器，或者开个无痕窗口。",
+        "第四步：重启路由器。别笑，80% 的毛病这一步就好。",
+        "第五步：还是不行，那可能真是网站挂了，过两小时再看。"
+      ],
+      replyList:[
+        {who:"赶车人", text:"第四步真的有用，我家路由器三个月没关过。"},
+        {who:"网页考古", text:"路由器就是个小电脑，也需要喘口气。"},
+        {who:"萌新小白", text:"无痕窗口是干嘛的？"},
+        {who:"网页考古", text:"不读你本地缓存和 Cookie 的干净窗口，专门用来判断是不是本地缓存的锅。"}
+      ]
+    },
+    {
+      pin:false, board:"网页技术",
+      title:"用人话解释：什么是 Cookie？会不会把我卖了？",
+      author:"网页考古", replies:5, last:"2026-10-09 15:26",
+      body:[
+        "Cookie 不是吃的那个。它是网站存在你浏览器里的一张小纸条，上面写着“你是谁、你登录过、你的购物车里有啥”。",
+        "下次你再打开这个网站，它看一眼小纸条就知道：哦，是你啊，不用再登录了。",
+        "它确实会被广告用来追踪你看了啥，但它本身不是病毒。怕的话，浏览器里设置成“退出时清除 Cookie”就行。"
+      ],
+      replyList:[
+        {who:"路人甲", text:"那清理缓存和清理 Cookie 有啥区别？"},
+        {who:"网页考古", text:"缓存是图片文件，清了不影响登录；Cookie 是登录状态，清了要重新输密码。"}
+      ]
+    },
+
+    /* ============ 求助问答 ============ */
+    {
+      pin:false, board:"求助问答",
+      title:"问一下，今天县城停水到几点？",
+      author:"路人甲", replies:7, last:"2026-10-11 08:55",
+      body:["早上起来水龙头就没水了，物业电话打不通。有没有知道今天维修到几点来水的？急着洗漱。"],
+      replyList:[
+        {who:"本地通", text:"自来水公司通知是上午 8 点到下午 4 点，管网检修。"},
+        {who:"路人甲", text:"谢谢，那我先去单位洗。"}
+      ]
+    },
+    {
+      pin:false, board:"求助问答",
+      title:"求推荐一个能看漫画的免费软件，广告别太多的",
+      author:"萌新小白", replies:11, last:"2026-10-10 20:18",
+      body:["换了新手机，以前用的那个看漫画的突然不能装了。求大家推荐一个广告少、能离线缓存的，安卓。"],
+      replyList:[
+        {who:"老司机", text:"别求了，正版App都要会员。要么图书馆借，要么自己找资源。"},
+        {who:"赶车人", text:"同求，蹲一个。"}
+      ]
+    },
+    {
+      pin:false, board:"求助问答",
+      title:"谁知道长途客运站的咨询电话？想查明天去哈尔滨的班次",
+      author:"赶车人", replies:4, last:"2026-10-10 14:02",
+      body:["官网电话一直占线，有老哥知道靠谱的问询号码吗？明早的车。"],
+      replyList:[
+        {who:"本地通", text:"114 查一下最快，客运站那种电话高峰期永远占线。"},
+        {who:"赶车人", text:"好嘞，谢了。"}
+      ]
+    },
+
+    /* ============ 站务管理 ============ */
+    {
+      pin:true, board:"站务管理",
+      title:"【版规】发帖前请先花一分钟看完",
+      author:"管理员", replies:2, last:"2026-10-08 10:00",
+      body:[
+        "一、本版什么都能聊，但不碰政治、不骂人、不晒真人身份证。",
+        "二、转发别人的东西请注明来源，别直接搬。",
+        "三、广告、砍一刀、网贷、兼职刷单，见一个删一个，不解释。",
+        "四、灵异板块的帖子别较真，当个故事看；现实中遇到怪事请打 110。",
+        "五、版规最终解释权在版主手里，虽然这破站也没啥可解释的。"
+      ],
+      replyList:[
+        {who:"苞米地观察员", text:"第五条真的不是耍赖吗。"},
+        {who:"管理员", text:"是的。"}
+      ]
+    },
+    {
+      pin:false, board:"站务管理",
+      title:"【公告】关于近期删帖与封号的说明",
+      author:"管理员", replies:3, last:"2026-10-07 16:30",
+      body:[
+        "最近删了几个帖子，不是针对谁，是帖子里带的外链有问题，点出去会跳到奇怪的地方。",
+        "大家发帖别随便贴不明链接。真要分享东西，先自己点一遍，确认不吓人再发。"
+      ],
+      replyList:[
+        {who:"网页考古", text:"我就说我那帖子怎么没了。"},
+        {who:"管理员", text:"你那帖子里的链接，我们三个管理员点完集体沉默了十分钟。"}
+      ]
+    },
+    {
+      pin:false, board:"站务管理",
+      title:"【申请】怎么才能当版主？",
+      author:"不敢喊", replies:5, last:"2026-10-06 11:11",
+      body:["看版主天天删帖还挺爽的，我也想当。有啥要求吗？需要考试吗？"],
+      replyList:[
+        {who:"管理员", text:"要求：每天在线两小时，脾气好，骂不还口。"},
+        {who:"管理员", text:"当然，目前这个站一共两个活人，你当不当都行。"}
+      ]
+    }
+  ]
+};
+
+/* ================================================================
+   渲染逻辑（一般不用动）
+   ================================================================ */
+const $=s=>document.querySelector(s);
+$("#logo").innerHTML = SITE.siteName + '<small>'+SITE.domain+'</small>';
+$("#banner").textContent = SITE.banner;
+$("#footer").textContent = SITE.footer;
+
+const navEl=$("#nav");
+SITE.nav.forEach((n,i)=>{
+  const a=document.createElement("a");
+  a.textContent=n; if(i===0)a.className="cur";
+  a.dataset.name=n;
+  a.onclick=e=>{e.preventDefault();applyBoard(n==="首页"?null:n);};
+  navEl.appendChild(a);
+});
+
+const bl=$("#board-list");
+SITE.boards.forEach(b=>{
+  const li=document.createElement("li");
+  li.innerHTML=`<a href="#" data-name="${b.name}"><span>◇ ${b.name}</span><span class="cnt">今日 <b>${b.today}</b></span></a>`;
+  li.querySelector("a").onclick=e=>{e.preventDefault();applyBoard(b.name);window.scrollTo({top:0});};
+  bl.appendChild(li);
+});
+$("#rank").innerHTML = [...SITE.boards].sort((a,b)=>b.today-a.today).map(b=>`<li>${b.name}<span style="margin-left:auto;color:#8a97a8;font-size:12px">${b.today}</span></li>`).join("");
+
+const main=$("#main");
+let curBoard=null;
+
+/* ============================================================
+   ★ ARG 彩蛋：停留 30 秒自动闪一下屏（刷新会重新计时）
+   ============================================================ */
+let dwellSec = 0;
+const FLASH_AT = 30;          // 秒。想改时间改这里
+setInterval(()=>{
+  dwellSec++;
+  if(dwellSec===FLASH_AT || (dwellSec>FLASH_AT && dwellSec%25===0)) flashScreen();
+},1000);
+function flashScreen(){
+  document.body.classList.remove("flashing");
+  void document.body.offsetWidth;   // 重新触发动画
+  document.body.classList.add("flashing");
+  setTimeout(()=>document.body.classList.remove("flashing"),600);
+}
+
+/* 统一的版块切换：导航 + 左侧列表高亮同步 */
+function applyBoard(name){
+  curBoard=name;
+  [...navEl.children].forEach(a=>a.classList.toggle("cur", (name===null&&a.dataset.name==="首页")||a.dataset.name===name));
+  [...bl.children].forEach(li=>{
+    const a=li.querySelector("a");
+    a.classList.toggle("cur", a.dataset.name===name);
+  });
+  postList(); window.scrollTo({top:0});
+}
+
+function postList(){
+  const list = curBoard ? SITE.posts.filter(p=>p.board===curBoard) : SITE.posts;
+  const empty = list.length ? "" : `<div style="padding:30px;text-align:center;color:#9aa7b8">这个版块还没有帖子，来抢沙发吧。</div>`;
+  main.innerHTML = `
+    <div class="card">
+      <h3>${curBoard?curBoard:"综合 · 最新帖子"} <span class="more">按最后回复排序</span></h3>
+      <div class="table-scroll">
+      <table class="plist">
+        <thead><tr><th>标题</th><th style="width:90px">作者</th><th style="width:50px" class="num">回复</th><th style="width:130px">最后回复</th></tr></thead>
+        <tbody>${list.map(p=>{
+            const real=SITE.posts.indexOf(p);
+            return `<tr><td class="t"><a href="#" data-i="${real}">${p.pin?'<span class="pin">[热门]</span>':''}${p.title}</a></td>
+              <td class="author">${p.author}</td><td class="num">${p.replies}</td><td class="last">${p.last}</td></tr>`;
+          }).join("")}
+        </tbody>
+      </table>
+      </div>${empty}
+    </div>`;
+  main.querySelectorAll(".t a").forEach(a=>a.onclick=e=>{e.preventDefault();openPost(+a.dataset.i);});
+}
+
+let views = {};
+function openPost(i){
+  const p=SITE.posts[i];
+  views[i]=(views[i]||0)+1;   // 浏览量 +1
+
+  const floors = p.replyList.map((r,idx)=>{
+    const floorNo = idx+2;
+    const body = r.img ? `<a href="#" class="shot">${r.text}</a>` : r.text;
+    return `<div class="reply"><div class="rh"><span class="floor">${floorNo}楼</span><b>${r.who}</b></div><div>${body}</div></div>`;
+  }).join("");
+
+  main.innerHTML=`
+    <div class="card">
+      <h3>帖子详情 <span class="more"><a href="#" id="back">← 返回列表</a></span></h3>
+      <div class="post-box">
+        <h1>${p.title}</h1>
+        <div class="post-meta"><span>作者：${p.author}</span><span>版块：${p.board}</span><span>回复：${p.replies}</span><span>浏览：${views[i]}</span><span>最后：${p.last}</span></div>
+        <div class="post-body">${p.body.map(t=>`<p>${t}</p>`).join("")}</div>
+        <h3 style="background:none;border:none;padding:6px 0;color:var(--blue-deep)">全部回复（${p.replyList.length}）</h3>
+        ${floors}
+      </div>
+    </div>`;
+  $("#back").onclick=e=>{e.preventDefault();postList();};
+  main.querySelectorAll("a.shot").forEach(a=>a.onclick=e=>{e.preventDefault();openShot();});
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* 截图弹窗 */
+function openShot(){
+  $("#img-mask-src").src=SITE.screenshot;
+  $("#img-cap").textContent=SITE.screenshotCap;
+  $("#img-mask").classList.add("show");
+}
+const imgMask=$("#img-mask");
+imgMask.onclick=()=>imgMask.classList.remove("show");
+
+/* 登录/注册 → 404 */
+const mask=$("#mask");
+$("#btn-login").onclick=e=>{e.preventDefault();mask.classList.add("show");};
+$("#btn-reg").onclick=e=>{e.preventDefault();mask.classList.add("show");};
+$("#mask-close").onclick=()=>mask.classList.remove("show");
+mask.onclick=e=>{if(e.target===mask)mask.classList.remove("show");};
+
+postList();
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>
