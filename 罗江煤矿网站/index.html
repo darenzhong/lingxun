@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>罗江煤矿</title>
+<meta name="description" content="罗江煤矿——县属国有地方煤矿，始建于一九五八年。">
+<link rel="icon" href="assets/jijia.png">
+<style>
+/* ══════════════════════════════════════════════════════════════════
+   罗江煤矿 · 企业网站
+   ------------------------------------------------------------------
+   视觉方向：**1999—2003 年那批国企网站**。
+   深蓝／灰／红，宋体 12px，表格感边框，标题条，计数器，
+   跑马灯公告，闪动 NEW，井架剪影。别加现代圆角和阴影。
+   ------------------------------------------------------------------
+   ⚠️ 全站所有日期、计数器、"今天是"都是**写死的**，不要改成
+      new Date()。这个站停在 2003 年 3 月 21 日，它不该知道今天是几号。
+   ⚠️ 改内容只改下面 js 那一块（SITE / NEWS / NOTICE / BROADCAST / ...）。
+   ══════════════════════════════════════════════════════════════════ */
+:root{
+  --navy:#002050;
+  --navy-2:#003378;
+  --steel:#566884;
+  --grey:#c0c4c8;
+  --grey-2:#80868c;
+  --line:#9aa4b0;
+  --line-2:#b9c0c8;
+  --bg:#ffffff;
+  --amber:#ffd000;
+  --red:#c81018;
+  --red-2:#8c0810;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#eceff3 url("assets/bg-tile.png") repeat;
+  font-family:"SimSun","宋体",serif;font-size:12px;color:#101010;line-height:1.85;
+  padding:10px 0 30px;
+}
+img{border:0;display:block}
+a{color:#0033aa;text-decoration:none}
+a:hover{color:#c81018;text-decoration:underline}
+.px{image-rendering:pixelated}
+button{font-family:inherit;font-size:12px;cursor:pointer}
+
+.shell{width:800px;margin:0 auto;background:var(--bg);border:1px solid var(--grey-2)}
+
+/* ── 跑马灯公告 ── */
+.ticker{height:22px;overflow:hidden;background:var(--navy);border-bottom:1px solid var(--grey-2);
+  display:flex;align-items:center}
+.ticker .track{display:block;white-space:nowrap;padding-left:100%;color:var(--amber);font-size:12px;
+  animation:roll 26s linear infinite}
+@keyframes roll{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+
+/* ── 元信息条（今天是／访问计数） ── */
+.meta{display:flex;align-items:center;gap:8px;padding:3px 8px;background:#e8ebef;
+  border-bottom:1px solid var(--line-2);font-size:12px}
+.meta .r{margin-left:auto;display:flex;align-items:center;gap:4px}
+.meta .od{display:inline-flex;gap:1px}
+.meta .od b{display:block;width:11px;height:15px;line-height:15px;text-align:center;
+  background:#101010;color:#33ff66;font-family:Consolas,monospace;font-size:11px;font-weight:400}
+
+/* ── 导航 ── */
+.nav{display:flex;background:url("assets/titlebar.png") repeat-x;border-bottom:2px solid var(--navy)}
+.nav a{color:#fff;padding:5px 15px;border-right:1px solid var(--steel);font-size:13px;
+  text-decoration:none;display:block}
+.nav a:hover{background:#0a4a9a;color:#fff;text-decoration:none}
+.nav a.on{background:var(--red);color:#fff}
+
+/* ── 两栏 ── */
+.cols{display:flex;align-items:stretch;min-height:520px}
+.side{width:196px;flex:0 0 196px;border-right:1px solid var(--line-2);padding:8px;background:#f7f8fa}
+.main{flex:1;min-width:0;padding:10px 12px}
+
+/* ── 标题框 ── */
+.box{border:1px solid var(--line);margin-bottom:10px;background:#fff}
+.box>.hd{background:url("assets/titlebar.png") repeat-x;color:#fff;padding:3px 8px;
+  border-left:4px solid var(--red);font-size:12px;font-weight:bold;letter-spacing:1px;
+  display:flex;align-items:center;gap:6px}
+.box>.hd img{width:14px;height:auto}
+.box>.bd{padding:7px 9px}
+
+/* 页内主标题（内容区大标题） */
+.art-hd{font-size:15px;font-weight:bold;color:var(--navy);text-align:center;
+  padding:6px 0 8px;border-bottom:2px solid var(--navy-2);margin-bottom:10px;line-height:1.6}
+.art-hd .sub{display:block;font-size:11px;font-weight:normal;color:#555;margin-top:4px}
+
+/* 计划生育标语横幅 */
+.slogan{width:100%;border:1px solid var(--line);margin-bottom:10px}
+
+/* ── 列表 ── */
+ul.dot{list-style:none}
+ul.dot li{padding:3px 0 3px 12px;position:relative;border-bottom:1px dotted #c8ced6}
+ul.dot li:last-child{border-bottom:0}
+ul.dot li::before{content:"■";position:absolute;left:0;top:3px;color:var(--navy-2);font-size:8px}
+ul.dot .dt{color:#666;font-family:Consolas,monospace;font-size:11px;margin-right:4px}
+.new{color:var(--red);font-size:10px;font-weight:bold;animation:bl .9s steps(2) infinite}
+@keyframes bl{50%{opacity:.15}}
+
+/* 左栏通知公告 */
+.notice li{padding:4px 0 4px 12px;font-size:12px;line-height:1.7}
+.notice .dt{display:block;color:#777;font-family:Consolas,monospace;font-size:11px;margin-right:0}
+
+/* 友情链接 */
+.links li{padding:3px 0 3px 12px}
+
+/* ── 表格 ── */
+table.data{width:100%;border-collapse:collapse;font-size:12px}
+table.data th,table.data td{border:1px solid var(--line);padding:3px 6px}
+table.data th{background:#dde3ea;font-weight:bold;text-align:center;color:var(--navy)}
+table.data td.n{text-align:right;font-family:Consolas,monospace}
+table.data td.c{text-align:center}
+table.data tr.hl td{background:#fff6d0}
+table.data tr.hl td.n{font-weight:bold;color:var(--red)}
+
+/* ── 正文 ── */
+.art p{margin-bottom:9px;text-indent:2em;text-align:justify}
+.art p.noind{text-indent:0}
+.art .sig{text-align:right;text-indent:0;color:#333;margin-top:6px}
+.art .dt-line{text-align:center;text-indent:0;color:#555;font-size:11px;margin-bottom:10px;
+  border-bottom:1px dotted #c8ced6;padding-bottom:6px}
+.back{margin-top:10px;text-indent:0;font-size:12px}
+
+/* ── 概况表 ── */
+table.info{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
+table.info th{width:96px;background:#dde3ea;border:1px solid var(--line);padding:4px 6px;
+  text-align:left;font-weight:bold;color:var(--navy);vertical-align:top}
+table.info td{border:1px solid var(--line);padding:4px 8px}
+
+/* ── 广播站 ── */
+.radio-hd{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.radio-hd img{width:60px;flex:0 0 60px}
+.player{border:1px solid var(--line);background:#f7f8fa;padding:8px;margin-bottom:10px}
+.player .row{display:flex;align-items:center;gap:8px}
+.player button{border:1px solid var(--grey-2);background:#dfe4ea;padding:3px 12px;color:#101010}
+.player button:hover{background:#ced5dd}
+.player .st{font-size:11px;color:#555;font-family:Consolas,monospace}
+.cast{border:1px solid var(--line-2);margin-bottom:8px}
+.cast>.ch{background:#eef1f5;padding:4px 8px;border-bottom:1px solid var(--line-2);
+  display:flex;align-items:center;gap:6px;cursor:pointer}
+.cast>.ch img{width:16px;height:auto}
+.cast>.ch .t{font-weight:bold;color:var(--navy)}
+.cast>.ch .dt{margin-left:auto;color:#666;font-family:Consolas,monospace;font-size:11px}
+.cast>.cb{padding:7px 9px;display:none}
+.cast.open>.cb{display:block}
+
+/* ── 页脚 ── */
+.foot{border-top:2px solid var(--navy);background:#eef1f5;padding:8px 10px;text-align:center;
+  font-size:11px;color:#555;line-height:2}
+.foot .sep{color:var(--line-2)}
+
+@media(max-width:820px){
+  .shell{width:auto;margin:0 8px}
+  .cols{display:block}
+  .side{width:auto;flex:none;border-right:0;border-bottom:1px solid var(--line-2)}
+  .nav{flex-wrap:wrap}
+  .nav a{padding:5px 10px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- 跑马灯公告 -->
+  <div class="ticker"><span class="track" id="ticker"></span></div>
+
+  <!-- 横幅 -->
+  <img class="banner" src="assets/banner.png" alt="罗江煤矿" style="width:100%">
+
+  <!-- 元信息条 -->
+  <div class="meta">
+    <span id="today"></span>
+    <span>|</span>
+    <span id="weather"></span>
+    <span class="r">
+      您是第
+      <span class="od" id="od"></span>
+      位访问本站的客人
+    </span>
+  </div>
+
+  <!-- 导航 -->
+  <div class="nav" id="nav"></div>
+
+  <!-- 两栏 -->
+  <div class="cols">
+    <aside class="side">
+      <div class="box">
+        <div class="hd"><img class="px" src="assets/speaker.png" alt="">通知公告</div>
+        <div class="bd"><ul class="dot notice" id="sideNotice"></ul></div>
+      </div>
+      <div class="box">
+        <div class="hd"><img class="px" src="assets/lamp.png" alt="">本站导航</div>
+        <div class="bd"><ul class="dot" id="sideNav"></ul></div>
+      </div>
+      <div class="box">
+        <div class="hd"><img class="px" src="assets/cart.png" alt="">友情链接</div>
+        <div class="bd"><ul class="dot links" id="sideLinks"></ul></div>
+      </div>
+    </aside>
+
+    <main class="main" id="main"></main>
+  </div>
+
+  <!-- 页脚 -->
+  <div class="foot">
+    <div id="footTop"></div>
+    <div>地址：坨罗山县矿安乡矿安路西端　<span class="sep">|</span>　电话：0468-8810237　<span class="sep">|</span>　邮编：155899</div>
+    <div>建议使用 Internet Explorer 5.0 以上浏览器，800 × 600 分辨率浏览本站</div>
+    <div id="footBottom"></div>
+  </div>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   ★★★ 要改的就只有这一块 ★★★
+   ------------------------------------------------------------------
+   写作依据：项目工作手册 + 已有网站里关于煤矿的全部设定。
+   硬约束：
+     · 全站日期不得晚于 2003-03-28（网站停更那天）
+     · 事故一个字不提——网站死在事故之前
+     · 不写鬼、不写血腥、不写尖叫（手册规则 6）
+     · 不解释隐喻（手册规则 5）
+   ══════════════════════════════════════════════════════════════════ */
+
+var SITE = {
+  name:"罗江煤矿",
+  /* ★ 全站冻结在这一天。今天是星期五（2003-03-28 确实是星期五）。 */
+  today:"今天是 2003 年 3 月 28 日　星期五",
+  weather:"坨罗山　晴　2℃ ～ 11℃",
+  counter:"0043817",                 /* ★ 写死的，不要算成活的 */
+  lastUpdate:"本站最后更新：2003 年 3 月 28 日",
+  copyright:"版权所有 © 1999—2003 罗江煤矿　·　本站由矿宣传科制作维护",
+  ticker:"本站公告：全矿深入开展“百日安全无事故”活动，请各单位认真组织实施。　│　" +
+         "三月份生产任务圆满完成，原煤产量再创我矿历史新高。　│　" +
+         "矿广播站每日 6:30 开始播音，欢迎广大职工家属收听。"
+};
+
+/* ── 导航 ── */
+var NAV = [
+  { k:"home",    n:"首　页" },
+  { k:"about",   n:"企业概况" },
+  { k:"news",    n:"新闻中心" },
+  { k:"produce", n:"生产动态" },
+  { k:"radio",   n:"广播站" },
+  { k:"life",    n:"矿工之家" },
+  { k:"jhsy",    n:"计划生育" },
+  { k:"honor",   n:"光荣榜" },
+  { k:"contact", n:"联系我们" }
+];
+
+/* ── 通知公告（左栏） ── */
+var NOTICE = [
+  { d:"03-27", t:"关于表彰二〇〇二年度计划生育先进集体和先进个人的决定" },
+  { d:"03-26", t:"关于加强矿区社会治安管理的通告", h:"#tongbao" },
+  { d:"03-20", t:"关于做好春季安全生产工作的通知" },
+  { d:"03-14", t:"三月份生产计划安排意见" },
+  { d:"03-06", t:"关于开展“百日安全无事故”活动的通知" }
+];
+
+/* ── 关于加强矿区社会治安管理的通告（矿区保卫科） ──
+   写作依据：用户口述。**不点名** —— 那时候刘华杰还没落网（他是 2003 年 11 月 7 日被抓的），
+   所以这份通告不可能是在说他。它是那个"严打"氛围的机器本身：
+   把「强奸、抢劫、侵吞公款」三项一字不差地摆上台面，剩下的事让玩家自己去对。
+   手册规则 5：不解释。 */
+var TONGBAO = {
+  title:"关于加强矿区社会治安管理的通告",
+  meta:"发布单位：中共罗江煤矿委员会　·　矿区保卫科　｜　发布时间：2003-03-26",
+  body:[
+    "近期，我矿及周边地区连续发生抢劫、侵吞公款等案件，并接群众反映，存在强奸等严重违法犯罪线索，严重影响了矿区生产生活秩序和职工群众的安全感。",
+    "为严厉打击违法犯罪活动，维护矿区稳定，保障煤炭生产顺利进行，现通告如下：",
+    "一、凡在矿区及周边地区实施抢劫、侵吞公款、强奸等违法犯罪活动的人员，自本通告发布之日起十五日内，到矿区保卫科投案自首，争取宽大处理。逾期不投案、继续作案的，依法从严惩处。",
+    "二、全矿职工、家属要积极检举揭发违法犯罪线索。对检举有功的，矿上将给予奖励，并为其保密。",
+    "三、严禁包庇、窝藏违法犯罪分子。知情不报、为其提供便利的，一经查实，按有关规定严肃处理。",
+    "四、各单位要加强内部管理，严格财务制度，堵塞漏洞；加强对职工的法制教育，做到知法、守法。个别人员在矿期间即有不端表现，各单位要提前掌握、重点帮教，不能等到出了事再管。",
+    "五、本通告自发布之日起施行。"
+  ],
+  sign:["中共罗江煤矿委员会","矿区保卫科","二〇〇三年三月二十六日"]
+};
+
+/* ── 友情链接 ── */
+var LINKS = [
+  "坨罗山县人民政府",
+  "坨罗山县煤炭工业局",
+  "坨罗山县总工会",
+  "矿安乡人民政府",
+  "中国煤炭工业协会",
+  "东北煤炭信息网"
+];
+
+/* ── 新闻中心 ── */
+var NEWS = [
+  { id:8, d:"2003-03-28", t:"我矿计划生育工作超额完成全年指标", isNew:1,
+    b:["【本站讯】三月二十七日，我矿二〇〇二年度计划生育工作总结表彰大会在矿工俱乐部召开。县计划生育委员会有关负责同志到会指导。",
+       "会议指出，二〇〇二年，我矿认真贯彻计划生育这一基本国策，坚持“三为主”方针，全年无一例计划外生育，计划生育率达到 100%，节育措施落实率达到 100%，环孕情检查参检率达到 99.2%，超额完成县计生委下达的各项控制指标。",
+       "会上，矿党委、矿行政对在计划生育工作中表现突出的 2 个先进集体和 12 名先进个人进行了表彰。",
+       "食堂炊事员孙振东同志是受表彰的先进典型之一。去年冬天，孙振东同志发现妻子李桂芬再次怀孕后，主动做通家人思想工作，陪同妻子到县医院做了终止妊娠手术。他说：“咱是矿上的人，得听矿上的话。多一个孩子，就多一张嘴。”",
+       "孙振东同志大义灭亲、顾全大局的事迹，在全矿职工家属中引起强烈反响。大家表示，要向他学习，自觉执行计划生育这一基本国策。",
+       "据了解，我矿二〇〇二年度原定生育指标 14 个，实际全年无一例生育，为全县计划生育工作作出了贡献。全年共完成各类节育手术 76 例，为历年之最。",
+       "为此，矿党委、矿行政特批奖励孙振东同志人民币三百元，并在全矿通报表扬。"] },
+
+  { id:1, d:"2003-03-21", t:"我矿原煤产量创历史新高", isNew:0,
+    b:["【本站讯】截至三月二十日，我矿本月已累计生产原煤 76540 吨，完成月计划的 109.3%，创我矿建矿以来月产最高纪录。",
+       "今年以来，全矿干部职工紧紧围绕矿党委、矿行政年初确定的目标任务，抓安全、保生产、促效益，克服了冬季运输紧张、井下地质条件变化等困难，生产形势持续向好。",
+       "采煤一区在 3 号煤层工作面推广走向长壁后退式采煤法，工作面单产明显提高；掘进二队提前五天完成本月进尺计划；机电科加强设备检修，全月机电设备完好率达到 96% 以上。",
+       "矿长在生产例会上指出，越是形势好，越要绷紧安全这根弦，决不能因为赶产量而放松安全管理。"] },
+
+  { id:2, d:"2003-03-18", t:"香港客商来我矿考察合作项目",
+    b:["【本站讯】三月十七日，香港客商一行四人来我矿考察，就煤炭洗选加工合作项目与我矿进行了初步洽谈。",
+       "客商先后参观了我矿三号井口、原煤筛选楼和运煤专用线，详细了解了我矿煤炭储量、煤质指标和运输条件。",
+       "矿领导向客商介绍了我矿建矿四十余年来的发展情况。客商对我矿的资源和区位条件表示满意，双方约定就合作细节进一步磋商。",
+       "据了解，该合作项目如能达成，将对我矿原煤就地加工增值、延伸产业链起到积极作用。"] },
+
+  { id:3, d:"2003-03-15", t:"矿党委召开安全生产专题会议",
+    b:["【本站讯】三月十四日，矿党委召开安全生产专题会议，传达上级安全生产工作精神，分析当前安全生产形势，部署春季安全生产工作。",
+       "会议指出，春季是矿井瓦斯、顶板事故的多发期，各单位要高度重视，严格落实安全生产责任制，坚持不安全不生产。",
+       "会议要求，安全监察科要加大井下检查力度，对查出的隐患要限期整改；各采区、队要抓好班前会教育，提高职工自主保安意识。",
+       "会上，矿党委与各基层单位签订了二〇〇三年度安全生产责任书。"] },
+
+  { id:4, d:"2003-03-10", t:"我矿荣获市“文明单位”称号",
+    b:["【本站讯】在日前召开的全市精神文明建设表彰大会上，我矿被市委、市政府授予市级“文明单位”称号。",
+       "近年来，我矿在抓好生产经营的同时，重视精神文明建设，先后改造了矿工俱乐部、职工浴池和家属区道路，职工文化生活日益丰富。",
+       "矿宣传科负责人表示，将以此次表彰为动力，进一步做好职工思想政治工作，把精神文明建设提高到一个新水平。"] },
+
+  { id:5, d:"2003-03-04", t:"三号井技改工程顺利完工",
+    b:["【本站讯】经过四个多月的紧张施工，我矿三号井提升系统技术改造工程于三月初顺利完工，并投入正常运行。",
+       "三号井原有提升绞车使用年限较长，提升能力已不适应生产发展需要。此次技改更换了主提升绞车和电控系统，提升能力提高约三成。",
+       "施工期间，机电科和施工单位密切配合，做到了生产、施工两不误。技改完成后，三号井的运输紧张状况得到明显缓解。"] },
+
+  { id:6, d:"2003-02-26", t:"我矿第八届职工技术比武大赛落幕",
+    b:["【本站讯】为期一周的第八届职工技术比武大赛于二月二十五日落下帷幕。来自全矿各单位的 86 名选手参加了比赛。",
+       "本次比武设采煤、掘进、机电、通风、运输五个工种，采取理论考试和实际操作相结合的方式进行。",
+       "经过激烈角逐，共评出技术状元 5 名、技术能手 15 名。矿工会为获奖选手颁发了荣誉证书和奖金。"] },
+
+  { id:7, d:"2003-02-20", t:"矿工俱乐部举办迎新春文艺演出",
+    b:["【本站讯】春节期间，矿工俱乐部组织了三场文艺演出，全矿职工家属近三千人次观看。",
+       "演出节目全部由职工自编自演，有歌舞、小品、快板书和器乐演奏。采煤二区职工表演的小合唱《咱们工人有力量》赢得阵阵掌声。",
+       "矿广播站对演出实况进行了录音，并在春节期间安排了重播。"] }
+];
+
+/* ── 企业概况 ── */
+var ABOUT = {
+  rows:[
+    ["矿　　名","罗江煤矿"],
+    ["矿　　长","韩立成"],
+    ["矿　　址","坨罗山县矿安乡矿安路西端"],
+    ["建矿时间","一九五八年"],
+    ["企业性质","县属国有地方煤矿"],
+    ["矿区面积","约 12.6 平方公里"],
+    ["在册职工","2860 人（其中工程技术人员 214 人）"],
+    ["井　　田","三对生产矿井，年设计生产能力 120 万吨"],
+    ["主要产品","原煤（气煤、长焰煤）"]
+  ],
+  intro:["罗江煤矿位于坨罗山县矿安乡，始建于一九五八年，是县属国有地方煤矿，也是全县工业的支柱企业之一。",
+         "建矿四十五年来，全矿干部职工艰苦创业、勤俭办矿，累计生产原煤 3860 余万吨，为全县工农业生产和人民生活提供了可靠的能源保障，先后安置和带动了矿区及周边乡镇大批劳动力就业。",
+         "矿区现已形成采煤、掘进、机电、运输、通风五大系统配套的生产格局，并设有安全监察科、供应科、劳资科、宣传科等管理科室，以及矿工俱乐部、职工浴池、矿区保卫科等生产生活服务单位。",
+         "近年来，我矿坚持“安全第一、预防为主”的方针，深化企业内部改革，加强成本管理，经济效益稳步提高，矿区面貌逐年改善。"],
+  speech:["值此新千年的第三个春天，我代表罗江煤矿党政工团，向长年奋战在井下一线的全体职工，向默默支持我矿工作的职工家属，致以诚挚的问候！",
+          "向长期以来关心、支持罗江煤矿发展的各级领导和社会各界朋友，表示衷心的感谢！",
+          "四十五年来，一代又一代罗江矿工把青春和汗水留在了井下，把光和热送进了千家万户。煤矿工人吃苦耐劳、无私奉献的精神，是我们最宝贵的财富。",
+          "新的一年，我们要继续把安全放在第一位，抓好生产，搞好经营，让全矿职工的日子一年比一年好。"],
+  speechSign:"——　罗江煤矿矿长　韩立成"
+};
+
+/* ── 生产动态 ── */
+var PRODUCE = {
+  safeDays:417,
+  safeAsOf:"2003 年 3 月 20 日",
+  plan:[
+    ["二〇〇二年十月","95000","98240","103.4%"],
+    ["二〇〇二年十一月","95000","100860","106.2%"],
+    ["二〇〇二年十二月","100000","108920","108.9%"],
+    ["二〇〇三年一月","105000","112350","107.0%"],
+    ["二〇〇三年二月","90000","86520","96.1%"],
+    ["二〇〇三年三月（1—20日）","70000","76540","109.3%",1]
+  ],
+  note:["二〇〇三年二月适逢春节放假，生产天数减少，实际产量未完成月计划。",
+        "其余各月均超额完成计划。三月份截至二十日已创我矿月产历史最高纪录，全月产量预计可突破 11 万吨。",
+        "本月掘进总进尺 1486 米，完成计划的 106.1%；原煤全员效率 1.92 吨／工。"]
+};
+
+/* ── 广播站 ── */
+var RADIO = {
+  intro:["罗江煤矿广播站成立于一九七二年，现有播音员 2 人、值机员 1 人，配备 250 瓦扩音机两台，广播线路覆盖三个家属区和生产区、井口候车室。",
+         "广播站每天按时转播中央人民广播电台节目，播送本矿新闻、生产进度、安全提示和文艺节目，是矿区职工家属了解矿情、丰富文化生活的重要渠道。"],
+  timetable:[
+    ["6:30 — 6:45","转播中央人民广播电台《新闻和报纸摘要》"],
+    ["6:45 — 7:00","本矿新闻"],
+    ["11:30 — 12:00","音乐与天气预报"],
+    ["17:30 — 18:00","本矿新闻（重播）· 生产进度通报"],
+    ["18:00 — 19:00","文艺节目"]
+  ],
+  casts:[
+    { d:"2003-03-20", t:"《关于做好春季安全生产工作的通知》广播讲话",
+      b:["全矿职工同志们，现在是本矿新闻时间。",
+         "本月十四日，矿党委召开安全生产专题会议，对春季安全生产工作作出了部署。春季是矿井瓦斯、顶板事故的多发期，各单位要高度重视，严格落实安全生产责任制。",
+         "请各采区、各队利用班前会时间，组织职工学习作业规程，做到不安全不生产。下井前请认真检查矿灯、自救器，佩戴好安全帽。",
+         "安全是咱矿工的天。为了自己，为了家里人，请同志们千万把安全放在心上。",
+         "这次本矿新闻就播送到这里，下面请收听文艺节目。"] },
+    { d:"2003-03-12", t:"三月中旬生产进度通报",
+      b:["全矿职工同志们，下面播送生产进度通报。",
+         "截至三月十一日，全矿本月已生产原煤 43860 吨，完成月计划的 62.7%，生产进度好于往年。掘进总进尺完成 812 米。",
+         "采煤一区、掘进二队进度领先，特提出表扬。希望各单位再接再厉，注意安全，争取提前完成三月份生产任务。",
+         "通报播送完了。"] },
+    { d:"2003-02-26", t:"第八届职工技术比武表彰广播稿",
+      b:["全矿职工同志们，下面播送表彰决定。",
+         "我矿第八届职工技术比武大赛已经圆满结束。本届比武共有 86 名选手参加，评出技术状元 5 名、技术能手 15 名。",
+         "矿工会号召全矿职工向他们学习，刻苦钻研技术，岗位练兵，岗位成才。",
+         "下面播送获奖名单……"] },
+    { d:"2003-02-20", t:"迎新春文艺演出实况转播稿",
+      b:["职工同志们、家属同志们，春节好！",
+         "矿工俱乐部春节期间组织了文艺演出，现将演出实况向全矿转播。",
+         "首先请听采煤二区职工表演的小合唱《咱们工人有力量》。",
+         "……下面请听快板书《矿山新事》。"] },
+    { d:"2002-12-31", t:"辞旧迎新广播讲话",
+      b:["全矿职工同志们，家属同志们：",
+         "在这辞旧迎新的时刻，矿广播站向一年来辛勤工作在各条战线上的全矿职工，向关心支持我矿工作的职工家属，致以节日的问候！",
+         "过去的一年，我矿各项工作都取得了较好成绩，原煤产量、经济效益都有了新的提高。这是全矿职工共同努力的结果。",
+         "新的一年，希望全矿职工继续发扬煤矿工人特别能战斗的精神，团结一心，扎实工作，把咱们矿建设得更好。",
+         "祝全矿职工家属新年愉快，身体健康，阖家幸福！"] }
+  ]
+};
+
+/* ── 矿工之家 ── */
+var LIFE = {
+  menu:{ d:"3 月 17 日 — 3 月 23 日",
+    rows:[
+      ["星期一","白菜炖粉条　·　炒土豆丝　·　米饭"],
+      ["星期二","酸菜炖白肉　·　拌黄瓜　·　馒头"],
+      ["星期三","萝卜炖牛肉　·　炒豆芽　·　米饭"],
+      ["星期四","乱炖　·　蒜泥茄子　·　花卷"],
+      ["星期五","猪肉炖粉条　·　拌海带丝　·　米饭"],
+      ["星期六","土豆炖鸡块　·　炒白菜　·　馒头"],
+      ["星期日","馅饼　·　小米粥　·　咸菜"]
+    ] },
+  sections:[
+    { t:"职工浴池开放时间",
+      b:["男浴池：每日 14:00 — 22:00（升井职工凭票优先）",
+         "女浴池：每日 15:00 — 20:00",
+         "逢星期一上午检修，暂停开放。"] },
+    { t:"困难职工补助发放",
+      b:["二〇〇三年第一季度困难职工补助现已发放，共补助 46 户，发放补助金 13800 元。",
+         "补助名单经各单位申报、矿工会审核确定，请符合条件的职工到矿工会领取。"] },
+    { t:"职工医院义诊通知",
+      b:["矿职工医院定于三月二十五日在矿工俱乐部前举办春季义诊，为职工家属免费测量血压、提供健康咨询。",
+         "请有需要的职工家属按时前往。"] }
+  ]
+};
+
+/* ── 光荣榜 ── */
+var HONOR = {
+  year:"二〇〇二年度",
+  rows:[
+    ["矿级劳动模范","采煤一区","张有福"],
+    ["矿级劳动模范","掘进二队","李长胜"],
+    ["矿级劳动模范","机电科","王海山"],
+    ["计划生育先进个人","食　堂","孙振东"],
+    ["矿级劳动模范","通风科",""],          /* ★ 名字是空的，不解释 */
+    ["矿级劳动模范","运输科","刘全有"],
+    ["先进生产（工作）者","采煤二区","赵永利　孙德发　周有条"],
+    ["先进生产（工作）者","安全监察科","陈守义"],
+    ["先进生产（工作）者","矿工会","杨树林"]
+  ],
+  history:{ t:"矿史荣誉 · 历年矿级劳动模范（摘录）",
+    rows:[
+      ["一九八九年","食　堂","孙振东"],
+      ["一九八八年","采煤一区","——"],
+      ["一九八七年","掘进队","——"]
+    ] }
+};
+
+/* ── 计划生育 ── */
+var JHSY = {
+  slogan:"抓好计划生育　少生优生　幸福一生",
+  intro:["计划生育是我国的一项基本国策。我矿自建矿以来，始终坚持“宣传教育为主、避孕节育为主、经常性工作为主”的方针，把计划生育工作列入矿党政重要议事日程，做到生产、计生两手抓、两手都要硬。",
+         "矿成立计划生育工作领导小组，下设计划生育办公室（设在矿工会），各单位设兼职计划生育宣传员一名。全矿计划生育工作连续多年受到县计划生育委员会的表彰。"],
+  rules:{ t:"计划生育工作要求",
+    items:[
+      "全矿职工、家属要自觉执行计划生育政策，做到少生、优生。",
+      "各单位主要负责人为本单位计划生育工作第一责任人。",
+      "育龄职工要按时参加矿计生办组织的环孕情检查，不得无故缺席。",
+      "严禁计划外生育，严禁非医学需要的胎儿性别鉴定。",
+      "发现计划外怀孕的，要及早采取补救措施。"
+    ]},
+  stats:{ t:"二〇〇二年度计划生育指标完成情况",
+    rows:[
+      ["计划外生育","0 例","——"],
+      ["计划生育率","100%","达标"],
+      ["节育措施落实率","100%","达标"],
+      ["环孕情检查参检率","99.2%","达标"],
+      ["全年完成各类节育手术","76 例","历年最高"]
+    ]},
+  awards:{ t:"二〇〇二年度总结表彰大会获奖名单",
+    note:"二〇〇三年春节　·　矿工俱乐部",
+    rows:[
+      ["计划生育先进个人","食　堂","孙振东"],
+      ["劳动模范","采煤一区","张有福"],
+      ["安全生产标兵","掘进二队","李长胜"],
+      ["技术能手","机电科","王海山"],
+      ["优秀班组长","运输科","赵永利"],
+      ["三八红旗手","矿工会","刘全有"],
+      ["五好家庭","家属区","杨树林"],
+      ["优秀通讯员","宣传科","周有条"],
+      ["青年突击手","通风科","孙德发"],
+      ["先进生产（工作）者","安全监察科","陈守义"]
+    ]}
+};
+
+/* ── 联系我们 ── */
+var CONTACT = {
+  rows:[
+    ["单位名称","罗江煤矿"],
+    ["地　　址","坨罗山县矿安乡矿安路西端"],
+    ["电　　话","0468-8810237（矿办公室）"],
+    ["传　　真","0468-8810238"],
+    ["电子信箱","ljck@163.com"],
+    ["邮政编码","155899"]
+  ],
+  note:["本站由罗江煤矿宣传科制作维护。欢迎各单位、各部门踊跃投稿。",
+        "稿件可直接送矿宣传科，或由各单位通讯员转交。"]
+};
+
+/* ══════════════════════════════════════════════════════════════════
+   以下渲染逻辑，一般不用动
+   ══════════════════════════════════════════════════════════════════ */
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function $(s){return document.querySelector(s)}
+
+var NEWS_OPEN = {};   /* 哪几条广播稿展开了 */
+
+/* ── 首页 ── */
+function pageHome(){
+  var top = NEWS.slice(0, 5);
+  return '<div class="art-hd">罗江煤矿<span class="sub">LUOJIANG COAL MINE　·　一九五八年建矿</span></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/jijia.png" alt="">本矿要闻</div>'
+    + '<div class="bd"><ul class="dot">'
+    + top.map(function(n){
+        return '<li><span class="dt">' + esc(n.d) + '</span>'
+          + (n.isNew ? '<span class="new">NEW</span> ' : '')
+          + '<a href="#news/' + n.id + '">' + esc(n.t) + '</a></li>';
+      }).join("")
+    + '</ul></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/cart.png" alt="">生产快报</div>'
+    + '<div class="bd art"><p class="noind">截至 ' + esc(PRODUCE.safeAsOf)
+    + '，全矿已实现连续安全生产 <b>' + PRODUCE.safeDays + '</b> 天。</p>'
+    + '<p class="noind">三月份截至二十日，累计生产原煤 <b>76540</b> 吨，完成月计划的 '
+    + '<b>109.3%</b>，创我矿月产历史最高纪录。</p></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/speaker.png" alt="">广播站提示</div>'
+    + '<div class="bd art"><p class="noind">矿广播站每日 6:30 开始播音，'
+    + '转播中央人民广播电台《新闻和报纸摘要》，随后播送本矿新闻。'
+    + '欢迎广大职工家属收听。　<a href="#radio">进入广播站 »</a></p></div></div>';
+}
+
+/* ── 企业概况 ── */
+function pageAbout(){
+  return '<div class="art-hd">企 业 概 况</div>'
+    + '<table class="info">'
+    + ABOUT.rows.map(function(r){ return '<tr><th>' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join("")
+    + '</table>'
+    + '<div class="art">' + ABOUT.intro.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("") + '</div>'
+    + '<div class="box" style="margin-top:12px"><div class="hd"><img class="px" src="assets/lamp.png" alt="">矿长致辞</div>'
+    + '<div class="bd art">' + ABOUT.speech.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("")
+    + '<p class="sig">' + esc(ABOUT.speechSign) + '</p></div></div>';
+}
+
+/* ── 新闻中心 ── */
+function pageNews(id){
+  if(id){
+    var n = null;
+    for(var i=0;i<NEWS.length;i++){ if(NEWS[i].id === id) n = NEWS[i]; }
+    if(!n) return '<div class="art-hd">找不到该页面</div><div class="art"><p class="noind">您访问的新闻不存在。</p></div>';
+    return '<div class="art-hd">' + esc(n.t) + '</div>'
+      + '<div class="art"><p class="dt-line">' + esc(n.d) + '　来源：罗江煤矿宣传科</p>'
+      + n.b.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("")
+      + '<p class="back"><a href="#news">« 返回新闻中心</a></p></div>';
+  }
+  return '<div class="art-hd">新 闻 中 心</div>'
+    + '<ul class="dot">'
+    + NEWS.map(function(n){
+        return '<li><span class="dt">' + esc(n.d) + '</span>'
+          + (n.isNew ? '<span class="new">NEW</span> ' : '')
+          + '<a href="#news/' + n.id + '">' + esc(n.t) + '</a></li>';
+      }).join("")
+    + '</ul>';
+}
+
+/* ── 生产动态 ── */
+function pageProduce(){
+  return '<div class="art-hd">生 产 动 态</div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/cart.png" alt="">原煤产量完成情况</div>'
+    + '<div class="bd"><table class="data"><tr>'
+    + '<th>月　份</th><th>计划产量（吨）</th><th>实际完成（吨）</th><th>完成率</th></tr>'
+    + PRODUCE.plan.map(function(r){
+        return '<tr' + (r[4] ? ' class="hl"' : '') + '><td>' + esc(r[0]) + '</td>'
+          + '<td class="n">' + esc(r[1]) + '</td><td class="n">' + esc(r[2]) + '</td>'
+          + '<td class="c">' + esc(r[3]) + '</td></tr>';
+      }).join("")
+    + '</table>'
+    + '<div class="art" style="margin-top:8px">'
+    + PRODUCE.note.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("")
+    + '</div></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/lamp.png" alt="">安全生产</div>'
+    + '<div class="bd art"><p class="noind">截至 ' + esc(PRODUCE.safeAsOf)
+    + '，全矿已实现连续安全生产 <b>' + PRODUCE.safeDays + '</b> 天。</p>'
+    + '<p class="noind">矿安全监察科提醒：下井前请认真检查矿灯、自救器，佩戴好安全帽；'
+    + '作业中严格执行作业规程，做到不安全不生产。</p></div></div>';
+}
+
+/* ── 广播站 ── */
+function pageRadio(){
+  return '<div class="art-hd">矿 广 播 站</div>'
+    + '<div class="radio-hd">'
+    +   '<img class="px" src="assets/speaker.png" alt="">'
+    +   '<div class="art">' + RADIO.intro.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("") + '</div>'
+    + '</div>'
+    + '<div class="player">'
+    +   '<div class="row">'
+    +     '<button id="castBtn">▶ 播 放 广 播 开 头</button>'
+    +     '<span class="st" id="castSt">未播放</span>'
+    +   '</div>'
+    + '</div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/lamp.png" alt="">每日播音时间</div>'
+    + '<div class="bd"><table class="data"><tr><th style="width:130px">时　间</th><th>节　目</th></tr>'
+    + RADIO.timetable.map(function(r){
+        return '<tr><td class="c">' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>';
+      }).join("")
+    + '</table></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/speaker.png" alt="">广播稿存档</div>'
+    + '<div class="bd">'
+    + RADIO.casts.map(function(c, i){
+        return '<div class="cast' + (NEWS_OPEN["c" + i] ? ' open' : '') + '" data-i="' + i + '">'
+          + '<div class="ch"><img class="px" src="assets/speaker.png" alt="">'
+          + '<span class="t">' + esc(c.t) + '</span><span class="dt">' + esc(c.d) + '</span></div>'
+          + '<div class="cb art">' + c.b.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("") + '</div>'
+          + '</div>';
+      }).join("")
+    + '</div></div>';
+}
+
+/* ── 矿工之家 ── */
+function pageLife(){
+  return '<div class="art-hd">矿 工 之 家</div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/cart.png" alt="">职工食堂本周菜谱（'
+    + esc(LIFE.menu.d) + '）</div><div class="bd"><table class="data"><tr><th style="width:100px">日　期</th><th>菜　单</th></tr>'
+    + LIFE.menu.rows.map(function(r){
+        return '<tr><td class="c">' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td></tr>';
+      }).join("")
+    + '</table><div class="art" style="margin-top:6px"><p class="noind">食堂开饭时间：早饭 6:00 — 7:30，'
+    + '午饭 11:30 — 13:00，晚饭 17:30 — 19:00。</p></div></div></div>'
+    + LIFE.sections.map(function(s){
+        return '<div class="box"><div class="hd"><img class="px" src="assets/lamp.png" alt="">' + esc(s.t) + '</div>'
+          + '<div class="bd art">' + s.b.map(function(p){ return '<p class="noind">' + esc(p) + '</p>'; }).join("")
+          + '</div></div>';
+      }).join("");
+}
+
+/* ── 计划生育 ── */
+function pageJhsy(){
+  return '<img class="slogan" src="assets/jhsy-banner.png" alt="' + esc(JHSY.slogan) + '">'
+    + '<div class="art-hd">计 划 生 育</div>'
+    + '<div class="art">' + JHSY.intro.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("") + '</div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/star.png" alt="">' + esc(JHSY.rules.t) + '</div>'
+    + '<div class="bd art">'
+    + JHSY.rules.items.map(function(s, i){
+        return '<p class="noind">' + (i + 1) + '．' + esc(s) + '</p>';
+      }).join("")
+    + '</div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/lamp.png" alt="">' + esc(JHSY.stats.t) + '</div>'
+    + '<div class="bd"><table class="data"><tr><th>项　目</th><th style="width:110px">完成情况</th><th style="width:90px">备　注</th></tr>'
+    + JHSY.stats.rows.map(function(r){
+        return '<tr><td>' + esc(r[0]) + '</td><td class="c">' + esc(r[1]) + '</td><td class="c">' + esc(r[2]) + '</td></tr>';
+      }).join("")
+    + '</table></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/star.png" alt="">' + esc(JHSY.awards.t) + '</div>'
+    + '<div class="bd"><div class="art"><p class="noind" style="color:#555">' + esc(JHSY.awards.note) + '</p></div>'
+    + '<table class="data"><tr><th style="width:170px">奖　项</th><th style="width:130px">单　位</th><th>姓　名</th></tr>'
+    + JHSY.awards.rows.map(function(r){
+        return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>';
+      }).join("")
+    + '</table></div></div>';
+}
+
+/* ── 光荣榜 ── */
+function pageHonor(){
+  return '<div class="art-hd">光 荣 榜<span class="sub">' + esc(HONOR.year) + '劳动模范、先进生产（工作）者</span></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/star.png" alt="">表彰名单</div>'
+    + '<div class="bd"><table class="data"><tr><th style="width:150px">称　号</th><th style="width:130px">单　位</th><th>姓　名</th></tr>'
+    + HONOR.rows.map(function(r){
+        return '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>';
+      }).join("")
+    + '</table></div></div>'
+    + '<div class="box"><div class="hd"><img class="px" src="assets/star.png" alt="">' + esc(HONOR.history.t) + '</div>'
+    + '<div class="bd"><table class="data"><tr><th style="width:120px">年　度</th><th style="width:130px">单　位</th><th>姓　名</th></tr>'
+    + HONOR.history.rows.map(function(r){
+        return '<tr><td class="c">' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>';
+      }).join("")
+    + '</table></div></div>';
+}
+
+/* ── 关于矿区社会治安的通告 ── */
+function pageTongbao(){
+  return '<div class="art-hd">' + esc(TONGBAO.title) + '</div>'
+    + '<div class="art"><p class="dt-line">' + esc(TONGBAO.meta) + '</p>'
+    + TONGBAO.body.map(function(p){ return '<p>' + esc(p) + '</p>'; }).join("")
+    + '<p class="sig">' + TONGBAO.sign.map(function(s){ return esc(s); }).join("<br>") + '</p>'
+    + '<p class="back"><a href="#home">« 返回首页</a></p></div>';
+}
+
+/* ── 联系我们 ── */
+function pageContact(){
+  return '<div class="art-hd">联 系 我 们</div>'
+    + '<table class="info">'
+    + CONTACT.rows.map(function(r){ return '<tr><th>' + esc(r[0]) + '</th><td>' + esc(r[1]) + '</td></tr>'; }).join("")
+    + '</table>'
+    + '<div class="art">' + CONTACT.note.map(function(p){ return '<p class="noind">' + esc(p) + '</p>'; }).join("") + '</div>';
+}
+
+/* ── 路由 ── */
+function render(){
+  var h = (location.hash || "#home").replace(/^#/, "");
+  var parts = h.split("/");
+  var key = parts[0] || "home";
+  var id = parts[1] ? parseInt(parts[1], 10) : 0;
+
+  var body;
+  if(key === "about")        body = pageAbout();
+  else if(key === "news")    body = pageNews(id);
+  else if(key === "produce") body = pageProduce();
+  else if(key === "radio")   body = pageRadio();
+  else if(key === "life")    body = pageLife();
+  else if(key === "jhsy")    body = pageJhsy();
+  else if(key === "honor")   body = pageHonor();
+  else if(key === "tongbao") body = pageTongbao();
+  else if(key === "contact") body = pageContact();
+  else { key = "home"; body = pageHome(); }
+
+  $("#main").innerHTML = body;
+  [].forEach.call($("#nav").querySelectorAll("a"), function(a){
+    a.classList.toggle("on", a.getAttribute("data-k") === key);
+  });
+  window.scrollTo(0, 0);
+
+  /* 广播稿展开 */
+  [].forEach.call(document.querySelectorAll(".cast .ch"), function(ch){
+    ch.onclick = function(){
+      var box = ch.parentNode;
+      box.classList.toggle("open");
+      NEWS_OPEN["c" + box.dataset.i] = box.classList.contains("open");
+    };
+  });
+  /* 广播信号音 */
+  var b = $("#castBtn");
+  if(b) b.onclick = function(){
+    var on = PA.play();
+    this.textContent = on ? "■ 停 止" : "▶ 播 放 广 播 开 头";
+    $("#castSt").textContent = on ? "正在播放…" : "未播放";
+  };
+}
+
+window.addEventListener("hashchange", render);
+
+/* ══════════ 广播开头信号音（Web Audio 现场合成） ══════════
+   不用任何音频文件。老式定压大喇叭那味儿：
+   方波 + 低通，三个上行音，前面垫一点电流底噪。 */
+var PA = (function(){
+  var ctx = null, master = null, noise = null, playing = false, timer = null;
+  /* [频率, 起始秒, 时长] —— C5 E5 G5 上行 */
+  var NOTES = [[523.25, 0, 0.5], [659.25, 0.42, 0.5], [783.99, 0.84, 0.7]];
+
+  function init(){
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain(); master.gain.value = 0.0;
+    var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 1600;
+    master.connect(lp); lp.connect(ctx.destination);
+    /* 底噪：一小段白噪声循环 */
+    var len = Math.floor(ctx.sampleRate * 2);
+    var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    var ch = buf.getChannelData(0);
+    for(var i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * 0.035;
+    noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+    var ng = ctx.createGain(); ng.gain.value = 0.5;
+    noise.connect(ng); ng.connect(master);
+  }
+
+  function horn(freq, at, dur){
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "square"; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.linearRampToValueAtTime(0.22, at + 0.03);
+    g.gain.setValueAtTime(0.22, at + dur - 0.12);
+    g.gain.linearRampToValueAtTime(0.0001, at + dur);
+    o.connect(g); g.connect(master);
+    o.start(at); o.stop(at + dur + 0.05);
+  }
+
+  function run(){
+    var t0 = ctx.currentTime + 0.06;
+    noise.start();
+    for(var i = 0; i < NOTES.length; i++) horn(NOTES[i][0], t0 + NOTES[i][1], NOTES[i][2]);
+    master.gain.cancelScheduledValues(ctx.currentTime);
+    master.gain.setValueAtTime(0.0001, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(1.0, ctx.currentTime + 0.05);
+    master.gain.setValueAtTime(1.0, t0 + 1.8);
+    master.gain.linearRampToValueAtTime(0.0001, t0 + 2.4);
+    clearTimeout(timer);
+    timer = setTimeout(function(){ stop(true); }, 2600);
+  }
+
+  function stop(silent){
+    try { noise.stop(); } catch(e){}
+    noise = null;
+    if(!silent && master){
+      master.gain.cancelScheduledValues(ctx.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+      master.gain.linearRampToValueAtTime(0.0001, ctx.currentTime + 0.2);
+    }
+    playing = false;
+    var b = document.getElementById("castBtn");
+    if(b){ b.textContent = "▶ 播 放 广 播 开 头"; var s = document.getElementById("castSt"); if(s) s.textContent = "未播放"; }
+  }
+
+  return {
+    play:function(){
+      if(!ctx) init();
+      if(ctx.state === "suspended") ctx.resume();
+      if(playing){ stop(false); return false; }
+      /* 每次重放都要重建噪声源（BufferSource 只能 start 一次） */
+      if(!noise){
+        var len = Math.floor(ctx.sampleRate * 2);
+        var buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        var ch = buf.getChannelData(0);
+        for(var i = 0; i < len; i++) ch[i] = (Math.random() * 2 - 1) * 0.035;
+        noise = ctx.createBufferSource(); noise.buffer = buf; noise.loop = true;
+        var ng = ctx.createGain(); ng.gain.value = 0.5;
+        noise.connect(ng); ng.connect(master);
+      }
+      playing = true;
+      run();
+      return true;
+    }
+  };
+})();
+
+/* ══════════ 起步 ══════════ */
+$("#ticker").textContent = SITE.ticker + "　　" + SITE.ticker + "　　";
+$("#today").textContent = SITE.today;
+$("#weather").textContent = SITE.weather;
+$("#od").innerHTML = SITE.counter.split("").map(function(c){ return "<b>" + esc(c) + "</b>"; }).join("");
+$("#nav").innerHTML = NAV.map(function(n){
+  return '<a href="#' + n.k + '" data-k="' + n.k + '">' + esc(n.n) + '</a>';
+}).join("");
+$("#sideNotice").innerHTML = NOTICE.map(function(n){
+  return '<li><span class="dt">' + esc(n.d) + '</span><a href="' + esc(n.h || "#news") + '">' + esc(n.t) + '</a></li>';
+}).join("");
+$("#sideNav").innerHTML = NAV.map(function(n){
+  return '<li><a href="#' + n.k + '">' + esc(n.n) + '</a></li>';
+}).join("");
+$("#sideLinks").innerHTML = LINKS.map(function(t){
+  return '<li><a href="#home">' + esc(t) + '</a></li>';
+}).join("");
+$("#footTop").textContent = SITE.copyright;
+$("#footBottom").textContent = SITE.lastUpdate;
+document.title = SITE.name + "（" + SITE.today.replace(/^今天是\s*/, "") + "）";
+
+render();
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:relative;z-index:9999;
+  margin:0;padding:16px 18px;
+  border-top:1px solid rgba(140,130,110,.28);
+  background:rgba(0,0,0,.28);
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:12px;line-height:1.9;letter-spacing:.4px;
+  color:rgba(190,184,172,.78);text-align:center;">
+  <div style="color:rgba(210,200,182,.9);margin-bottom:4px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>

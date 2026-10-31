@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>凌汛</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;overflow:hidden}
+body{font-family:"KaiTi","STKaiti","Microsoft YaHei",serif;color:#e8e3d8}
+
+/* 背景：预告片当底片 */
+#bg{
+  position:fixed;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(.42) saturate(.7) contrast(1.06);
+  transform:scale(1.03);
+}
+#veil{
+  position:fixed;inset:0;
+  background:
+    radial-gradient(120% 100% at 50% 30%, rgba(0,0,0,.25), rgba(0,0,0,.82) 78%),
+    linear-gradient(180deg, rgba(0,0,0,.65) 0%, rgba(0,0,0,.28) 30%, rgba(0,0,0,.86) 100%);
+}
+
+/* 扫描线 + 颗粒 */
+#scan{
+  position:fixed;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(to bottom,
+    rgba(0,0,0,.20) 0px, rgba(0,0,0,.20) 1px,
+    rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px);
+  mix-blend-mode:multiply;
+}
+
+/* 主体 */
+#stage{
+  position:fixed;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:40px 26px;gap:0;
+}
+
+h1{
+  font-size:clamp(34px,7vw,64px);letter-spacing:clamp(14px,3.4vw,30px);
+  color:#f2ece0;font-weight:400;
+  text-shadow:0 0 40px rgba(255,240,210,.18), 0 4px 30px rgba(0,0,0,.9);
+  opacity:0;animation:up 1.6s ease forwards .2s;
+}
+.en{
+  margin-top:14px;font-family:"Consolas",monospace;font-size:11px;
+  letter-spacing:6px;color:#6f6a60;
+  opacity:0;animation:up 1.6s ease forwards .5s;
+}
+
+.hr{
+  width:min(520px,80vw);height:1px;margin:40px 0 34px;
+  background:linear-gradient(90deg,transparent,rgba(200,190,170,.42),transparent);
+  opacity:0;animation:up 1.4s ease forwards .8s;
+}
+
+.intro{
+  max-width:min(560px,88vw);font-size:clamp(14px,2.1vw,17px);
+  line-height:2.35;letter-spacing:1.5px;color:#cdc7ba;
+  text-shadow:0 2px 18px rgba(0,0,0,.9);
+}
+.intro p{margin:0 0 14px;opacity:0;animation:up 1.2s ease forwards}
+.intro p:nth-child(1){animation-delay:1.0s}
+.intro p:nth-child(2){animation-delay:1.5s}
+.intro .q{
+  margin:22px 0;color:#e6dcc4;letter-spacing:2px;font-size:clamp(15px,2.3vw,19px);
+  animation-delay:2.0s;
+}
+.intro .ask{animation-delay:2.6s;color:#a9a294}
+
+/* 按钮 */
+.row{
+  margin-top:46px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center;
+  opacity:0;animation:up 1.2s ease forwards 3.1s;
+}
+.btn{
+  padding:14px 40px;border:1px solid #3d3a33;border-radius:2px;
+  background:rgba(255,255,255,.02);color:#ded8cc;
+  font-size:15px;letter-spacing:6px;font-family:inherit;cursor:pointer;
+  transition:.3s;text-decoration:none;display:inline-block;
+}
+.btn:hover{border-color:#8a8272;color:#fff;background:rgba(255,255,255,.06);letter-spacing:8px}
+.btn.pri{border-color:#6f6047;color:#f0e6d2;background:rgba(150,120,70,.14)}
+.btn.pri:hover{background:rgba(180,145,85,.24);border-color:#a08a5c}
+
+.foot{
+  position:fixed;left:0;right:0;bottom:58px;text-align:center;
+  font-size:11px;color:#4f4b44;letter-spacing:3px;font-family:"Consolas",monospace;
+  opacity:0;animation:up 1.2s ease forwards 3.6s;
+}
+
+@keyframes up{to{opacity:1;transform:translateY(0)}}
+.intro p,.row,.foot,.hr,h1,.en{transform:translateY(14px)}
+@keyframes fadeIn{to{opacity:1}}
+
+/* 全屏播放层 */
+#player{
+  position:fixed;inset:0;z-index:50;background:#000;
+  display:none;align-items:center;justify-content:center;
+}
+#player.on{display:flex}
+#player video{width:100%;height:100%;object-fit:contain;background:#000}
+#skip{
+  position:fixed;right:22px;bottom:22px;z-index:60;
+  font-size:12px;color:#6b665d;letter-spacing:2px;cursor:pointer;
+  padding:8px 12px;background:none;border:0;font-family:inherit;
+}
+#skip:hover{color:#c9c2b4}
+
+@media (max-width:520px){
+  .btn{padding:12px 26px;font-size:13.5px;letter-spacing:4px}
+  .row{gap:12px}
+}
+</style>
+</head>
+<body>
+
+<video id="bg" src="trailer.mp4" muted loop playsinline autoplay preload="auto"></video>
+<div id="veil"></div>
+<div id="scan"></div>
+
+<div id="stage">
+  <h1>凌 汛</h1>
+  <div class="en">TUOLUOSHAN · 2026</div>
+
+  <div class="hr"></div>
+
+  <div class="intro">
+    <p>你，只是一名偶然点开本地政府官网的普通网民。</p>
+    <p>你将通过敲击键盘，寻找真相。</p>
+    <p class="q">「冰已经消融，河水终于流动起来。」</p>
+    <p class="ask">准备好进入这座县城了吗？</p>
+  </div>
+
+  <div class="row">
+    <button class="btn" id="playBtn">看预告</button>
+    <a class="btn pri" href="../论坛模拟/guanlan-bbs/index.html">进入观澜</a>
+  </div>
+</div>
+
+<div class="foot">2026 · 坨罗山</div>
+
+<!-- 全屏预告 -->
+<div id="player">
+  <video id="full" src="trailer.mp4" playsinline controls></video>
+</div>
+<button id="skip" style="display:none">关闭 ✕</button>
+
+<script>
+(function(){
+  var bg = document.getElementById("bg");
+  var full = document.getElementById("full");
+  var player = document.getElementById("player");
+  var skip = document.getElementById("skip");
+  var playBtn = document.getElementById("playBtn");
+
+  function openPlayer(){
+    player.classList.add("on");
+    skip.style.display = "block";
+    bg.pause();
+    full.currentTime = 0;
+    full.volume = 1;
+    var p = full.play();
+    if(p && p.catch) p.catch(function(){});
+  }
+  function closePlayer(){
+    player.classList.remove("on");
+    skip.style.display = "none";
+    full.pause();
+    bg.play().catch(function(){});
+  }
+
+  playBtn.onclick = openPlayer;
+  skip.onclick = closePlayer;
+  full.addEventListener("ended", closePlayer);
+  player.addEventListener("click", function(e){
+    if(e.target === player) closePlayer();
+  });
+
+  /* 浏览器不给自动播时，等第一次点击再放 */
+  bg.play().catch(function(){
+    document.addEventListener("click", function once(){
+      bg.play().catch(function(){});
+      document.removeEventListener("click", once);
+    });
+  });
+})();
+</script>
+
+<!-- 适龄提示与声明（统一附加） -->
+<div id="age-notice" style="
+  position:fixed;left:0;right:0;bottom:0;z-index:2147483000;
+  margin:0;padding:7px 14px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.62));
+  font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+  font-size:10.5px;line-height:1.6;letter-spacing:.4px;
+  color:rgba(190,184,172,.72);text-align:center;pointer-events:none;">
+  <div style="color:rgba(210,200,182,.86);margin-bottom:2px;">适龄提示：16+　本作含暴力、犯罪、死亡等情节描写，未成年人请在监护人指导下体验。</div>
+  <div>本作品为虚构网页交互解谜作品，所涉及地名、人物、机构及事件纯属艺术创作，请勿模仿；</div>
+</div>
+
+</body>
+</html>
